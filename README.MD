@@ -59,8 +59,4 @@ npm i
 npm run dev
 ```
 
-### Deploy
-
-https://puzzle-garnet-tulip.glitch.me/api/v1/productos
-
 > **Nota:** Recordar setear los headers con admin=true
