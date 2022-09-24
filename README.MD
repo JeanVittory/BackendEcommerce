@@ -41,6 +41,25 @@ En las siguientes rutas se proveeran los endpoints para crear carritos de compra
 
 > **Nota:** Es importante que el usuario guarde el id del carrito ya que por medio de el se realizan los procesos de agregado y borrado.
 
+### Environment Variables
+
+Cree un archivo .env en la raiz del proyecto y provea estas variables de entorno con las credenciales a la base de datos que desee usar.
+En el caso de desear usar la integracion a firebase use la key "firebase" y en el caso de querer usar la integración a mongoDB use la key "mongo" en la variable APP_DATABASE_TO_USE
+
+| ENV                    |
+| ---------------------- |
+| APP_PORT               |
+| APP_PORT_SQL           |
+| APP_HOST_SQL           |
+| APP_USER_SQL           |
+| APP_PASSWORD_SQL       |
+| APP_DATABASE_SQL       |
+| APP_USER_MONGODB       |
+| APP_PASSWORD_MONGODB   |
+| APP_DATABASE_MONGODB   |
+| APP_DATABASE_FIRESTORE |
+| APP_DATABASE_TO_USE    |
+
 ## Instalación
 
 ```sh
