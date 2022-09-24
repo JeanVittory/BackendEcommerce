@@ -23,17 +23,6 @@ En las siguientes rutas se proveeran los endpoints en donde se administraran los
 | Put    | api/v1/productos/:id  | Actualizar productos por id                            |
 | Delete | api/v1/productos/:id  | Borrar productos por id                                |
 
-Para agregar productos se recomienda manejar la estructura de:
-
-| Key         | Value  |
-| ----------- | ------ |
-| productName | string |
-| image       | string |
-| price       | string |
-| description | string |
-| code        | string |
-| stock       | string |
-
 > **Nota:** Si se realizan pruebas en postman, clientThunder o similares usar en el body form-data para hacer un upload de la imágen.
 
 ### Cart
@@ -58,5 +47,9 @@ En las siguientes rutas se proveeran los endpoints para crear carritos de compra
 npm i
 npm run dev
 ```
+
+### Deploy
+
+https://puzzle-garnet-tulip.glitch.me/api/v1/productos
 
 > **Nota:** Recordar setear los headers con admin=true
