@@ -15,23 +15,20 @@ class ChatServices {
     this.#optKnex = knexConnectionOpt;
     this.#db = dbName;
   }
+
   async addMessage(message) {
     try {
-      console.log(this.#optKnex);
       const knexConnection = knex(this.#optKnex);
-      const existTable = await knexConnection.schema.hasTable(this.#db);
       message.date = new Date().toLocaleDateString('es', this.#optionsTime);
+      const existTable = await knexConnection.schema.hasTable(this.#db);
       if (!existTable) {
         const isCreated = await schemaChatMessage(this.#db);
         isCreated && (await knexConnection(this.#db).insert(message));
         const data = await knexConnection.select('*').from(this.#db);
-        console.log(data);
         await knexConnection.destroy();
         return true;
       }
       await knexConnection(this.#db).insert(message);
-      const data = await knexConnection.select('*').from(this.#db);
-      console.log(data);
       knexConnection.destroy();
       return true;
     } catch (error) {

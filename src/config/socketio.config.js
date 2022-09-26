@@ -119,14 +119,45 @@ io.on('connection', async (socket) => {
 
   socket.on('newMessageFromChat', async (message) => {
     try {
-      if (!message.email || !message.message)
+      const optionsTime = {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      };
+      if (
+        message.id === '' ||
+        message.message === '' ||
+        message.name === '' ||
+        message.lastname === '' ||
+        message.avatar === '' ||
+        message.age === '' ||
+        message.alias === ''
+      )
         throw Error('Something went wrong white the message');
-      const responseFromDBofChat = await serviceChatDB.addMessage(message);
-      if (responseFromDBofChat.message)
+
+      const newMessageFormat = {
+        author: {
+          id: message.id,
+          name: message.name,
+          lastname: message.lastname,
+          avatar: message.avatar,
+          age: message.age,
+          alias: message.alias,
+          date: new Date().toLocaleDateString('es', optionsTime),
+        },
+        message: message.message,
+      };
+
+      const responseFromDBofChat = await serviceChatDB.addMessage(
+        newMessageFormat
+      );
+      if (responseFromDBofChat?.message)
         throw Error('Something went wrong with the server');
-      io.sockets.emit('newMessageToChat', message);
+      io.sockets.emit('newMessageToChat', newMessageFormat);
     } catch (error) {
-      socket.emit('errorReceivingMessage', { error: error.message });
+      socket.emit('errorChat', { error: error.message });
     }
   });
 });

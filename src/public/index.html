@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/index.public.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
     <title>Products</title>
   </head>
   <body>
@@ -48,13 +53,43 @@
         <div class="infoUser">
           <input
             type="text"
-            placeholder="Your Email"
+            placeholder="Your Email*"
             class="emailUser"
             id="emailUser"
           />
           <input
             type="text"
-            placeholder="Your message"
+            placeholder="Your Name"
+            class="userName"
+            id="userName"
+          />
+          <input
+            type="text"
+            placeholder="Your lastname"
+            class="userLastName"
+            id="userLastname"
+          />
+          <input
+            type="text"
+            placeholder="Your age"
+            class="userAge"
+            id="userAge"
+          />
+          <input
+            type="text"
+            placeholder="Your alias"
+            class="userAlias"
+            id="userAlias"
+          />
+          <input
+            type="text"
+            placeholder="Your Avatar"
+            class="userAvatar"
+            id="userAvatar"
+          />
+          <input
+            type="text"
+            placeholder="Your message*"
             class="messageUser"
             id="messageUser"
           />
@@ -66,6 +101,10 @@
     <div id="errorContainer" class="hidden"></div>
     <section id="productsContainer" class="productsContainer"></section>
 
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
       integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="

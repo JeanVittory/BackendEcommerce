@@ -11,12 +11,12 @@ if (env.DATABASE_TO_USE === 'mongo') {
   const { CartDaoMongoService } = await import(
     './daos/daosMongoDB/cart.daos.js'
   );
-  const { ChatServices } = await import('./services/chat.services.js');
+  const { ChatMongoService } = await import('./services/chatMongo.services.js');
   const { productsSchema } = await import('./models/productsMongo.models.js');
   const { cartSchema } = await import('./models/cartMongo.models.js');
-  const chatConfig = await import('./config/databases.config.js');
+  const { chatSchema } = await import('./models/chatMongo.models.js');
 
-  serviceChatDB = new ChatServices(chatConfig.sqliteOpt, 'chatMessages');
+  serviceChatDB = new ChatMongoService('chatMessages', chatSchema);
   serviceProductDB = new ProductsDaoMongoService('products', productsSchema);
   serviceCartDB = new CartDaoMongoService('cart', cartSchema);
 }
@@ -28,19 +28,19 @@ if (env.DATABASE_TO_USE === 'firestore') {
   const { CartFirebaseDaos } = await import(
     './daos/daosFirebase/cartFirebase.daos.js'
   );
-  const { ChatServices } = await import('./services/chat.services.js');
-  const chatConfig = await import('./config/databases.config.js');
-  serviceChatDB = new ChatServices(chatConfig.sqliteOpt, 'chatMessages');
+  const { ChatFirebaseService } = await import(
+    './services/chatFirebase.services.js'
+  );
+  serviceChatDB = new ChatFirebaseService('chatMessages');
   serviceProductDB = new ProductsFirebaseDaos('products');
   serviceCartDB = new CartFirebaseDaos('carts');
 }
 
 if (env.DATABASE_TO_USE === 'sql') {
-  const { ChatServices } = await import('./services/chat.services.js');
+  const { ChatServices } = await import('./services/chatSql.services.js');
   const configSQL = await import('./config/databases.config.js');
-  serviceChatDB = new ChatServices(configSQL.sqliteOpt, 'chatMessages');
   const { ProductsServices } = await import('./services/sql.services.js');
-
+  serviceChatDB = new ChatServices(configSQL.chatDbOpt, 'chatMessages');
   serviceProductDB = new ProductsServices(
     configSQL.databaseOpt,
     env.DATABASE_SQL

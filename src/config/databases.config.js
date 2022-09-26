@@ -1,6 +1,6 @@
 import env from './env.config.js';
 
-const sqliteOpt = {
+const chatDbOpt = {
   client: 'sqlite3',
   connection: {
     filename: './src/databases/ecommerce.sqlite',
@@ -27,4 +27,4 @@ const mongoConfig = {
   },
 };
 
-export { sqliteOpt, databaseOpt, mongoConfig };
+export { chatDbOpt, databaseOpt, mongoConfig };

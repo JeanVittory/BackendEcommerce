@@ -9,11 +9,9 @@ class FirestoreService {
   async save(product) {
     try {
       const db = appFirestore.firestore();
-      const dataFromSave = await db
-        .collection(this.nameCollection)
-        .add(product);
+      await db.collection(this.nameCollection).add(product);
     } catch (error) {
-      console.log('Error en save Firestore', error);
+      return error;
     }
   }
 
@@ -27,7 +25,7 @@ class FirestoreService {
       });
       return productsRetrieved;
     } catch (error) {
-      console.log('Error en getAll', error);
+      return error;
     }
   }
 
