@@ -9,7 +9,7 @@ class ProductsServices {
     this.#optionsDB = optionsDB;
   }
 
-  async saveProduct(product) {
+  async save(product) {
     try {
       const knexConnection = knex(this.#optionsDB);
       const responseFromDb = await knexConnection(this.#db).insert(product);
@@ -21,7 +21,7 @@ class ProductsServices {
     }
   }
 
-  async getAllProducts() {
+  async getAll() {
     try {
       const knexConnection = knex(this.#optionsDB);
       const existTable = await knexConnection.schema.hasTable(this.#db);
@@ -33,6 +33,21 @@ class ProductsServices {
       const products = await knexConnection.select('*').from(this.#db);
       await knexConnection.destroy();
       return products;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getByName(name) {
+    try {
+      const knexConnection = knex(this.#optionsDB);
+      const productRetrieved = await knexConnection
+        .select('*')
+        .from(this.#db)
+        .where({ productName: name });
+      let productConvertedToObj = Object.assign({}, ...productRetrieved);
+      knexConnection.destroy();
+      return productConvertedToObj;
     } catch (error) {
       return error;
     }
@@ -52,24 +67,10 @@ class ProductsServices {
     }
   }
 
-  async getByName(name) {
-    try {
-      const knexConnection = knex(this.#optionsDB);
-      const product = await knexConnection
-        .select('*')
-        .from(this.#db)
-        .where({ productName: name });
-      knexConnection.destroy();
-      return product;
-    } catch (error) {
-      return error;
-    }
-  }
-
   async deleteById(idproduct) {
     try {
       const knexConnection = knex(this.#optionsDB);
-      await knexConnection(this.#db).where({ id: idproduct }).del();
+      await knexConnection(this.#db).where({ _id: idproduct }).del();
       await knexConnection.destroy();
     } catch (error) {
       return error;
@@ -87,7 +88,7 @@ class ProductsServices {
           arrayFilteredDataProduct
         );
         await knexConnection(this.#db)
-          .where({ id: idProduct })
+          .where({ _id: +idProduct })
           .update(dataProductToUpdate);
       }
       await knexConnection.destroy();

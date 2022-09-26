@@ -5,7 +5,7 @@ const schemaProducts = async (db) => {
   try {
     const knexConnection = knex(databaseOpt);
     await knexConnection.schema.createTable(db, (table) => {
-      table.increments('id').notNullable();
+      table.increments('_id').notNullable();
       table.string('productName').unique().notNullable();
       table.integer('price').notNullable();
       table.string('thumbnail').notNullable();

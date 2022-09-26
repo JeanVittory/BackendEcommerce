@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@faker-js/faker': ^7.5.0
   dotenv: ^16.0.1
   express: ^4.18.1
   express-handlebars: ^6.0.6
@@ -26,11 +27,17 @@ dependencies:
   sqlite3: 5.0.11
 
 devDependencies:
+  '@faker-js/faker': 7.5.0
   dotenv: 16.0.1
   nodemon: 2.0.19
   uuid: 8.3.2
 
 packages:
+
+  /@faker-js/faker/7.5.0:
+    resolution: {integrity: sha512-8wNUCCUHvfvI0gQpDUho/3gPzABffnCn5um65F8dzQ86zz6dlt4+nmAA7PQUc8L+eH+9RgR/qzy5N/8kN0Ozdw==}
+    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    dev: true
 
   /@fastify/busboy/1.1.0:
     resolution: {integrity: sha512-Fv854f94v0CzIDllbY3i/0NJPNBRNLDawf3BTYVGCe9VrIIs3Wi7AFx24F9NzCxdf0wyx/x0Q9kEVnvDOPnlxA==}

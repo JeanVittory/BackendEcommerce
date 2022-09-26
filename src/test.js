@@ -35,4 +35,16 @@ if (env.DATABASE_TO_USE === 'firestore') {
   serviceCartDB = new CartFirebaseDaos('carts');
 }
 
+if (env.DATABASE_TO_USE === 'sql') {
+  const { ChatServices } = await import('./services/chat.services.js');
+  const configSQL = await import('./config/databases.config.js');
+  serviceChatDB = new ChatServices(configSQL.sqliteOpt, 'chatMessages');
+  const { ProductsServices } = await import('./services/sql.services.js');
+
+  serviceProductDB = new ProductsServices(
+    configSQL.databaseOpt,
+    env.DATABASE_SQL
+  );
+}
+
 export { serviceProductDB, serviceCartDB, serviceChatDB };

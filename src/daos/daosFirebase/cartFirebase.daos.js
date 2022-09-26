@@ -1,4 +1,4 @@
-import { FirestoreService } from '../../services/productsFirestore.service.js';
+import { FirestoreService } from '../../services/firestore.service.js';
 import { appFirestore } from '../../config/firebase/products.firebase.config.js';
 import { ErrorHandler } from '../../tools/errorHandler.tools.js';
 import pkg from 'firebase-admin';

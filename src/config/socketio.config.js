@@ -45,9 +45,13 @@ io.on('connection', async (socket) => {
     try {
       if (!idOfProductDeleted)
         throw Error('Something went wrong, please try it later');
-      const listOfProductsFiltered = globalProductsFetched.filter(
-        (product) => product._id.valueOf() !== idOfProductDeleted
-      );
+      const listOfProductsFiltered = globalProductsFetched.filter((product) => {
+        if (env.DATABASE_TO_USE === 'sql') {
+          return product._id !== +idOfProductDeleted;
+        } else {
+          return product._id.valueOf() !== idOfProductDeleted;
+        }
+      });
       globalProductsFetched = [...listOfProductsFiltered];
       io.sockets.emit('newDataAfterDeletion', listOfProductsFiltered);
     } catch (error) {
@@ -64,10 +68,17 @@ io.on('connection', async (socket) => {
       ) {
         throw Error('Something went wrong with the data, please try it later');
       }
-      let isInDB = globalProductsFetched.find(
-        (product) =>
-          product._id.valueOf() === productToBeUpdated.productId && product
-      );
+
+      let isInDB = globalProductsFetched.find((product) => {
+        if (env.DATABASE_TO_USE === 'sql') {
+          productToBeUpdated.productId = +productToBeUpdated.productId;
+          return product._id === productToBeUpdated.productId && product;
+        } else {
+          return (
+            product._id.valueOf() === productToBeUpdated.productId && product
+          );
+        }
+      });
       if (!isInDB) {
         throw Error(
           'Something went wrong, the product do not exist please try it again'
@@ -89,7 +100,10 @@ io.on('connection', async (socket) => {
           }
           return product;
         }
-        if (env.DATABASE_TO_USE === 'firestore') {
+        if (
+          (env.DATABASE_TO_USE === 'firestore') |
+          (env.DATABASE_TO_USE === 'sql')
+        ) {
           if (product._id === isInDB._id) {
             return isInDB;
           }

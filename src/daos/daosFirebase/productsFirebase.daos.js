@@ -1,4 +1,4 @@
-import { FirestoreService } from '../../services/productsFirestore.service.js';
+import { FirestoreService } from '../../services/firestore.service.js';
 
 class ProductsFirebaseDaos extends FirestoreService {
   constructor(nameCollection) {
