@@ -17,24 +17,27 @@ io.on('connection', async (socket) => {
     console.log('user disconnected');
   });
 
-  let globalProductsFetched = await serviceProductDB.getAll();
-
-  const { dataToDenormalize, initialWeigth } =
-    await serviceChatDB.getAllMessages();
-  const chatMessagesDenormalized = denormalizeChatMessage(dataToDenormalize);
-  const percentageOfReduction = percentageCalculator(
-    initialWeigth,
-    JSON.stringify(chatMessagesDenormalized).length
-  );
-
   try {
-    if (globalProductsFetched.message)
-      throw Error('Error on server, please try it later');
-    socket.emit('initialLoad', globalProductsFetched);
+    const { dataToDenormalize, initialWeigth } =
+      await serviceChatDB.getAllMessages();
+    const chatMessagesDenormalized = denormalizeChatMessage(dataToDenormalize);
+    const percentageOfReduction = percentageCalculator(
+      initialWeigth,
+      JSON.stringify(chatMessagesDenormalized).length
+    );
     socket.emit('initialMessageLoad', {
       messages: chatMessagesDenormalized,
       percentage: percentageOfReduction,
     });
+  } catch (error) {
+    socket.emit('initialMessageLoad', { error: error.message });
+  }
+
+  try {
+    let globalProductsFetched = await serviceProductDB.getAll();
+    if (globalProductsFetched.message)
+      throw Error('Error on server, please try it later');
+    socket.emit('initialLoad', globalProductsFetched);
   } catch (error) {
     socket.emit('initialLoad', { error: error.message });
   }

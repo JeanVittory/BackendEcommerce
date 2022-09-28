@@ -41,10 +41,18 @@ En las siguientes rutas se proveeran los endpoints para crear carritos de compra
 
 > **Nota:** Es importante que el usuario guarde el id del carrito ya que por medio de el se realizan los procesos de agregado y borrado.
 
+### Test Data from FakerJs
+
+En la siguiente ruta podras acceder a una tabla de productos con una imágen aleatoria con el fín de proveer de data falsa a la UI que la necesite. Por defecto provee 5 productos pero si el usuario necesita de más o menos cantidad puede hacerla explicita al final de la ruta
+
+| Method | Route                                  | Reason                |
+| ------ | -------------------------------------- | --------------------- |
+| Get    | /api/v1/test/productos-test/:quantity? | Proveer de data falsa |
+
 ### Environment Variables
 
 Cree un archivo .env en la raiz del proyecto y provea estas variables de entorno con las credenciales a la base de datos que desee usar.
-En el caso de desear usar la integracion a firebase use la key "firebase" y en el caso de querer usar la integración a mongoDB use la key "mongo" en la variable APP_DATABASE_TO_USE
+En el caso de desear usar la integracion a firebase use la key "firebase" y en el caso de querer usar la integración a mongoDB use la key "mongo" y en el caso de querer usar mariaDB use "sql" en la variable APP_DATABASE_TO_USE
 
 | ENV                    |
 | ---------------------- |

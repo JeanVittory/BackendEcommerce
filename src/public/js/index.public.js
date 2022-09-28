@@ -120,8 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableToHTML = await renderProductsOnTable(data);
     productContainer.innerHTML = tableToHTML;
   });
+
   socket.on('initialMessageLoad', (data) => {
-    if (!data) return;
+    if (data.error) {
+      const errorContainer = document.querySelector('.welcomeMessageChat');
+      errorContainer.textContent = `${data.error}`;
+    }
     const { messages, percentage } = data;
     messages.forEach((message) => {
       let p = document.createElement('p');

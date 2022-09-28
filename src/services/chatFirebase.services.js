@@ -25,7 +25,7 @@ class ChatFirebaseService {
         initialWeigth: initialDataWeigth,
       };
     } catch (error) {
-      console.log('Error en getAll del chat en Firestore', error);
+      return error;
     }
   }
 
@@ -34,7 +34,7 @@ class ChatFirebaseService {
       const db = appFirestore.firestore();
       await db.collection(this.#collection).add(message);
     } catch (error) {
-      console.log('Error en addMessage de firestore', error);
+      return error;
     }
   }
 }
