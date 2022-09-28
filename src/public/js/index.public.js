@@ -22,8 +22,13 @@ const userAlias = document.querySelector('#userAlias');
 const userAvatar = document.querySelector('#userAvatar');
 const btnSendChatMessage = document.querySelector('#btnSendChatMessage');
 const messagesContainer = document.querySelector('#messages');
+const percentageReduction = document.querySelector('#percentageReduction');
 
-const socket = io.connect();
+const socket = io({
+  autoConnect: false,
+  reconnection: false,
+});
+socket.connect();
 
 [
   emailUser,
@@ -89,7 +94,9 @@ btnSendChatMessage.addEventListener('click', (e) => {
     avatar: userAvatar.value,
     message: messageUser.value,
   };
+
   socket.emit('newMessageFromChat', messageToSocket);
+
   [
     emailUser,
     messageUser,
@@ -114,10 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
     productContainer.innerHTML = tableToHTML;
   });
   socket.on('initialMessageLoad', (data) => {
-    if (!data.length) return;
-    data.forEach((message) => {
+    if (!data) return;
+    const { messages, percentage } = data;
+    messages.forEach((message) => {
       let p = document.createElement('p');
       p.classList.add('messageChat');
+      percentageReduction.textContent = ` ${percentage}%`;
       p.innerHTML = `<span class="email">${message.author.id}</span><span class= "date"> [${message.author.date}]:</span> <span class= "message">${message.message}</span>`;
       messagesContainer.prepend(p);
     });
@@ -173,10 +182,13 @@ socket.on('dataUpdated', async (data) => {
 });
 
 socket.on('newMessageToChat', (message) => {
+  //percentageReduction.textContent = ` ${message.percentage}%`;
+  const { newMessageFormat, newPercentage } = message;
+  console.log(newPercentage);
+  percentageReduction.textContent = ` ${newPercentage}%`;
   let p = document.createElement('p');
-  console.log(message);
   p.classList.add('messageChat');
-  p.innerHTML = `<span class="email">${message.author.id}</span><span class= "date"> [${message.author.date}]:</span> <span class= "message">${message.message}</span>`;
+  p.innerHTML = `<span class="email">${newMessageFormat.author.id}</span><span class= "date"> [${newMessageFormat.author.date}]:</span> <span class= "message">${newMessageFormat.message}</span>`;
   messagesContainer.prepend(p);
 });
 
@@ -185,32 +197,6 @@ socket.on('errorChat', (message) => {
   p.classList.add('messageChat');
   p.innerHTML = `<p class= "message">${message.error}</p>`;
 });
-
-// emailUser.addEventListener('keyup', () => {
-//   if (emailUser.value !== '') {
-//     emailUser.classList.remove('alert');
-//   }
-//   return;
-// });
-
-// messageUser.addEventListener('keyup', () => {
-//   if (messageUser.value !== '') {
-//     messageUser.classList.remove('alert');
-//   }
-//   return;
-// });
-
-// emailUser.addEventListener('blur', () => {
-//   if (emailUser.value !== '') return;
-//   emailUser.classList.add('alert');
-//   return;
-// });
-
-// messageUser.addEventListener('blur', () => {
-//   if (messageUser.value !== '') return;
-//   messageUser.classList.add('alert');
-//   return;
-// });
 
 postBtn.addEventListener('click', async (e) => {
   e.preventDefault();

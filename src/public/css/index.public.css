@@ -112,20 +112,25 @@ body {
   margin-bottom: 1.5rem;
   padding-bottom: 0.3rem;
 }
-/* .messageUser {
-  background: transparent;
-  outline: none;
-  border: none;
-  border-bottom: solid white 1px;
-  width: 100%;
-  color: white;
-  caret-color: aliceblue;
-  font-family: monospace;
-  padding-bottom: 0.3rem;
-} */
 
 .alert {
   border-color: red;
+}
+.btn-percent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.percentageValue {
+  color: #f7eddb;
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 1rem;
+  font-family: monospace;
+  font-size: 12px;
+}
+.percentageValue > span {
+  display: block;
 }
 
 .btnSendMessage {
@@ -134,7 +139,6 @@ body {
   padding: 0.3rem 0;
   margin-top: 1rem;
   border-radius: 10px;
-  align-self: flex-end;
   cursor: pointer;
 }
 form {

@@ -94,13 +94,18 @@
             id="messageUser"
           />
 
-          <button class="btnSendMessage" id="btnSendChatMessage">Send</button>
+          <div class="btn-percent">
+            <div class="percentageValue">
+              Reduction data: <span id="percentageReduction">0%</span>
+            </div>
+            <button class="btnSendMessage" id="btnSendChatMessage">Send</button>
+          </div>
         </div>
       </div>
     </section>
     <div id="errorContainer" class="hidden"></div>
     <section id="productsContainer" class="productsContainer"></section>
-
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.min.js"></script>
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/toastify-js"

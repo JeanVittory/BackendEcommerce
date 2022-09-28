@@ -1,3 +1,5 @@
-export const RandomNumber = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+const percentageCalculator = (initialValue, endValue) => {
+  return (((initialValue - endValue) / initialValue) * 100).toFixed(1);
 };
+
+export { percentageCalculator };

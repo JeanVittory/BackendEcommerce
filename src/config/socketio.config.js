@@ -5,23 +5,36 @@ import { serviceChatDB } from '../test.js';
 import { serviceProductDB } from '../test.js';
 import mongoose from 'mongoose';
 import env from './env.config.js';
+import { denormalizeChatMessage } from '../tools/normalizr.tools.js';
+import { percentageCalculator } from '../tools/functions.tools.js';
 
 const serverHttp = createServer(app);
 const io = new Server(serverHttp);
 
 io.on('connection', async (socket) => {
   console.log('user connect');
-  let globalProductsFetched = await serviceProductDB.getAll();
-  const globalMessagesChat = await serviceChatDB.getAllMessages();
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
+
+  let globalProductsFetched = await serviceProductDB.getAll();
+
+  const { dataToDenormalize, initialWeigth } =
+    await serviceChatDB.getAllMessages();
+  const chatMessagesDenormalized = denormalizeChatMessage(dataToDenormalize);
+  const percentageOfReduction = percentageCalculator(
+    initialWeigth,
+    JSON.stringify(chatMessagesDenormalized).length
+  );
 
   try {
     if (globalProductsFetched.message)
       throw Error('Error on server, please try it later');
     socket.emit('initialLoad', globalProductsFetched);
-    socket.emit('initialMessageLoad', globalMessagesChat);
+    socket.emit('initialMessageLoad', {
+      messages: chatMessagesDenormalized,
+      percentage: percentageOfReduction,
+    });
   } catch (error) {
     socket.emit('initialLoad', { error: error.message });
   }
@@ -153,11 +166,21 @@ io.on('connection', async (socket) => {
       const responseFromDBofChat = await serviceChatDB.addMessage(
         newMessageFormat
       );
+
+      const { dataToDenormalize, initialWeigth } =
+        await serviceChatDB.getAllMessages();
+      const chatMessagesDenormalized =
+        denormalizeChatMessage(dataToDenormalize);
+      const newPercentage = percentageCalculator(
+        initialWeigth,
+        JSON.stringify(chatMessagesDenormalized).length
+      );
+
       if (responseFromDBofChat?.message)
         throw Error('Something went wrong with the server');
-      io.sockets.emit('newMessageToChat', newMessageFormat);
+      io.sockets.emit('newMessageToChat', { newMessageFormat, newPercentage });
     } catch (error) {
-      socket.emit('errorChat', { error: error.message });
+      socket.emit('errorChat', error);
     }
   });
 });

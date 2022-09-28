@@ -1,4 +1,5 @@
 import { appFirestore } from '../config/firebase/products.firebase.config.js';
+import { normalizeChatMessage } from '../tools/normalizr.tools.js';
 
 class ChatFirebaseService {
   #collection;
@@ -10,11 +11,19 @@ class ChatFirebaseService {
     try {
       const db = appFirestore.firestore();
       const snapShot = await db.collection(this.#collection).get();
-      const arrayMessages = [];
+      const dataToNormalize = {
+        id: 'messages',
+        messages: [],
+      };
       snapShot.forEach((doc) => {
-        arrayMessages.push({ ...doc.data() });
+        dataToNormalize.messages.push({ id: doc.id, ...doc.data() });
       });
-      return arrayMessages;
+      const initialDataWeigth = JSON.stringify(dataToNormalize).length;
+      const dataNormalized = normalizeChatMessage(dataToNormalize);
+      return {
+        dataToDenormalize: dataNormalized,
+        initialWeigth: initialDataWeigth,
+      };
     } catch (error) {
       console.log('Error en getAll del chat en Firestore', error);
     }
