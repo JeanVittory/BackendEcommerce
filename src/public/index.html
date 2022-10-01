@@ -4,71 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/index.public.css" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
-    <title>Products</title>
+    <link rel="stylesheet" href="./css/login.css" />
+    <title>API Ecommerce</title>
   </head>
   <body>
-    <section class="formulario">
-      <form enctype="multipart/form-data" id="form">
-        <input
-          type="text"
-          placeholder="id del producto"
-          name="id"
-          id="productId"
-          disabled
-          class="productId"
-        />
-        <input type="text" placeholder="Ingrese su producto" name="title" id="product" />
-        <input type="text" placeholder="Ingrese el precio" name="price" id="price" />
-        <input type="file" name="image" id="image" hidden />
-        <label for="image" class="labelFileBtn">Choose File</label>
-        <div class="buttonsDiv">
-          <button id="postBtn" class="btnPost">Post</button>
-          <button id="putBtn" class="btnPut">Update</button>
-          <button id="deleteBtn" class="btnDelete">Delete</button>
-        </div>
+    <video autoplay muted loop class="video-background">
+      <source src="./assets/video.mp4" type="video/mp4" />
+    </video>
+    <section class="login-section">
+      <form class="login-form">
+        <input type="text" placeholder="Username" id="username" />
+        <input type="password" placeholder="Password" id="password" />
+        <button id="btn-login">Login</button>
       </form>
-
-      <div class="chat">
-        <div class="messages" id="messages">
-          <div class="welcomeMessagecontainer">
-            <p class="welcomeMessageChat">Aqui inicia el chat</p>
-          </div>
-        </div>
-        <div class="infoUser">
-          <input type="text" placeholder="Email*" class="emailUser" id="emailUser" />
-          <input type="text" placeholder="Name" class="userName" id="userName" />
-          <input type="text" placeholder="Lastname" class="userLastName" id="userLastname" />
-          <input type="text" placeholder="Age" class="userAge" id="userAge" />
-          <input type="text" placeholder="Alias" class="userAlias" id="userAlias" />
-          <input type="text" placeholder="Avatar" class="userAvatar" id="userAvatar" />
-          <input type="text" placeholder="Message*" class="messageUser" id="messageUser" />
-
-          <div class="btn-percent">
-            <div class="percentageValue">
-              Reduction data: <span id="percentageReduction">0%</span>
-            </div>
-            <button class="btnSendMessage" id="btnSendChatMessage">Send</button>
-          </div>
-        </div>
-      </div>
     </section>
-    <div id="errorContainer" class="hidden"></div>
-    <section id="productsContainer" class="productsContainer"></section>
-    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
-      integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/index.public.js" type="module"></script>
+    <script src="./js/login.js"></script>
   </body>
 </html>
