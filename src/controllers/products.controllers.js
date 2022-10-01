@@ -2,13 +2,6 @@ import { serviceProductDB } from '../test.js';
 
 const getProducts = async (req, res) => {
   try {
-    // const data = await productsServices.getAll();
-    // res.status(200).render('main', {
-    //   layout: 'index',
-    //   data,
-    //   isEmpty: data ? false : true,
-    // });
-
     const { id } = req.params;
     if (!id) {
       const responseFromGetAll = await serviceProductDB.getAll();
@@ -71,19 +64,14 @@ const putProductsById = async (req, res) => {
   }
 
   if (!productName && !price && !req.file) {
-    return res
-      .status(500)
-      .json({ error: 'Por favor ingresa un valor a ser actualizado' });
+    return res.status(500).json({ error: 'Por favor ingresa un valor a ser actualizado' });
   }
   const product = {
     productName: productName || null,
     price: price || null,
     thumbnail: req.file?.originalname ?? null,
   };
-  const responseFromUpdatecontroller = await serviceProductDB.updateById(
-    id,
-    product
-  );
+  const responseFromUpdatecontroller = await serviceProductDB.updateById(id, product);
   if (responseFromUpdatecontroller?.message) {
     res.status(404).json({ error: responseFromUpdatecontroller.message });
   } else {

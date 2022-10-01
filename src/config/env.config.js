@@ -1,5 +1,25 @@
 import { config } from 'dotenv';
+import invariant from 'invariant';
 config();
+
+invariant(process.env.APP_DATABASE_TO_USE, 'A database provider should be declared');
+
+if (process.env.APP_DATABASE_TO_USE === 'mongo') {
+  invariant(process.env.APP_USER_MONGODB, 'A mongo user is required');
+  invariant(process.env.APP_PASSWORD_MONGODB, 'A mongo password is required');
+  invariant(process.env.APP_DATABASE_MONGODB, 'A mongo database is required');
+}
+
+if (process.env.APP_DATABASE_TO_USE === 'firestore') {
+  invariant(process.env.APP_DATABASE_FIRESTORE, 'a firestore database is required');
+}
+
+if (process.env.APP_DATABASE_TO_USE === 'sql') {
+  invariant(process.env.APP_HOST_SQL, 'A SQL host is required');
+  invariant(process.env.APP_USER_SQL, 'A SQL user is required');
+  invariant(process.env.APP_PASSWORD_SQL, 'A SQL password is required');
+  invariant(process.env.APP_DATABASE_SQL, 'A SQL database is required');
+}
 
 export default {
   PORT: process.env.APP_PORT || 5000,

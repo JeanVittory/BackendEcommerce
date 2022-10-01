@@ -18,8 +18,7 @@ io.on('connection', async (socket) => {
   });
 
   try {
-    const { dataToDenormalize, initialWeigth } =
-      await serviceChatDB.getAllMessages();
+    const { dataToDenormalize, initialWeigth } = await serviceChatDB.getAllMessages();
     const chatMessagesDenormalized = denormalizeChatMessage(dataToDenormalize);
     const percentageOfReduction = percentageCalculator(
       initialWeigth,
@@ -33,10 +32,9 @@ io.on('connection', async (socket) => {
     socket.emit('initialMessageLoad', { error: error.message });
   }
 
+  let globalProductsFetched = await serviceProductDB.getAll();
   try {
-    let globalProductsFetched = await serviceProductDB.getAll();
-    if (globalProductsFetched.message)
-      throw Error('Error on server, please try it later');
+    if (globalProductsFetched.message) throw Error('Error on server, please try it later');
     socket.emit('initialLoad', globalProductsFetched);
   } catch (error) {
     socket.emit('initialLoad', { error: error.message });
@@ -45,11 +43,8 @@ io.on('connection', async (socket) => {
   socket.on('sendOneProduct', async (dataToPost) => {
     try {
       if (!dataToPost) throw Error('Something went wrong, please try it later');
-      const newProductFetched = await serviceProductDB.getByName(
-        dataToPost.product
-      );
-      if (newProductFetched?.message)
-        throw Error('Error on server, please try it later');
+      const newProductFetched = await serviceProductDB.getByName(dataToPost.product);
+      if (newProductFetched?.message) throw Error('Error on server, please try it later');
       globalProductsFetched.push(newProductFetched);
       io.sockets.emit('prueba', globalProductsFetched);
     } catch (error) {
@@ -59,8 +54,7 @@ io.on('connection', async (socket) => {
 
   socket.on('productDeleted', async (idOfProductDeleted) => {
     try {
-      if (!idOfProductDeleted)
-        throw Error('Something went wrong, please try it later');
+      if (!idOfProductDeleted) throw Error('Something went wrong, please try it later');
       const listOfProductsFiltered = globalProductsFetched.filter((product) => {
         if (env.DATABASE_TO_USE === 'sql') {
           return product._id !== +idOfProductDeleted;
@@ -90,15 +84,11 @@ io.on('connection', async (socket) => {
           productToBeUpdated.productId = +productToBeUpdated.productId;
           return product._id === productToBeUpdated.productId && product;
         } else {
-          return (
-            product._id.valueOf() === productToBeUpdated.productId && product
-          );
+          return product._id.valueOf() === productToBeUpdated.productId && product;
         }
       });
       if (!isInDB) {
-        throw Error(
-          'Something went wrong, the product do not exist please try it again'
-        );
+        throw Error('Something went wrong, the product do not exist please try it again');
       }
       isInDB = {
         productName: productToBeUpdated.product || isInDB.productName,
@@ -116,10 +106,7 @@ io.on('connection', async (socket) => {
           }
           return product;
         }
-        if (
-          (env.DATABASE_TO_USE === 'firestore') |
-          (env.DATABASE_TO_USE === 'sql')
-        ) {
+        if ((env.DATABASE_TO_USE === 'firestore') | (env.DATABASE_TO_USE === 'sql')) {
           if (product._id === isInDB._id) {
             return isInDB;
           }
@@ -166,21 +153,16 @@ io.on('connection', async (socket) => {
         message: message.message,
       };
 
-      const responseFromDBofChat = await serviceChatDB.addMessage(
-        newMessageFormat
-      );
+      const responseFromDBofChat = await serviceChatDB.addMessage(newMessageFormat);
 
-      const { dataToDenormalize, initialWeigth } =
-        await serviceChatDB.getAllMessages();
-      const chatMessagesDenormalized =
-        denormalizeChatMessage(dataToDenormalize);
+      const { dataToDenormalize, initialWeigth } = await serviceChatDB.getAllMessages();
+      const chatMessagesDenormalized = denormalizeChatMessage(dataToDenormalize);
       const newPercentage = percentageCalculator(
         initialWeigth,
         JSON.stringify(chatMessagesDenormalized).length
       );
 
-      if (responseFromDBofChat?.message)
-        throw Error('Something went wrong with the server');
+      if (responseFromDBofChat?.message) throw Error('Something went wrong with the server');
       io.sockets.emit('newMessageToChat', { newMessageFormat, newPercentage });
     } catch (error) {
       socket.emit('errorChat', error);
