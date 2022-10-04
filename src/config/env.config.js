@@ -23,6 +23,7 @@ if (process.env.APP_DATABASE_TO_USE === 'sql') {
 
 export default {
   PORT: process.env.APP_PORT || 5000,
+  SECRET_SESSION: process.env.APP_SECRET_SESSION,
   PORT_SQL: process.env.APP_PORT_SQL || 3306,
   HOST_SQL: process.env.APP_HOST_SQL,
   USER_SQL: process.env.APP_USER_SQL,
@@ -31,6 +32,7 @@ export default {
   USER_MONGO: process.env.APP_USER_MONGODB,
   PASSWORD_MONGO: process.env.APP_PASSWORD_MONGODB,
   DATABASE_MONGO: process.env.APP_DATABASE_MONGODB,
+  DATABASE_SESSIONS_MONGO: process.env.APP_DATABASE_SESSIONS,
   DATABASE_FIRESTORE: process.env.APP_DATABASE_FIRESTORE,
   DATABASE_TO_USE: process.env.APP_DATABASE_TO_USE,
 };

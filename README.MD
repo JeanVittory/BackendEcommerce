@@ -52,7 +52,7 @@ En la siguiente ruta podras acceder a una tabla de productos con una imágen ale
 ### Environment Variables
 
 Cree un archivo .env en la raiz del proyecto y provea estas variables de entorno con las credenciales a la base de datos que desee usar.
-En el caso de desear usar la integracion a firebase use la key "firebase" y en el caso de querer usar la integración a mongoDB use la key "mongo" y en el caso de querer usar mariaDB use "sql" en la variable APP_DATABASE_TO_USE
+En el caso de desear usar la integracion a firebase use la key "firestore" y en el caso de querer usar la integración a mongoDB use la key "mongo" y en el caso de querer usar mariaDB use "sql" en la variable APP_DATABASE_TO_USE
 
 | ENV                    |
 | ---------------------- |
@@ -65,6 +65,7 @@ En el caso de desear usar la integracion a firebase use la key "firebase" y en e
 | APP_USER_MONGODB       |
 | APP_PASSWORD_MONGODB   |
 | APP_DATABASE_MONGODB   |
+| APP_DATABASE_SESSIONS  |
 | APP_DATABASE_FIRESTORE |
 | APP_DATABASE_TO_USE    |
 

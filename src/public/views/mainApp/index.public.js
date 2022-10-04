@@ -9,6 +9,7 @@ const price = document.querySelector('#price');
 const image = document.querySelector('#image');
 const errorContainer = document.querySelector('#errorContainer');
 const productContainer = document.querySelector('#productsContainer');
+const btnLogout = document.querySelector('#btnLogout');
 const emailUser = document.querySelector('#emailUser');
 const messageUser = document.querySelector('#messageUser');
 const userName = document.querySelector('#userName');
@@ -42,6 +43,17 @@ socket.connect();
     });
   }
 );
+
+btnLogout.addEventListener('click', async (e) => {
+  //e.preventDefault();
+  const response = await fetch('http://localhost:8080/api/v1/profile/logout', {
+    method: 'POST',
+  });
+  console.log(response);
+  if (response.redirected) {
+    location.href = response.url;
+  }
+});
 
 btnSendChatMessage.addEventListener('click', (e) => {
   e.preventDefault();
@@ -164,7 +176,6 @@ socket.on('dataUpdated', async (data) => {
 });
 
 socket.on('newMessageToChat', (message) => {
-  //percentageReduction.textContent = ` ${message.percentage}%`;
   const { newMessageFormat, newPercentage } = message;
   console.log(newPercentage);
   percentageReduction.textContent = ` ${newPercentage}%`;

@@ -17,7 +17,7 @@ const dataToDataBase = (image, product, price) => {
 };
 
 const renderProductsOnTable = async (data) => {
-  const response = await fetch('hbs/products.handlebars');
+  const response = await fetch('http://localhost:8080/hbs/products.handlebars');
   const template = await response.text();
   const dataCompile = Handlebars.compile(template);
   const result = dataCompile({

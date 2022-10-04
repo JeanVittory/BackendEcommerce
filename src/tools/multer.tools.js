@@ -1,10 +1,10 @@
-import multer from "multer";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
+import multer from 'multer';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const multerConfigStorage = multer.diskStorage({
-  destination: path.join(__dirname, "../public/images"),
+  destination: path.join(__dirname, '../public/views/mainApp/images'),
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -12,7 +12,7 @@ const multerConfigStorage = multer.diskStorage({
 
 const multerMiddleware = multer({
   storage: multerConfigStorage,
-  dest: path.join(__dirname, "../public/images/"),
+  dest: path.join(__dirname, '../public/views/mainApp/images/'),
   limits: {
     fileSize: 20000000,
   },
@@ -20,8 +20,8 @@ const multerMiddleware = multer({
     const validExt = /jpeg|jpg|png/;
     const mimeType = validExt.test(file.mimetype);
     const ext = validExt.test(path.extname(file.originalname));
-    mimeType && ext ? cb(null, true) : cb("Archivo no valido");
+    mimeType && ext ? cb(null, true) : cb('Archivo no valido');
   },
-}).single("image");
+}).single('image');
 
 export { multerConfigStorage, multerMiddleware };
