@@ -1,6 +1,7 @@
 const btnLogin = document.querySelector('#btn-login');
 const username = document.querySelector('#username');
 const password = document.querySelector('#password');
+const registerBtn = document.querySelector('#registerBtn');
 
 document.addEventListener('DOMContentLoaded', () => {
   if (document.cookie === 'redirected=true') {
@@ -33,7 +34,6 @@ document.addEventListener('click', async (e) => {
             'Content-type': 'application/json',
           },
         });
-
         if (!response.ok) {
           Toastify({
             text: 'invalid password or username, please retry',
@@ -52,5 +52,11 @@ document.addEventListener('click', async (e) => {
         console.log(error);
       }
     }
+  }
+
+  if (e.target.matches('#registerBtn')) {
+    console.log('hello');
+    e.preventDefault();
+    location.href = 'http://localhost:8080/api/v1/register/';
   }
 });
