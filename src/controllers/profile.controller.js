@@ -13,8 +13,10 @@ const auth = (req, res) => {
 };
 
 const logout = (req, res) => {
-  req.session.destroy();
-  res.redirect('http://localhost:8080/api/v1/login');
+  req.logout((err) => {
+    if (err) return next(err);
+    res.redirect('http://localhost:8080/api/v1/login');
+  });
 };
 
 export { getProfile, auth, logout };

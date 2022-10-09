@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
-import { auth, logout, getProfile } from '../controllers/profile.controller.js';
-import { authorizedProfile } from '../middleware/autorizedProfile.middleware.js';
+import { auth, getProfile, logout } from '../controllers/profile.controller.js';
 
 const routerProfile = Router();
 

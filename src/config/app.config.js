@@ -1,7 +1,9 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
+import passport from 'passport';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import '../config/passport.config.js';
 import { routerCart } from '../routes/cart.routes.js';
 import { routerLogin } from '../routes/login.routes.js';
 import { routerProducts } from '../routes/products.routes.js';
@@ -9,9 +11,7 @@ import { routerProfile } from '../routes/profile.routes.js';
 import { routerRegister } from '../routes/register.routes.js';
 import { testRoute } from '../routes/test.routes.js';
 import env from './env.config.js';
-import passport from 'passport';
 import { sessionConfig } from './session.config.js';
-import '../config/passport.config.js';
 
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
