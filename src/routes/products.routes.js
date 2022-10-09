@@ -10,9 +10,9 @@ import { authorization } from '../middleware/authRoute.middleware.js';
 
 const routerProducts = Router();
 
-routerProducts.get('/:id?', authorization(), getProducts);
-routerProducts.post('/', authorization(), multerMiddleware, postProducts);
-routerProducts.put('/:id', authorization(), multerMiddleware, putProductsById);
-routerProducts.delete('/:id', authorization(), deleteProductsById);
+routerProducts.get('/:id?', getProducts);
+routerProducts.post('/', multerMiddleware, postProducts);
+routerProducts.put('/:id', multerMiddleware, putProductsById);
+routerProducts.delete('/:id', deleteProductsById);
 
 export { routerProducts };

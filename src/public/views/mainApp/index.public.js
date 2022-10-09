@@ -198,7 +198,6 @@ postBtn.addEventListener('click', async (e) => {
   const response = await fetch(`http://localhost:8080/api/v1/productos`, {
     method: 'POST',
     body: newProductToDataBase,
-    headers: { admin: 'true' },
   });
   if (!response.ok) {
     errorContainer.classList.add('errorContainer');
@@ -219,7 +218,6 @@ deleteBtn.addEventListener('click', async (e) => {
     method: 'delete',
     headers: {
       'Content-Type': 'application/json',
-      admin: 'true',
     },
     body: null,
   });
@@ -247,7 +245,6 @@ updateBtn.addEventListener('click', async (e) => {
   const response = await fetch(`http://localhost:8080/api/v1/productos/${productId}`, {
     method: 'PUT',
     body: productUpdatedToDataBase,
-    headers: { admin: 'true' },
   });
   if (!response.ok) {
     errorContainer.classList.add('errorContainer');

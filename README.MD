@@ -1,6 +1,6 @@
 # API
 
-Api en construcción usando node y el framework Express usando el puerto 8080 por default o configurando APP_PORT como variable de entorno con el puerto de su preferencia
+Api en construcción usando node y el framework Express. Mas allá de un sistema CRUD se ofrece una aplicación con integración a diferentes bases de datos relacionales y no relacionales como Maria db, Sqlite, Mongo y Firebase. Un chat contruido con Socket IO y un sistema de autenticación y de registro.
 
 ## Rutas
 
@@ -10,11 +10,56 @@ Root:
 http://localhost:8080/api/v1
 ```
 
+## Tech
+
+- [Node.js] - Evented I/O for the backend
+- [Express] - Framework to develop the backend
+- [Express-handlebars] - Engine to develop the UI
+- [Normalizr] - Tool to normalize some data in DB
+- [Multer] - Middleware to upload images in server
+- [MongoDb] - Optional noSQL database
+- [Mysql2] - Optional SQL database
+- [Sqlite3] - Optional SQL database for chat
+- [firebase-admin] - Optional noSQL database
+- [Knex] - Query builder to interact with MariaDb
+- [Mongoose] - ODM to interact with mongoDB
+- [Bcrypt] - Tool to encrypt the passwords of users
+- [Passport] - Authentication middleware
+- [Passport-Local] - Strategy used of passport to aunthenticate users
+- [Express-Session] - Middleware to create sessions of users who has been autheticated
+- [Connect-Mongo] - Module of mongo db t work with session.
+- [Socket-io] - Library to work with sockets
+
+### Login
+
+Esta es la ruta inicial de la aplicación desde donde se podra realizar un proceso de login mediante un username y un password.
+En el caso de no contar con una cuenta dirijase a la ruta Register.
+
+| Method | Route        | Reason                                     |
+| ------ | ------------ | ------------------------------------------ |
+| Get    | api/v1/login | Renderizar la UI determinada para el login |
+
+### Register
+
+Esta ruta provee al usuario de una UI para el registro junto con el endpoint definido para regsitrar sus datos en DB, encriptar su contraseña
+y redirigir al login para ingresar a la aplicación.
+
+| Method | Route           | Reason                                       |
+| ------ | --------------- | -------------------------------------------- |
+| Get    | api/v1/register | Renderizar la UI determinada para el sign up |
+| Post   | api/v1/register | Registrar el usuario en mongoDB              |
+
+## Profile
+
+| Method | Route                 | Reason                                                           |     |
+| ------ | --------------------- | ---------------------------------------------------------------- | --- |
+| Post   | api/v1/profile/       | Redirigir al usuario con su username en la URL a la UI de la app |
+| Get    | api/v1/profile/       | Renderizar la UI del usuario logueado o redirigir al login       |
+| Post   | api/v1/profile/logout | Realizar el logout del usuario y redirir al login                |
+
 ### Productos
 
-En las siguientes rutas se proveeran los endpoints en donde se administraran los diferentes productos en la base datos que solo tendra acceso los usuarios con acceso de administradores
-
-> **Nota:** Para acceder a la administración de los productos por el momento basta con proveer en los headers la variable admin=true.
+En las siguientes rutas se proveeran los endpoints en donde se administraran los diferentes productos en la base datos
 
 | Method | Route                 | Reason                                                 |
 | ------ | --------------------- | ------------------------------------------------------ |
@@ -22,8 +67,6 @@ En las siguientes rutas se proveeran los endpoints en donde se administraran los
 | Post   | api/v1/productos/     | Agregar productos a la base de datos                   |
 | Put    | api/v1/productos/:id  | Actualizar productos por id                            |
 | Delete | api/v1/productos/:id  | Borrar productos por id                                |
-
-> **Nota:** Si se realizan pruebas en postman, clientThunder o similares usar en el body form-data para hacer un upload de la imágen.
 
 ### Cart
 
@@ -79,5 +122,3 @@ npm run dev
 ### Deploy
 
 https://puzzle-garnet-tulip.glitch.me/api/v1/productos
-
-> **Nota:** Recordar setear los headers con admin=true
