@@ -2,33 +2,33 @@
 
 Api en construcción usando node y el framework Express. Mas allá de un sistema CRUD se ofrece una aplicación con integración a diferentes bases de datos relacionales y no relacionales como Maria db, Sqlite, Mongo y Firebase. Un chat contruido con Socket IO y un sistema de autenticación y de registro.
 
+## Tech
+
+- [Node.js](https://nodejs.org/en/) - Evented I/O for the backend
+- [Express](https://expressjs.com/es/) - Framework to develop the backend
+- [Express-handlebars](https://www.npmjs.com/package/express-handlebars) - Engine to develop the UI
+- [Normalizr](https://www.npmjs.com/package/normalizr) - Tool to normalize some data in DB
+- [Multer](https://www.npmjs.com/package/multer) - Middleware to upload images in server
+- [MongoDb](https://www.mongodb.com/) - Optional noSQL database
+- [Mysql2](https://www.npmjs.com/package/mysql2) - Optional SQL database
+- [Sqlite3](https://www.sqlite.org/index.html) - Optional SQL database for chat
+- [firebase-admin](https://www.npmjs.com/package/firebase-admin) - Optional noSQL database
+- [Knex](https://knexjs.org/) - Query builder to interact with MariaDb
+- [Mongoose](https://mongoosejs.com/) - ODM to interact with mongoDB
+- [Bcrypt](https://www.npmjs.com/package/bcrypt) - Tool to encrypt the passwords of users
+- [Passport](https://www.passportjs.org/) - Authentication middleware
+- [Passport-Local](https://www.passportjs.org/packages/passport-local/) - Strategy used of passport to aunthenticate users
+- [Express-Session](https://www.npmjs.com/package/express-session) - Middleware to create sessions of users who has been autheticated
+- [Connect-Mongo](https://www.npmjs.com/package/connect-mongo) - Module of mongo db t work with session.
+- [Socket-io](https://socket.io/) - Library to work with sockets
+
 ## Rutas
 
-Root:
+### Root:
 
 ```sh
 http://localhost:8080/api/v1
 ```
-
-## Tech
-
-- [Node.js] - Evented I/O for the backend
-- [Express] - Framework to develop the backend
-- [Express-handlebars] - Engine to develop the UI
-- [Normalizr] - Tool to normalize some data in DB
-- [Multer] - Middleware to upload images in server
-- [MongoDb] - Optional noSQL database
-- [Mysql2] - Optional SQL database
-- [Sqlite3] - Optional SQL database for chat
-- [firebase-admin] - Optional noSQL database
-- [Knex] - Query builder to interact with MariaDb
-- [Mongoose] - ODM to interact with mongoDB
-- [Bcrypt] - Tool to encrypt the passwords of users
-- [Passport] - Authentication middleware
-- [Passport-Local] - Strategy used of passport to aunthenticate users
-- [Express-Session] - Middleware to create sessions of users who has been autheticated
-- [Connect-Mongo] - Module of mongo db t work with session.
-- [Socket-io] - Library to work with sockets
 
 ### Login
 
