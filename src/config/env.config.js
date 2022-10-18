@@ -22,7 +22,7 @@ if (process.env.APP_DATABASE_TO_USE === 'sql') {
 }
 
 export default {
-  PORT: process.env.APP_PORT || 5000,
+  //PORT: process.env.APP_PORT || 5000,
   SECRET_SESSION: process.env.APP_SECRET_SESSION,
   PORT_SQL: process.env.APP_PORT_SQL || 3306,
   HOST_SQL: process.env.APP_HOST_SQL,
