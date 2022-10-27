@@ -1,7 +1,7 @@
 const tbody = document.querySelector('#tableBody');
 
 document.addEventListener('DOMContentLoaded', async (e) => {
-  const response = await fetch('http://localhost:8080/api/v1/test/tech-info');
+  const response = await fetch('http://localhost:8081/api/v1/test/tech-info');
   const data = await response.json();
 
   tbody.innerHTML = `<tr class = "trData">
@@ -31,5 +31,13 @@ document.addEventListener('DOMContentLoaded', async (e) => {
   <tr class = "trData">
     <th class = "tableHead">Memoria Total Reservada</th>
     <td>${data.memoryUsage}</td>
-  </tr>`;
+  </tr>
+  <tr class = "trData">
+    <th class = "tableHead">Nucleos disponibles en el servidor</th>
+    <td>${data.cpuCore}</td>
+  </tr>
+  <tr class = "trData">
+    <th class = "tableHead">Nucleos disponibles en el servidor</th>
+  <td>${data.cpuCore}</td>
+</tr>`;
 });

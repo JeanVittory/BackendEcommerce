@@ -5,7 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/index.js",
+    "build:clusert": "nodemon ./src/index.js --port 8081 -m cluster",
+    "build:forever": "forever start --watch src/index.js --port 8080",
+    "build:pm2_cluster": "pm2 start src/index.js --name=API_CODERHOUSE --watch -i max -- 8081",
+    "build:pm2_fork": "pm2 start src/index.js --watch --name=API_CODERHOUSE -- 8080",
+    "build:native_cluster": "forever start --watch src/index.js -m native_cluster -p 8081"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +34,7 @@
     "passport-local": "^1.0.0",
     "socket.io": "^4.5.1",
     "sqlite3": "^5.0.11",
+    "sticky-session": "^1.1.2",
     "yargs": "^17.6.0"
   },
   "devDependencies": {

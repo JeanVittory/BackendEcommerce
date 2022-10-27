@@ -20,11 +20,13 @@ const userAvatar = document.querySelector('#userAvatar');
 const btnSendChatMessage = document.querySelector('#btnSendChatMessage');
 const messagesContainer = document.querySelector('#messages');
 const percentageReduction = document.querySelector('#percentageReduction');
+const { port } = window.location;
 
 const socket = io({
   autoConnect: false,
   reconnection: false,
 });
+
 socket.connect();
 
 [emailUser, messageUser, userName, userLastname, userAge, userAlias, userAvatar].forEach(
@@ -45,8 +47,7 @@ socket.connect();
 );
 
 btnLogout.addEventListener('click', async (e) => {
-  //e.preventDefault();
-  const response = await fetch('http://localhost:8080/api/v1/profile/logout', {
+  const response = await fetch(`http://localhost:${port}/api/v1/profile/logout`, {
     method: 'POST',
   });
   console.log(response);
@@ -101,13 +102,14 @@ btnSendChatMessage.addEventListener('click', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  const { port } = window.location;
   socket.on('initialLoad', async (data) => {
     if (data.error) {
       errorContainer.classList.add('errorContainer');
       errorContainer.classList.remove('hidden');
       return (errorContainer.innerHTML = data.error);
     }
-    const tableToHTML = await renderProductsOnTable(data);
+    const tableToHTML = await renderProductsOnTable(data, port);
     productContainer.innerHTML = tableToHTML;
   });
 
@@ -151,7 +153,7 @@ socket.on('prueba', async (data) => {
     errorContainer.classList.remove('hidden');
     return (errorContainer.innerHTML = data.error);
   }
-  const tableToHTML = await renderProductsOnTable(data);
+  const tableToHTML = await renderProductsOnTable(data, port);
   productContainer.innerHTML = tableToHTML;
 });
 
@@ -161,7 +163,7 @@ socket.on('newDataAfterDeletion', async (data) => {
     errorContainer.classList.remove('hidden');
     return (errorContainer.innerHTML = data.error);
   }
-  const tableToHTML = await renderProductsOnTable(data);
+  const tableToHTML = await renderProductsOnTable(data, port);
   productContainer.innerHTML = tableToHTML;
 });
 
@@ -171,7 +173,7 @@ socket.on('dataUpdated', async (data) => {
     errorContainer.classList.remove('hidden');
     return (errorContainer.innerHTML = data.error);
   }
-  const tableToHTML = await renderProductsOnTable(data);
+  const tableToHTML = await renderProductsOnTable(data, port);
   productContainer.innerHTML = tableToHTML;
 });
 
@@ -195,7 +197,7 @@ postBtn.addEventListener('click', async (e) => {
   e.preventDefault();
   const newProductToDataBase = dataToDataBase(image.files, product.value, price.value);
   const newProductToSocket = dataToSocket(image.value, product.value, price.value);
-  const response = await fetch(`http://localhost:8080/api/v1/productos`, {
+  const response = await fetch(`http://localhost:${port}/api/v1/productos`, {
     method: 'POST',
     body: newProductToDataBase,
   });
@@ -214,7 +216,8 @@ postBtn.addEventListener('click', async (e) => {
 deleteBtn.addEventListener('click', async (e) => {
   e.preventDefault();
   const productId = idProduct.value;
-  const response = await fetch(`http://localhost:8080/api/v1/productos/${productId}`, {
+  console.log(port);
+  const response = await fetch(`http://localhost:${port}/api/v1/productos/${productId}`, {
     method: 'delete',
     headers: {
       'Content-Type': 'application/json',
@@ -242,7 +245,7 @@ updateBtn.addEventListener('click', async (e) => {
 
   const productUpdatedToSocket = dataToSocket(image.value, product.value, price.value);
 
-  const response = await fetch(`http://localhost:8080/api/v1/productos/${productId}`, {
+  const response = await fetch(`http://localhost:${port}/api/v1/productos/${productId}`, {
     method: 'PUT',
     body: productUpdatedToDataBase,
   });

@@ -22,6 +22,7 @@ specifiers:
   passport-local: ^1.0.0
   socket.io: ^4.5.1
   sqlite3: ^5.0.11
+  sticky-session: ^1.1.2
   uuid: ^8.3.2
   yargs: ^17.6.0
 
@@ -44,6 +45,7 @@ dependencies:
   passport-local: 1.0.0
   socket.io: 4.5.1
   sqlite3: 5.0.11
+  sticky-session: 1.1.2
   yargs: 17.6.0
 
 devDependencies:
@@ -1598,6 +1600,10 @@ packages:
       loose-envify: 1.4.0
     dev: false
 
+  /ip/1.1.8:
+    resolution: {integrity: sha512-PuExPYUiu6qMBQb4l06ecm6T6ujzhmh+MeJcW9wa89PoAz5pvd4zPgN5WJV104mb6S2T1AwNIAaB70JNrLQWhg==}
+    dev: false
+
   /ip/2.0.0:
     resolution: {integrity: sha512-WKa+XuLG1A1R0UWhl2+1XQSi+fZWMsYKffMZTTYsiZaUD8k2yDAj5atimTUD2TZkyCkNEeYE5NhFZmupOGtjYQ==}
     dev: false
@@ -2807,6 +2813,16 @@ packages:
   /statuses/2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
+    dev: false
+
+  /sticky-session/1.1.2:
+    resolution: {integrity: sha512-1PPeJYu5SqjYcBNp93On4cQJuN7q+M+RbVjmYW1KSCKSv/rN1cVVyBBB0kCexsg0qJpQXgfHOt6bCneJTYRafQ==}
+    engines: {node: '>= 0.12.0'}
+    dependencies:
+      debug: 2.6.9
+      ip: 1.1.8
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /stream-events/1.0.5:

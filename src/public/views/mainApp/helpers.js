@@ -16,8 +16,10 @@ const dataToDataBase = (image, product, price) => {
   return dataToPost;
 };
 
-const renderProductsOnTable = async (data) => {
-  const response = await fetch('http://localhost:8080/mainApp/hbs/products.handlebars');
+const renderProductsOnTable = async (data, port) => {
+  console.log(data);
+  console.log(port);
+  const response = await fetch(`http://localhost:${port}/mainApp/hbs/products.handlebars`);
   const template = await response.text();
   const dataCompile = Handlebars.compile(template);
   const result = dataCompile({

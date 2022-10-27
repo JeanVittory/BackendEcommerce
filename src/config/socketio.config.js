@@ -33,6 +33,8 @@ io.on('connection', async (socket) => {
   }
 
   let globalProductsFetched = await serviceProductDB.getAll();
+
+  console.log(globalProductsFetched);
   try {
     if (globalProductsFetched.message) throw Error('Error on server, please try it later');
     socket.emit('initialLoad', globalProductsFetched);

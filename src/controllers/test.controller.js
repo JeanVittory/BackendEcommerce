@@ -1,7 +1,6 @@
-import { generateProducts } from '../tools/productsByFaker.tools.js';
-import { randomNumbers } from '../tools/functions.tools.js';
 import { fork } from 'child_process';
-
+import { generateProducts } from '../tools/productsByFaker.tools.js';
+import { app } from '../config/app.config.js';
 const getProducts = (req, res) => {
   try {
     const { quantity } = req.params;
@@ -26,6 +25,7 @@ const getTechInfo = (req, res) => {
     nodeVersion: process.version,
     directory: process.cwd(),
     memoryUsage: `${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB`,
+    cpuCore: 'hello2',
   });
 };
 
@@ -41,8 +41,14 @@ const getRandomNumbers = (req, res) => {
   }
 };
 
+const getNgnixProcess = (req, res) => {
+  return res.send(
+    `servidor en ngnix levantado en el puerto ${app.get('port')} con el worker ${process.pid}`
+  );
+};
+
 const getDataTest = (req, res) => {
   return res.json('helloworld');
 };
 
-export { getProducts, getTechInfo, getRandomNumbers, getDataTest };
+export { getProducts, getTechInfo, getRandomNumbers, getDataTest, getNgnixProcess };
