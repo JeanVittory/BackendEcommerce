@@ -1,14 +1,18 @@
+import { logger } from '../config/logger/index.js';
 import { serviceRegisterUsers } from '../test.js';
 import { hashPassword } from '../tools/bcrypt.tools.js';
 
 const getRegister = (req, res) => {
+  logger.info(`accessing the route: ${req.baseUrl}`);
   return res.render('main', { layout: 'register' });
 };
 
 const postRegister = async (req, res) => {
   try {
+    logger.info(`accessing the route: ${req.baseUrl}`);
     const { email, username, password } = req.body;
     if (!email || !password || !username) {
+      logger.error('Error 400. Please provide an email and a password');
       return res.status(400).json({ error: 'Please provide an email and a password' });
     }
     const newDataUser = {
@@ -22,6 +26,7 @@ const postRegister = async (req, res) => {
       newDataUser.email
     );
     if (responseFromRegisterUsers) {
+      logger.error('Error 409. The email or the username already exist, please use another.');
       return res
         .status(409)
         .json({ error: 'The email or the username already exist, please use another.' });
@@ -31,7 +36,8 @@ const postRegister = async (req, res) => {
       return res.status(200).json({ response: 'User created', id: responseFromUserAdded._id });
     }
   } catch (error) {
-    console.log('error en postRegister controlador', error);
+    logger.error(`Error 500. ${error.message}`);
+    return res.status(500).json({ error: error.message });
   }
 };
 

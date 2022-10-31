@@ -8,6 +8,7 @@ import { testRoute } from '../routes/test.routes.js';
 import express from 'express';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { logger } from './logger/index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -21,6 +22,10 @@ const applicationRoutes = () => {
   app.use('/api/v1/productos', routerProducts);
   app.use('/api/v1/carrito', routerCart);
   app.use('/api/v1/test', testRoute);
+  app.use((req, res) => {
+    logger.warn('Error 404. Route not found');
+    res.status(404).json({ message: 'Route not found' });
+  });
   return;
 };
 

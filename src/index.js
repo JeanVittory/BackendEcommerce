@@ -8,11 +8,12 @@ import sticky from 'sticky-session';
 import cluster from 'cluster';
 import { cpus } from 'os';
 import { testRoute } from './routes/test.routes.js';
+import { logger } from './config/logger/index.js';
 
 if (args.mode === 'cluster') {
   if (!sticky.listen(serverHttp, app.get('port'))) {
     serverHttp.once('listening', () => {
-      console.log(`Server running on port ${app.get('port')} in mode cluster`);
+      logger.info(`Server running on port ${app.get('port')} in mode cluster`);
     });
   } else {
     applicationMiddlewares();
@@ -20,6 +21,7 @@ if (args.mode === 'cluster') {
     handlebarsConfig();
   }
 }
+
 if (args.mode === 'fork') {
   applicationMiddlewares();
   applicationRoutes();
