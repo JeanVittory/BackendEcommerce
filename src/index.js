@@ -11,7 +11,7 @@ import { testRoute } from './routes/test.routes.js';
 import { logger } from './config/logger/index.js';
 
 if (args.mode === 'cluster') {
-  if (!sticky.listen(serverHttp, app.get('port'))) {
+  if (!sticky.listen(serverHttp, app.get('port') || 8080)) {
     serverHttp.once('listening', () => {
       logger.info(`Server running on port ${app.get('port')} in mode cluster`);
     });
@@ -26,7 +26,7 @@ if (args.mode === 'fork') {
   applicationMiddlewares();
   applicationRoutes();
   handlebarsConfig();
-  serverHttp.listen(app.get('port'), () => {
+  serverHttp.listen(app.get('port') || 8080, () => {
     console.log(`Server running on port ${app.get('port')} in mode fork`);
   });
 }
@@ -43,7 +43,7 @@ if (args.mode === 'native_cluster') {
     });
   } else {
     app.use('/api', testRoute);
-    app.listen(app.get('port'), () => {
+    app.listen(app.get('port') || 8080, () => {
       console.log(`server running on port ${app.get('port')} with work ${process.pid}`);
     });
   }
