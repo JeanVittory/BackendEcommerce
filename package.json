@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
+    "start": "nodemon ./src/index.js",
     "test:profiling": "node --prof ./src/index.js",
     "test:inspect": "node --inspect ./src/index.js",
     "test:0x": "0x ./src/index.js",
