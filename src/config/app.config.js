@@ -4,6 +4,6 @@ import env from './env.config.js';
 
 const app = express();
 
-app.set('port', env.PORT);
+app.set('port', env.PORT || 8080);
 
 export { app };
