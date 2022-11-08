@@ -1,9 +1,9 @@
 import express from 'express';
-//import env from './env.config.js';
-import { args } from './yargs.config.js';
+import env from './env.config.js';
+//import { args } from './yargs.config.js';
 
 const app = express();
 
-app.set('port', args.port);
+app.set('port', env.PORT);
 
 export { app };
