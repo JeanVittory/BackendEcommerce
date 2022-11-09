@@ -18,14 +18,14 @@ const toastyAlert = (message) => {
 };
 
 const resetsInputs = [email, password, username, passwordConfirm];
-const { port } = window.location;
+const { origin } = window.location;
 
 document.addEventListener('click', async (e) => {
   const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   if (e.target.matches('#signin-btn')) {
     e.preventDefault();
-    location.href = `http://localhost:${port}/`;
+    location.href = `${origin}/`;
   }
 
   if (e.target.matches('#signupBtn')) {
@@ -56,7 +56,7 @@ document.addEventListener('click', async (e) => {
       password: password.value,
     };
 
-    const response = await fetch(`http://localhost:${port}/api/v1/register/`, {
+    const response = await fetch(`${origin}/api/v1/register/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -68,6 +68,6 @@ document.addEventListener('click', async (e) => {
       toastyAlert('The user or the email already exist');
       return resetsInputs.forEach((item) => (item.value = ''));
     }
-    location.href = `http://localhost:${port}/`;
+    location.href = `${origin}/`;
   }
 });

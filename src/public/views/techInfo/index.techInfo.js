@@ -1,7 +1,7 @@
 const tbody = document.querySelector('#tableBody');
-
+const { origin } = window.location;
 document.addEventListener('DOMContentLoaded', async (e) => {
-  const response = await fetch('http://localhost:8081/api/v1/test/tech-info');
+  const response = await fetch(`${origin}/api/v1/test/tech-info`);
   const data = await response.json();
 
   tbody.innerHTML = `<tr class = "trData">

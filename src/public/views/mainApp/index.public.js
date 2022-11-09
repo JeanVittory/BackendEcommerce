@@ -20,7 +20,7 @@ const userAvatar = document.querySelector('#userAvatar');
 const btnSendChatMessage = document.querySelector('#btnSendChatMessage');
 const messagesContainer = document.querySelector('#messages');
 const percentageReduction = document.querySelector('#percentageReduction');
-const { port } = window.location;
+const { origin } = window.location;
 
 const socket = io({
   autoConnect: false,
@@ -47,7 +47,7 @@ socket.connect();
 );
 
 btnLogout.addEventListener('click', async (e) => {
-  const response = await fetch(`http://localhost:${port}/api/v1/profile/logout`, {
+  const response = await fetch(`${origin}/api/v1/profile/logout`, {
     method: 'POST',
   });
   console.log(response);
@@ -102,14 +102,14 @@ btnSendChatMessage.addEventListener('click', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const { port } = window.location;
+  const { origin } = window.location;
   socket.on('initialLoad', async (data) => {
     if (data.error) {
       errorContainer.classList.add('errorContainer');
       errorContainer.classList.remove('hidden');
       return (errorContainer.innerHTML = data.error);
     }
-    const tableToHTML = await renderProductsOnTable(data, port);
+    const tableToHTML = await renderProductsOnTable(data, origin);
     productContainer.innerHTML = tableToHTML;
   });
 
@@ -197,7 +197,7 @@ postBtn.addEventListener('click', async (e) => {
   e.preventDefault();
   const newProductToDataBase = dataToDataBase(image.files, product.value, price.value);
   const newProductToSocket = dataToSocket(image.value, product.value, price.value);
-  const response = await fetch(`http://localhost:${port}/api/v1/productos`, {
+  const response = await fetch(`${origin}/api/v1/productos`, {
     method: 'POST',
     body: newProductToDataBase,
   });
@@ -217,7 +217,7 @@ deleteBtn.addEventListener('click', async (e) => {
   e.preventDefault();
   const productId = idProduct.value;
   console.log(port);
-  const response = await fetch(`http://localhost:${port}/api/v1/productos/${productId}`, {
+  const response = await fetch(`${origin}/api/v1/productos/${productId}`, {
     method: 'delete',
     headers: {
       'Content-Type': 'application/json',
@@ -245,7 +245,7 @@ updateBtn.addEventListener('click', async (e) => {
 
   const productUpdatedToSocket = dataToSocket(image.value, product.value, price.value);
 
-  const response = await fetch(`http://localhost:${port}/api/v1/productos/${productId}`, {
+  const response = await fetch(`${origin}/api/v1/productos/${productId}`, {
     method: 'PUT',
     body: productUpdatedToDataBase,
   });

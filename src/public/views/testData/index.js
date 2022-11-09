@@ -1,6 +1,7 @@
 const tbody = document.querySelector('#tableBody');
+const { origin } = window.location;
 document.addEventListener('DOMContentLoaded', async (e) => {
-  const datafetched = await fetch('http://localhost:8080/api/v1/test/productos-test/5');
+  const datafetched = await fetch(`${origin}/api/v1/test/productos-test/5`);
   const products = await datafetched.json();
 
   products.forEach((product) => {
