@@ -26,7 +26,7 @@ if (args.mode === 'fork') {
   applicationMiddlewares();
   applicationRoutes();
   handlebarsConfig();
-  serverHttp.listen(app.get('port'), '0.0.0.0', () => {
+  serverHttp.listen(app.get('port'), () => {
     console.log(`Server running on port ${app.get('port')} in mode fork`);
   });
 }

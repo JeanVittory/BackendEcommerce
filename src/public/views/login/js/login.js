@@ -2,7 +2,7 @@ const btnLogin = document.querySelector('#btn-login');
 const username = document.querySelector('#username');
 const password = document.querySelector('#password');
 const registerBtn = document.querySelector('#registerBtn');
-const { port } = window.location;
+const { origin } = window.location;
 
 document.addEventListener('DOMContentLoaded', () => {
   if (document.cookie === 'redirected=true') {
@@ -28,7 +28,7 @@ document.addEventListener('click', async (e) => {
 
     if (credentialsFromUser.username !== '' && credentialsFromUser.password !== '') {
       try {
-        const response = await fetch(`http://localhost:${port}/api/v1/profile`, {
+        const response = await fetch(`${origin}/api/v1/profile`, {
           method: 'POST',
           body: JSON.stringify(credentialsFromUser),
           headers: {
@@ -58,6 +58,6 @@ document.addEventListener('click', async (e) => {
   if (e.target.matches('#registerBtn')) {
     console.log('hello');
     e.preventDefault();
-    location.href = `http://localhost:${port}/api/v1/register/`;
+    location.href = `${origin}/api/v1/register/`;
   }
 });
