@@ -17,11 +17,11 @@ const loggerConfig = () => {
       }),
       new transports.File({
         level: 'warn',
-        filename: `${__dirname}/../../logs/warn.log`,
+        filename: `${__dirname}/../logs/warn.log`,
       }),
       new transports.File({
         level: 'error',
-        filename: `../../logs/error.log`,
+        filename: `${__dirname}/../logs/error.log`,
       }),
     ],
   });
