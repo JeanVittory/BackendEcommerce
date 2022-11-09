@@ -2,7 +2,7 @@ import { app } from '../config/app.config.js';
 import { logger } from '../config/logger/index.js';
 
 const URL =
-  process.env.NODE_ENV === production
+  process.env.NODE_ENV === 'production'
     ? 'https://apicoder.herokuapp.com'
     : `http://localhost:${app.get('port')}`;
 
