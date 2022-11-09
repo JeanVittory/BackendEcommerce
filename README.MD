@@ -27,7 +27,7 @@ Api en construcción usando node y el framework Express. Mas allá de un sistema
 ### Root:
 
 ```sh
-http://localhost:8080/api/v1
+http://localhost:8080/
 ```
 
 ### Login
@@ -35,9 +35,9 @@ http://localhost:8080/api/v1
 Esta es la ruta inicial de la aplicación desde donde se podra realizar un proceso de login mediante un username y un password.
 En el caso de no contar con una cuenta dirijase a la ruta Register.
 
-| Method | Route        | Reason                                     |
-| ------ | ------------ | ------------------------------------------ |
-| Get    | api/v1/login | Renderizar la UI determinada para el login |
+| Method | Route | Reason                                     |
+| ------ | ----- | ------------------------------------------ |
+| Get    | /     | Renderizar la UI determinada para el login |
 
 ### Register
 

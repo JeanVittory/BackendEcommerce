@@ -17,7 +17,7 @@ const applicationRoutes = () => {
   app.use('/api/v1/test', express.static(path.join(__dirname, '../public/views/testData')));
   app.use('/api/v1/tech', express.static(path.join(__dirname, '../public/views/techInfo')));
   app.use('/api/v1/register', routerRegister);
-  app.use('/api/v1/login', routerLogin);
+  app.use('/', routerLogin);
   app.use('/api/v1/profile', routerProfile);
   app.use('/api/v1/productos', routerProducts);
   app.use('/api/v1/carrito', routerCart);

@@ -8,7 +8,7 @@ const getProfile = (req, res) => {
     res.render('main', { layout: 'index', username: username });
   } else {
     logger.warn("You're not authenticated");
-    res.redirect(`http://localhost:${app.get('port')}/api/v1/login`);
+    res.redirect(`http://localhost:${app.get('port')}/`);
   }
 };
 
@@ -25,7 +25,7 @@ const logout = (req, res) => {
       logger.error(err);
       next(err);
     }
-    res.redirect(`http://localhost:${app.get('port')}/api/v1/login`);
+    res.redirect(`http://localhost:${app.get('port')}/`);
   });
 };
 

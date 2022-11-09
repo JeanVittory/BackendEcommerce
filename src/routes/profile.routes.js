@@ -7,7 +7,7 @@ const routerProfile = Router();
 routerProfile.post(
   '/',
   passport.authenticate('login', {
-    failureRedirect: 'http://localhost:8080/api/v1/login',
+    failureRedirect: 'http://localhost:8080/',
   }),
   auth
 );

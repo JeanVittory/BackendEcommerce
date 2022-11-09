@@ -25,7 +25,7 @@ document.addEventListener('click', async (e) => {
 
   if (e.target.matches('#signin-btn')) {
     e.preventDefault();
-    location.href = `http://localhost:${port}/api/v1/login`;
+    location.href = `http://localhost:${port}/`;
   }
 
   if (e.target.matches('#signupBtn')) {
@@ -68,6 +68,6 @@ document.addEventListener('click', async (e) => {
       toastyAlert('The user or the email already exist');
       return resetsInputs.forEach((item) => (item.value = ''));
     }
-    location.href = `http://localhost:${port}/api/v1/login`;
+    location.href = `http://localhost:${port}/`;
   }
 });

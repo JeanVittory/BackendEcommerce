@@ -3,7 +3,7 @@ const authorizedProfile = (req, res, next) => {
     res.cookie('redirected', 'true', {
       maxAge: 1000,
     });
-    res.redirect(302, 'http://localhost:8080/api/v1/login');
+    res.redirect(302, 'http://localhost:8080/');
   } else {
     next();
   }
