@@ -4,6 +4,7 @@ let serviceProductDB;
 let serviceCartDB;
 let serviceChatDB;
 let serviceRegisterUsers;
+let serviceRegisterAdmin;
 
 if (env.DATABASE_TO_USE === 'mongo') {
   const { ProductsDaoMongoService } = await import('./daos/daosMongoDB/product.daos.js');
@@ -19,6 +20,7 @@ if (env.DATABASE_TO_USE === 'mongo') {
   serviceProductDB = new ProductsDaoMongoService('products', productsSchema);
   serviceCartDB = new CartDaoMongoService('cart', cartSchema);
   serviceRegisterUsers = new RegisterUsers('users', usersSchema);
+  serviceRegisterAdmin = new RegisterUsers('admins', usersSchema);
 }
 
 if (env.DATABASE_TO_USE === 'firestore') {
@@ -38,4 +40,10 @@ if (env.DATABASE_TO_USE === 'sql') {
   serviceProductDB = new ProductsServices(configSQL.databaseOpt, env.DATABASE_SQL);
 }
 
-export { serviceProductDB, serviceCartDB, serviceChatDB, serviceRegisterUsers };
+export {
+  serviceProductDB,
+  serviceCartDB,
+  serviceChatDB,
+  serviceRegisterUsers,
+  serviceRegisterAdmin,
+};

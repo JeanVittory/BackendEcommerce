@@ -17,16 +17,25 @@
     </video>
     <section class='register-section'>
       <form class='register-form'>
-        <input type='email' placeholder='Email' id='emailInput' autocomplete='off' />
+        <input type='email' placeholder='email' id='emailInput' autocomplete='off' />
         <input type='text' placeholder='Username' id='usernameInput' autocomplete='off' />
+        <input type='text' placeholder='Address' id='addressInput' autocomplete='off' />
+        <input type='text' placeholder='Age' id='ageInput' autocomplete='off' />
+        <input type='text' placeholder='Phone' id='phoneInput' autocomplete='off' />
         <input type='password' placeholder='Password' id='passwordInput' />
         <input type='password' placeholder='Confirm the password' id='passwordConfirmInput' />
+        <select name='role' id='role'>
+          <option value='user'>User</option>
+          <option value='admin'>Admin</option>
+        </select>
+        <label for='image' class='labelFileBtn'>Choose your avatar</label>
+        <input type='file' name='image' id='image' hidden />
         <button id='signupBtn'>Sign up</button>
         <p class='signin'>Go back and
           <span id='signin-btn' class='signinBtn'>Log in</span></p>
       </form>
     </section>
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/toastify-js'></script>
-    <script type='text/javascript' src='/register/js/register.js'></script>
+    <script src='/register/js/register.js' type='module'></script>
   </body>
 </html>

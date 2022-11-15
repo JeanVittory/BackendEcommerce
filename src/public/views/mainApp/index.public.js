@@ -50,7 +50,6 @@ btnLogout.addEventListener('click', async (e) => {
   const response = await fetch(`${origin}/api/v1/profile/logout`, {
     method: 'POST',
   });
-  console.log(response);
   if (response.redirected) {
     location.href = response.url;
   }

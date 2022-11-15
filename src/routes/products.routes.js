@@ -6,7 +6,6 @@ import {
   putProductsById,
   deleteProductsById,
 } from '../controllers/products.controllers.js';
-import { authorization } from '../middleware/authRoute.middleware.js';
 
 const routerProducts = Router();
 
