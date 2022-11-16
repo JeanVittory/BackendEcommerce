@@ -77,13 +77,8 @@ class MongoService {
         const arrayFilteredDataProduct = Object.entries(dataToUpdate).filter(
           ([key, value]) => value !== null
         );
-        const dataProductToUpdate = Object.fromEntries(
-          arrayFilteredDataProduct
-        );
-        await this.collection.updateOne(
-          { _id: id },
-          { $set: dataProductToUpdate }
-        );
+        const dataProductToUpdate = Object.fromEntries(arrayFilteredDataProduct);
+        await this.collection.updateOne({ _id: id }, { $set: dataProductToUpdate });
         await dbConnection.close();
       }
     } catch (error) {
@@ -106,6 +101,7 @@ class MongoService {
         });
       }
     } catch (error) {
+      console.log(error);
       return error;
     }
   }

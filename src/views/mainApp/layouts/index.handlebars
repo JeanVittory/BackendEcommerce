@@ -20,7 +20,7 @@
   <body>
     <section>
       <nav class='navProfile'>
-        <h2>Welcome {{this.username}}</h2>
+        <h2>Administration panel</h2>
         <button class='btnLogout' id='btnLogout'>Logout</button>
       </nav>
     </section>
@@ -28,14 +28,14 @@
       <form enctype='multipart/form-data' id='form'>
         <input
           type='text'
-          placeholder='id del producto'
+          placeholder='Product id'
           name='id'
           id='productId'
           disabled
           class='productId'
         />
-        <input type='text' placeholder='Ingrese su producto' name='title' id='product' />
-        <input type='text' placeholder='Ingrese el precio' name='price' id='price' />
+        <input type='text' placeholder='Product' name='title' id='product' />
+        <input type='text' placeholder='Price' name='price' id='price' />
         <input type='file' name='image' id='image' hidden />
         <label for='image' class='labelFileBtn'>Choose File</label>
         <div class='buttonsDiv'>

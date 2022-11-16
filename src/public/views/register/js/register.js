@@ -1,7 +1,5 @@
 import { dataToDataBase } from './helper.register.js';
 
-const signinBtn = document.querySelector('#signin-btn');
-const signupBtn = document.querySelector('#signupBtn');
 const email = document.querySelector('#emailInput');
 const username = document.querySelector('#usernameInput');
 const password = document.querySelector('#passwordInput');
@@ -9,7 +7,6 @@ const passwordConfirm = document.querySelector('#passwordConfirmInput');
 const phoneNumber = document.querySelector('#phoneInput');
 const address = document.querySelector('#addressInput');
 const age = document.querySelector('#ageInput');
-const role = document.querySelector('#role');
 const avatar = document.querySelector('#image');
 
 const toastyAlert = (message) => {
@@ -80,7 +77,7 @@ document.addEventListener('click', async (e) => {
       address: address.value,
       phone: phoneNumber.value,
       age: age.value,
-      role: role.value,
+      role: 'user',
       avatar: avatar.files,
     };
 

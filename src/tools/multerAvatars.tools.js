@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const multerConfigStorage = multer.diskStorage({
-  destination: path.join(__dirname, '../public/views/mainApp/avatars'),
+  destination: path.join(__dirname, '../public/views/users/avatars'),
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -12,7 +12,7 @@ const multerConfigStorage = multer.diskStorage({
 
 const multerMiddleware = multer({
   storage: multerConfigStorage,
-  dest: path.join(__dirname, '../public/views/mainApp/avatars/'),
+  dest: path.join(__dirname, '../public/views/users/avatars/'),
   limits: {
     fileSize: 20000000,
   },

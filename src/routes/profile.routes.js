@@ -1,17 +1,18 @@
 import { Router } from 'express';
 import passport from 'passport';
-import { auth, getProfile, logout } from '../controllers/profile.controller.js';
+import { app } from '../config/app.config.js';
+import {
+  auth,
+  getAdminProfile,
+  getUserProfile,
+  logout,
+} from '../controllers/profile.controller.js';
 
 const routerProfile = Router();
 
-routerProfile.post(
-  '/',
-  passport.authenticate('login', {
-    failureRedirect: 'http://localhost:8080/',
-  }),
-  auth
-);
-routerProfile.get('/:username', getProfile);
+routerProfile.post('/', passport.authenticate('login'), auth);
+routerProfile.get('/admin', getAdminProfile);
+routerProfile.get('/user/:username', getUserProfile);
 routerProfile.post('/logout', logout);
 
 export { routerProfile };

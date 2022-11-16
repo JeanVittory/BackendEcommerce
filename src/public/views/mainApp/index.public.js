@@ -152,7 +152,7 @@ socket.on('prueba', async (data) => {
     errorContainer.classList.remove('hidden');
     return (errorContainer.innerHTML = data.error);
   }
-  const tableToHTML = await renderProductsOnTable(data, port);
+  const tableToHTML = await renderProductsOnTable(data, origin);
   productContainer.innerHTML = tableToHTML;
 });
 
@@ -162,7 +162,7 @@ socket.on('newDataAfterDeletion', async (data) => {
     errorContainer.classList.remove('hidden');
     return (errorContainer.innerHTML = data.error);
   }
-  const tableToHTML = await renderProductsOnTable(data, port);
+  const tableToHTML = await renderProductsOnTable(data, origin);
   productContainer.innerHTML = tableToHTML;
 });
 
@@ -172,7 +172,7 @@ socket.on('dataUpdated', async (data) => {
     errorContainer.classList.remove('hidden');
     return (errorContainer.innerHTML = data.error);
   }
-  const tableToHTML = await renderProductsOnTable(data, port);
+  const tableToHTML = await renderProductsOnTable(data, origin);
   productContainer.innerHTML = tableToHTML;
 });
 
@@ -214,8 +214,8 @@ postBtn.addEventListener('click', async (e) => {
 
 deleteBtn.addEventListener('click', async (e) => {
   e.preventDefault();
+  console.log('clicked');
   const productId = idProduct.value;
-  console.log(port);
   const response = await fetch(`${origin}/api/v1/productos/${productId}`, {
     method: 'delete',
     headers: {

@@ -1,16 +1,34 @@
 import { app } from '../config/app.config.js';
 import { logger } from '../config/logger/index.js';
+import { serviceRegisterUsers } from '../test.js';
 
 const URL =
   process.env.NODE_ENV === 'production'
     ? 'https://apicoder.herokuapp.com'
     : `http://localhost:${app.get('port')}`;
 
-const getProfile = (req, res) => {
+const getAdminProfile = (req, res) => {
+  logger.info(`accessing the route: ${req.baseUrl}`);
+  if (req.isAuthenticated()) {
+    res.render('main', { layout: 'index' });
+  } else {
+    logger.warn("You're not authenticated");
+    res.redirect(`${URL}/`);
+  }
+};
+
+const getUserProfile = async (req, res) => {
   logger.info(`accessing the route: ${req.baseUrl}`);
   if (req.isAuthenticated()) {
     const username = req.params.username;
-    res.render('main', { layout: 'index', username: username });
+
+    const user = await serviceRegisterUsers.getUserByUsername(username);
+    const { avatar } = user;
+    const userData = {
+      username: username,
+      avatar: avatar,
+    };
+    res.render('main', { layout: 'users', userData });
   } else {
     logger.warn("You're not authenticated");
     res.redirect(`${URL}/`);
@@ -19,8 +37,13 @@ const getProfile = (req, res) => {
 
 const auth = (req, res) => {
   logger.info(`accessing the route: ${req.baseUrl}`);
-  const { username } = req.body;
-  res.redirect(`${URL}/api/v1/profile/${username}`);
+  const { role, username } = req.body;
+  if (role === 'admin') {
+    res.redirect(`${URL}/api/v1/profile/admin`);
+  }
+  if (role === 'user') {
+    res.redirect(`${URL}/api/v1/profile/user/${username}`);
+  }
 };
 
 const logout = (req, res) => {
@@ -34,4 +57,4 @@ const logout = (req, res) => {
   });
 };
 
-export { getProfile, auth, logout };
+export { getAdminProfile, getUserProfile, auth, logout };

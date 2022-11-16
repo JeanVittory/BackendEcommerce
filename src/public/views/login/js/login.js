@@ -2,6 +2,7 @@ const btnLogin = document.querySelector('#btn-login');
 const username = document.querySelector('#username');
 const password = document.querySelector('#password');
 const registerBtn = document.querySelector('#registerBtn');
+const role = document.querySelector('#role');
 const { origin } = window.location;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,6 +25,7 @@ document.addEventListener('click', async (e) => {
     const credentialsFromUser = {
       username: username.value,
       password: password.value,
+      role: role.value,
     };
 
     if (credentialsFromUser.username !== '' && credentialsFromUser.password !== '') {
@@ -35,13 +37,13 @@ document.addEventListener('click', async (e) => {
             'Content-type': 'application/json',
           },
         });
-        if (!response.ok) {
+        if (response.status === 401) {
           Toastify({
             text: 'invalid password or username, please retry',
             className: 'alert',
             style: {
-              background: 'linear-gradient(to right, #efefbb, #d4d3dd)',
-              color: '#28282B',
+              background: 'linear-gradient(to right, #eb5757, #000000)',
+              color: 'white',
               fontFamily: 'monospace',
             },
           }).showToast();
@@ -56,7 +58,6 @@ document.addEventListener('click', async (e) => {
   }
 
   if (e.target.matches('#registerBtn')) {
-    console.log('hello');
     e.preventDefault();
     location.href = `${origin}/api/v1/register/`;
   }

@@ -30,7 +30,7 @@ class RegisterUsers {
           {
             $or: [{ email: emailToFind }, { username: usernameToFind }],
           },
-          { email: 1, username: 1, _id: 1 }
+          { email: 1, username: 1, _id: 1, role: 1 }
         );
         await dbConnection.close();
         return responseFromExistUser;
@@ -41,12 +41,25 @@ class RegisterUsers {
   }
 
   async getUserById(id) {
-    if (id) {
-      const dbConnection = await doMongoConnection();
-      const user = await this.#collection.findById(id, { username: 1, email: 1, _id: 1 });
-      return user;
-    }
     try {
+      if (id) {
+        const dbConnection = await doMongoConnection();
+        const user = await this.#collection.findById(id, { username: 1, email: 1, _id: 1 });
+        return user;
+      }
+    } catch (error) {
+      console.log('error en getUserById', error);
+    }
+  }
+
+  async getUserByUsername(username) {
+    try {
+      if (username) {
+        const dbConnection = await doMongoConnection();
+        const user = await this.#collection.findOne({ username: username });
+        await dbConnection.close();
+        return user;
+      }
     } catch (error) {
       console.log('error en getUserById', error);
     }

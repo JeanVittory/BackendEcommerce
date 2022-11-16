@@ -59,7 +59,6 @@ const postProducts = async (req, res) => {
     }
   } catch (error) {
     logger.error(`Error 500. ${error.message}`);
-    console.log('error en controlador postProducts', error);
   }
 };
 

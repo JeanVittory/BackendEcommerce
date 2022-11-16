@@ -11,3 +11,39 @@
 14-11-2022 T 09:44:52 [error]: Error 409. invalid role 
 14-11-2022 T 09:47:26 [error]: Error 409. invalid role 
 14-11-2022 T 09:49:49 [error]: Error 409. The email or the username already exist, please use another. 
+15-11-2022 T 12:24:53 [warn]: Error 404. Route not found 
+15-11-2022 T 05:50:49 [warn]: Error 404. Route not found 
+15-11-2022 T 06:23:37 [warn]: Error 404. Route not found 
+15-11-2022 T 06:26:54 [warn]: Error 404. Route not found 
+15-11-2022 T 06:28:28 [warn]: Error 404. Route not found 
+15-11-2022 T 06:31:07 [warn]: Error 404. Route not found 
+15-11-2022 T 06:31:53 [warn]: Error 404. Route not found 
+15-11-2022 T 06:33:19 [warn]: Error 404. Route not found 
+15-11-2022 T 06:35:54 [warn]: Error 404. Route not found 
+15-11-2022 T 07:54:58 [warn]: Error 404. Route not found 
+15-11-2022 T 07:55:17 [warn]: Error 404. Route not found 
+15-11-2022 T 07:56:57 [warn]: Error 404. Route not found 
+15-11-2022 T 07:59:00 [warn]: Error 404. Route not found 
+15-11-2022 T 08:01:25 [warn]: You're not authenticated 
+15-11-2022 T 08:01:43 [warn]: Error 404. Route not found 
+15-11-2022 T 08:05:51 [warn]: Error 404. Route not found 
+15-11-2022 T 08:31:11 [warn]: Error 404. Route not found 
+15-11-2022 T 08:31:12 [warn]: Error 404. Route not found 
+15-11-2022 T 08:40:11 [warn]: Error 404. Route not found 
+15-11-2022 T 08:43:09 [warn]: Error 404. Route not found 
+15-11-2022 T 09:01:07 [warn]: Error 404. Route not found 
+15-11-2022 T 09:04:37 [warn]: Error 404. Route not found 
+15-11-2022 T 09:07:13 [warn]: Error 404. Route not found 
+15-11-2022 T 09:08:43 [warn]: Error 404. Route not found 
+15-11-2022 T 09:10:06 [warn]: Error 404. Route not found 
+15-11-2022 T 09:23:54 [warn]: Error 404. Route not found 
+15-11-2022 T 09:26:41 [warn]: Error 404. Route not found 
+15-11-2022 T 09:31:27 [warn]: Error 404. Route not found 
+15-11-2022 T 09:31:56 [warn]: Error 404. Route not found 
+15-11-2022 T 09:32:04 [warn]: Error 404. Route not found 
+15-11-2022 T 09:36:10 [warn]: Error 404. Route not found 
+15-11-2022 T 09:39:29 [warn]: You're not authenticated 
+15-11-2022 T 09:39:48 [warn]: Error 404. Route not found 
+15-11-2022 T 09:41:09 [warn]: Error 404. Route not found 
+15-11-2022 T 09:42:29 [warn]: Error 404. Route not found 
+15-11-2022 T 10:59:52 [warn]: You're not authenticated 
