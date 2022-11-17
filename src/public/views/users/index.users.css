@@ -13,6 +13,23 @@ body {
   overflow-x: hidden;
 }
 
+.hidden {
+  display: none;
+}
+
+.errorContainer {
+  max-width: 200px;
+  display: flex;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 4rem;
+  background-color: brown;
+  color: bisque;
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
 .navProfile {
   background-color: rgb(21, 20, 20);
   width: 100vw;

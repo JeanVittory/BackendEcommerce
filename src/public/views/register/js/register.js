@@ -8,6 +8,8 @@ const phoneNumber = document.querySelector('#phoneInput');
 const address = document.querySelector('#addressInput');
 const age = document.querySelector('#ageInput');
 const avatar = document.querySelector('#image');
+const { origin } = window.location;
+const resetsInputs = [email, password, username, passwordConfirm, phoneNumber, age, address];
 
 const toastyAlert = (message) => {
   return Toastify({
@@ -20,9 +22,6 @@ const toastyAlert = (message) => {
     },
   }).showToast();
 };
-
-const resetsInputs = [email, password, username, passwordConfirm, phoneNumber, age, address];
-const { origin } = window.location;
 
 document.addEventListener('click', async (e) => {
   const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
