@@ -1,5 +1,10 @@
 const btnLogout = document.querySelector('#btnLogout');
 const errorContainer = document.querySelector('#errorContainer');
+const cards = document.querySelector('#cards');
+const productsTemplate = document.querySelector('#productsTemplate').content;
+const fragment = document.createDocumentFragment();
+
+const productCard = document.querySelector('#card');
 const { origin } = window.location;
 
 document.addEventListener('DOMContentLoaded', async (e) => {
@@ -17,6 +22,18 @@ document.addEventListener('DOMContentLoaded', async (e) => {
     errorContainer.appendChild(message);
   } else {
     console.log(data);
+    errorContainer.classList.add('hidden');
+    data.forEach((product) => {
+      productsTemplate
+        .querySelector('img')
+        .setAttribute('src', `/mainApp/images/${product.thumbnail}`);
+      productsTemplate.querySelector('img').setAttribute('alt', `${product.productName}`);
+      productsTemplate.querySelector('figcaption').textContent = product.productName;
+      productsTemplate.querySelector('p').textContent = `$${product.price}`;
+      let clone = document.importNode(productsTemplate, true);
+      fragment.appendChild(clone);
+    });
+    cards.appendChild(fragment);
   }
 });
 

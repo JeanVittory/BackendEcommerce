@@ -18,18 +18,30 @@
     <title>Api Ecommerce Products</title>
   </head>
   <body>
-    <section>
+    <header>
       <nav class='navProfile'>
         <h2 class='userName'>Welcome {{this.userData.username}}</h2>
+        <img src='/users/assets/cart.svg' alt='cart' width='30px' />
         <div class='avatarContainer'>
           <img class='avatar' src='/users/avatars/{{this.userData.avatar}}' alt='avatar' />
           <button class='btnLogout' id='btnLogout'>Logout</button>
         </div>
       </nav>
-    </section>
+    </header>
 
     <div id='errorContainer' class='hidden errorContainer'></div>
-    <section id='productsContainer' class='productsContainer'></section>
+    <section id='cards' class='productsContainer'></section>
+    <footer>Hic sunt dracones</footer>
+    <template id='productsTemplate'>
+      <div class='productContainer'>
+        <figure class='card'>
+          <img class='productImg' height='200px' />
+          <figcaption class='productCaption'></figcaption>
+        </figure>
+        <p class='productPrice'></p>
+        <button class='buyButton'>Buy</button>
+      </div>
+    </template>
     <script src='https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.min.js'></script>
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/toastify-js'></script>
     <script
