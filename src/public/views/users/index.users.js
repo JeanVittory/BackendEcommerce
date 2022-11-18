@@ -1,17 +1,28 @@
-const btnLogout = document.querySelector('#btnLogout');
 const errorContainer = document.querySelector('#errorContainer');
+const quantityCart = document.querySelector('#qntyCart');
 const cards = document.querySelector('#cards');
 const productsTemplate = document.querySelector('#productsTemplate').content;
 const fragment = document.createDocumentFragment();
-
 const productCard = document.querySelector('#card');
 const { origin } = window.location;
 
-document.addEventListener('DOMContentLoaded', async (e) => {
-  const response = await fetch(`${origin}/api/v1/productos`);
-  const data = await response.json();
+const toastyAlert = (message) => {
+  return Toastify({
+    text: message,
+    className: 'alert',
+    style: {
+      background: 'linear-gradient(to right, #eb5757, #000000)',
+      color: 'wheat',
+      fontFamily: 'monospace',
+    },
+  }).showToast();
+};
 
-  if (!data.length) {
+document.addEventListener('DOMContentLoaded', async (e) => {
+  quantityCart.textContent = 0;
+  const responseDataProducts = await fetch(`${origin}/api/v1/productos`);
+  const dataProducts = await responseDataProducts.json();
+  if (!dataProducts.length) {
     errorContainer.classList.remove('hidden');
     const message = document.createElement('p');
     message.appendChild(
@@ -21,15 +32,16 @@ document.addEventListener('DOMContentLoaded', async (e) => {
     );
     errorContainer.appendChild(message);
   } else {
-    console.log(data);
+    console.log(dataProducts);
     errorContainer.classList.add('hidden');
-    data.forEach((product) => {
+    dataProducts.forEach((product) => {
       productsTemplate
         .querySelector('img')
         .setAttribute('src', `/mainApp/images/${product.thumbnail}`);
       productsTemplate.querySelector('img').setAttribute('alt', `${product.productName}`);
       productsTemplate.querySelector('figcaption').textContent = product.productName;
       productsTemplate.querySelector('p').textContent = `$${product.price}`;
+      productsTemplate.querySelector('button').setAttribute('data-productid', product._id);
       let clone = document.importNode(productsTemplate, true);
       fragment.appendChild(clone);
     });
@@ -37,11 +49,58 @@ document.addEventListener('DOMContentLoaded', async (e) => {
   }
 });
 
-btnLogout.addEventListener('click', async (e) => {
-  const response = await fetch(`${origin}/api/v1/profile/logout`, {
-    method: 'POST',
-  });
-  if (response.redirected) {
-    location.href = response.url;
+document.addEventListener('click', async (e) => {
+  if (e.target.matches('#btnLogout')) {
+    try {
+      const response = await fetch(`${origin}/api/v1/profile/logout`, {
+        method: 'POST',
+      });
+      if (response.redirected) {
+        location.href = response.url;
+      }
+    } catch (error) {
+      toastyAlert(error.message);
+    }
+  }
+
+  if (e.target.matches('.buyButton')) {
+    if (quantityCart.textContent === '0') {
+      try {
+        const createCartResponse = await fetch(`${origin}/api/v1/carrito/`, {
+          method: 'POST',
+        });
+        const dataCart = await createCartResponse.json();
+        sessionStorage.setItem('cartId', dataCart._id);
+        const addProductToCartResponse = await fetch(
+          `${origin}/api/v1/carrito/${dataCart._id}/productos`,
+          {
+            headers: { 'Content-type': 'application/json; charset=UTF-8' },
+            method: 'POST',
+            body: JSON.stringify({ id: e.target.dataset.productid }),
+          }
+        );
+        const addProductData = await addProductToCartResponse.json();
+        toastyAlert('You have added a product');
+        quantityCart.textContent = parseInt(quantityCart.textContent) + 1;
+      } catch (error) {
+        toastyAlert(error.message);
+      }
+    } else {
+      try {
+        const addProductToCartResponse = await fetch(
+          `${origin}/api/v1/carrito/${sessionStorage.getItem('cartId')}/productos`,
+          {
+            headers: { 'Content-type': 'application/json; charset=UTF-8' },
+            method: 'POST',
+            body: JSON.stringify({ id: e.target.dataset.productid }),
+          }
+        );
+        const addProductData = await addProductToCartResponse.json();
+        quantityCart.textContent = parseInt(quantityCart.textContent) + 1;
+        toastyAlert('You have added a product');
+      } catch (error) {
+        toastyAlert(error.message);
+      }
+    }
   }
 });

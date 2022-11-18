@@ -4,3 +4,11 @@
 14-11-2022 T 09:44:52 [error]: Error 409. invalid role 
 14-11-2022 T 09:47:26 [error]: Error 409. invalid role 
 14-11-2022 T 09:49:49 [error]: Error 409. The email or the username already exist, please use another. 
+17-11-2022 T 08:51:34 [error]: 404. Product doesn't exist 
+17-11-2022 T 09:56:03 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
+17-11-2022 T 09:57:48 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
+17-11-2022 T 10:05:27 [error]: 404.Product doesn't exist 
+17-11-2022 T 10:08:10 [error]: 404.Product doesn't exist 
+17-11-2022 T 10:08:37 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
+17-11-2022 T 10:13:42 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
+17-11-2022 T 10:15:16 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 

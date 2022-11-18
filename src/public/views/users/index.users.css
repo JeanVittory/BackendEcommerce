@@ -101,6 +101,31 @@ body {
   padding: 0 0.8rem;
 }
 
+.cart {
+  position: relative;
+  width: 3rem;
+}
+
+.cartContainer {
+  display: flex;
+}
+
+.cart {
+  width: 16px;
+  height: 16px;
+  border-radius: 50px;
+  background-color: red;
+  text-align: center;
+}
+
+.btnsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
 footer {
   position: relative;
   bottom: 0;

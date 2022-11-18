@@ -15,13 +15,17 @@
       type='text/css'
       href='https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css'
     />
+
     <title>Api Ecommerce Products</title>
   </head>
   <body>
     <header>
       <nav class='navProfile'>
         <h2 class='userName'>Welcome {{this.userData.username}}</h2>
-        <img src='/users/assets/cart.svg' alt='cart' width='30px' />
+        <div class='cartContainer'>
+          <img src='/users/assets/cart.svg' alt='cart' width='30px' />
+          <div class='cart' id='qntyCart'></div>
+        </div>
         <div class='avatarContainer'>
           <img class='avatar' src='/users/avatars/{{this.userData.avatar}}' alt='avatar' />
           <button class='btnLogout' id='btnLogout'>Logout</button>
@@ -39,11 +43,15 @@
           <figcaption class='productCaption'></figcaption>
         </figure>
         <p class='productPrice'></p>
-        <button class='buyButton'>Buy</button>
+        <div class='btnsContainer'>
+          <button class='buyButton'>Buy</button>
+          <button class='buyButton'>Delete</button>
+        </div>
       </div>
     </template>
     <script src='https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.min.js'></script>
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/toastify-js'></script>
+
     <script
       src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js'
       integrity='sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=='
