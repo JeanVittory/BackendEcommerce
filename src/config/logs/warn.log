@@ -88,3 +88,11 @@
 17-11-2022 T 11:56:08 [warn]: You're not authenticated 
 18-11-2022 T 12:00:15 [warn]: Error 404. Route not found 
 18-11-2022 T 01:05:01 [warn]: You're not authenticated 
+18-11-2022 T 11:21:29 [warn]: Error 404. Route not found 
+18-11-2022 T 11:35:38 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
+18-11-2022 T 11:45:34 [warn]: You're not authenticated 
+18-11-2022 T 11:57:27 [warn]: You're not authenticated 
+18-11-2022 T 12:30:55 [warn]: You're not authenticated 
+18-11-2022 T 12:55:18 [warn]: You're not authenticated 
+18-11-2022 T 08:30:56 [warn]: You're not authenticated 
+18-11-2022 T 08:30:56 [warn]: Error 404. Route not found 

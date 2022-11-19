@@ -24,10 +24,7 @@ class CartDaoMongoService extends MongoService {
     try {
       const dbConnection = await doMongoConnection();
       if (mongoose.isValidObjectId(idCart)) {
-        await this.collection.updateOne(
-          { _id: idCart },
-          { $addToSet: { product: newProduct } }
-        );
+        await this.collection.updateOne({ _id: idCart }, { $addToSet: { product: newProduct } });
         await dbConnection.close();
         return;
       } else {
@@ -44,15 +41,14 @@ class CartDaoMongoService extends MongoService {
 
   async deleteProductFromCart(idCart, idProduct) {
     try {
-      if (
-        mongoose.isValidObjectId(idCart) & mongoose.isValidObjectId(idProduct)
-      ) {
+      if (mongoose.isValidObjectId(idCart) & mongoose.isValidObjectId(idProduct)) {
         const dbConnection = await doMongoConnection();
-        await this.collection.updateOne(
+        const res = await this.collection.updateOne(
           { _id: idCart },
           { $pull: { product: { _id: idProduct } } }
         );
         await dbConnection.close();
+        return res.modifiedCount;
       } else {
         throw new ErrorHandler({
           status: 400,

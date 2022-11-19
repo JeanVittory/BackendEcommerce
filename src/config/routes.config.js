@@ -5,6 +5,7 @@ import { routerProducts } from '../routes/products.routes.js';
 import { routerProfile } from '../routes/profile.routes.js';
 import { routerRegister } from '../routes/register.routes.js';
 import { testRoute } from '../routes/test.routes.js';
+import { twilioRoute } from '../routes/twilio.routes.js';
 import express from 'express';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -22,6 +23,7 @@ const applicationRoutes = () => {
   app.use('/api/v1/productos', routerProducts);
   app.use('/api/v1/carrito', routerCart);
   app.use('/api/v1/test', testRoute);
+  app.use('/api/v1/order', twilioRoute);
   app.use((req, res) => {
     logger.warn('Error 404. Route not found');
     res.status(404).json({ message: 'Route not found' });

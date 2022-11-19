@@ -12,3 +12,4 @@
 17-11-2022 T 10:08:37 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
 17-11-2022 T 10:13:42 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
 17-11-2022 T 10:15:16 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
+18-11-2022 T 11:35:38 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 

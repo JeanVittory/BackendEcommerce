@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', async (e) => {
       productsTemplate.querySelector('img').setAttribute('alt', `${product.productName}`);
       productsTemplate.querySelector('figcaption').textContent = product.productName;
       productsTemplate.querySelector('p').textContent = `$${product.price}`;
-      productsTemplate.querySelector('button').setAttribute('data-productid', product._id);
+      productsTemplate.querySelector('.buyButton').setAttribute('data-productid', product._id);
+      productsTemplate.querySelector('.deleteButton').setAttribute('data-productid', product._id);
       let clone = document.importNode(productsTemplate, true);
       fragment.appendChild(clone);
     });
@@ -80,8 +81,9 @@ document.addEventListener('click', async (e) => {
           }
         );
         const addProductData = await addProductToCartResponse.json();
-        toastyAlert('You have added a product');
+
         quantityCart.textContent = parseInt(quantityCart.textContent) + 1;
+        toastyAlert('You have added a product');
       } catch (error) {
         toastyAlert(error.message);
       }
@@ -97,10 +99,42 @@ document.addEventListener('click', async (e) => {
         );
         const addProductData = await addProductToCartResponse.json();
         quantityCart.textContent = parseInt(quantityCart.textContent) + 1;
-        toastyAlert('You have added a product');
+        toastyAlert("You've added a product");
       } catch (error) {
         toastyAlert(error.message);
       }
+    }
+  }
+  if (e.target.matches('.deleteButton')) {
+    if (quantityCart.textContent === '0') {
+      toastyAlert("there's not products in your cart");
+    } else {
+      try {
+        const responseFromDelete = await fetch(
+          `${origin}/api/v1/carrito/${sessionStorage.getItem('cartId')}/productos/${
+            e.target.dataset.productid
+          }`,
+          {
+            method: 'DELETE',
+          }
+        );
+        const deleteData = await responseFromDelete.json();
+        if (deleteData.code !== 0) {
+          toastyAlert("You've deleted a product");
+          quantityCart.textContent = parseInt(quantityCart.textContent) - 1;
+        } else {
+          toastyAlert("The product don't exist in your cart");
+        }
+      } catch (error) {
+        toastyAlert(error.message);
+      }
+    }
+  }
+
+  if (e.target.matches('#btnOrder')) {
+    if (quantityCart.textContent <= '0') {
+      toastyAlert('Your cart is empty!');
+      return;
     }
   }
 });
