@@ -21,7 +21,8 @@
   <body>
     <header>
       <nav class='navProfile'>
-        <h2 class='userName'>Welcome {{this.userData.username}}</h2>
+        <h2 class='userName' data-username={{this.userData.username}} id='username'>Welcome
+          {{this.userData.username}}</h2>
         <div class='cartContainer'>
           <img src='/users/assets/cart.svg' alt='cart' width='30px' />
           <div class='cart' id='qntyCart'></div>

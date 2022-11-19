@@ -80,7 +80,7 @@ document.addEventListener('click', async (e) => {
             body: JSON.stringify({ id: e.target.dataset.productid }),
           }
         );
-        const addProductData = await addProductToCartResponse.json();
+        await addProductToCartResponse.json();
 
         quantityCart.textContent = parseInt(quantityCart.textContent) + 1;
         toastyAlert('You have added a product');
@@ -97,7 +97,7 @@ document.addEventListener('click', async (e) => {
             body: JSON.stringify({ id: e.target.dataset.productid }),
           }
         );
-        const addProductData = await addProductToCartResponse.json();
+        await addProductToCartResponse.json();
         quantityCart.textContent = parseInt(quantityCart.textContent) + 1;
         toastyAlert("You've added a product");
       } catch (error) {
@@ -132,9 +132,31 @@ document.addEventListener('click', async (e) => {
   }
 
   if (e.target.matches('#btnOrder')) {
+    const username = document.querySelector('#username');
+
     if (quantityCart.textContent <= '0') {
       toastyAlert('Your cart is empty!');
-      return;
+    } else {
+      try {
+        const responsefromOrder = await fetch(`${origin}/api/v1/order/`, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+          body: JSON.stringify({
+            cartId: sessionStorage.getItem('cartId'),
+            username: username.dataset.username,
+          }),
+        });
+        if (responsefromOrder.ok) {
+          const messageFromOrder = await responsefromOrder.json();
+          toastyAlert(messageFromOrder.message);
+          quantityCart.textContent = 0;
+          sessionStorage.clear();
+        }
+      } catch (error) {
+        toastyAlert(error.message);
+      }
     }
   }
 });

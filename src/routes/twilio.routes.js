@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { postOrder } from '../controllers/twilio.controllers';
+import { postOrder } from '../controllers/notifications.controllers.js';
 
 const twilioRoute = Router();
 
