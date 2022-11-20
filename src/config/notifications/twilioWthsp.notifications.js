@@ -16,7 +16,6 @@ const sendWthsp = async (dataMessage) => {
 
   try {
     const responseFromWthspTwilio = await twilioConnection.messages.create(options);
-    console.log(responseFromWthspTwilio);
   } catch (error) {
     console.log(error);
   }

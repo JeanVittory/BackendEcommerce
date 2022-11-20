@@ -64,7 +64,10 @@ document.addEventListener('click', async (e) => {
       return resetsInputs.forEach((item) => (item.value = ''));
     }
 
-    if (password.value !== passwordConfirm.value) {
+    const passwordTrim = password.value.trim();
+    const passwordConfirmTrim = passwordConfirm.value.trim();
+
+    if (passwordTrim !== passwordConfirmTrim) {
       toastyAlert("Your passwords don't match ");
       return resetsInputs.forEach((item) => (item.value = ''));
     }
@@ -72,7 +75,7 @@ document.addEventListener('click', async (e) => {
     const userData = {
       email: email.value,
       username: username.value,
-      password: password.value,
+      password: passwordTrim,
       address: address.value,
       phone: phoneNumber.value,
       age: age.value,

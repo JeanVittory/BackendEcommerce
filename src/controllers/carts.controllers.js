@@ -115,7 +115,6 @@ const deleteProductFromCart = async (req, res) => {
         message: resposeFromDeleteProductFromCart.message,
       });
     }
-    console.log(resposeFromDeleteProductFromCart);
     res.status(200).json({ code: resposeFromDeleteProductFromCart });
   } catch (error) {
     logger.error(`Error 500. ${error.message}`);

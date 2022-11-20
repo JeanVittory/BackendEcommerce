@@ -106,3 +106,7 @@
 19-11-2022 T 12:45:40 [warn]: You're not authenticated 
 19-11-2022 T 01:30:06 [warn]: You're not authenticated 
 19-11-2022 T 01:48:56 [warn]: You're not authenticated 
+20-11-2022 T 04:04:28 [warn]: Error 404. Route not found 
+20-11-2022 T 04:28:34 [error]: Error 409. The email or the username already exist, please use another. 
+20-11-2022 T 04:30:01 [error]: Error 409. The email or the username already exist, please use another. 
+20-11-2022 T 04:31:59 [error]: Error 409. The email or the username already exist, please use another. 

@@ -13,3 +13,6 @@
 17-11-2022 T 10:13:42 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
 17-11-2022 T 10:15:16 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
 18-11-2022 T 11:35:38 [error]: 400.Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
+20-11-2022 T 04:28:34 [error]: Error 409. The email or the username already exist, please use another. 
+20-11-2022 T 04:30:01 [error]: Error 409. The email or the username already exist, please use another. 
+20-11-2022 T 04:31:59 [error]: Error 409. The email or the username already exist, please use another. 
