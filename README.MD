@@ -21,6 +21,11 @@ Api en construcción usando node y el framework Express. Mas allá de un sistema
 - [Express-Session](https://www.npmjs.com/package/express-session) - Middleware to create sessions of users who has been autheticated
 - [Connect-Mongo](https://www.npmjs.com/package/connect-mongo) - Module of mongo db t work with session.
 - [Socket-io](https://socket.io/) - Library to work with sockets
+- [Nodemailer](https://nodemailer.com/about/) - module for Node.js applications to allow easy as cake email sending.
+- [Bcrypt](https://www.npmjs.com/package/bcrypt) - A library to help you hash passwords.
+- [Twilio](https://www.npmjs.com/package/twilio) - The Twilio REST API allows you to query and manage meta-data about your account, phone numbers, usage, and access tokens.
+- [Winston](https://www.npmjs.com/package/winston) - Winston is designed to be a simple and universal logging library with support for multiple transports.
+- [Yargs](https://www.npmjs.com/package/yargs) - Yargs helps you build interactive command line tools, by parsing arguments and generating an elegant user interface.
 
 ## Rutas
 
@@ -57,7 +62,7 @@ y redirigir al login para ingresar a la aplicación.
 | Get    | api/v1/profile/       | Renderizar la UI del usuario logueado o redirigir al login       |
 | Post   | api/v1/profile/logout | Realizar el logout del usuario y redirir al login                |
 
-### Productos
+### Products
 
 En las siguientes rutas se proveeran los endpoints en donde se administraran los diferentes productos en la base datos
 
@@ -82,35 +87,26 @@ En las siguientes rutas se proveeran los endpoints para crear carritos de compra
 | Post   | api/v1/carrito/:id/productos          | agregar productos al carrito     |
 | Delete | api/v1/carrito/:id/productos/:id_prod | Borrar productos del carrito     |
 
-> **Nota:** Es importante que el usuario guarde el id del carrito ya que por medio de el se realizan los procesos de agregado y borrado.
-
-### Test Data from FakerJs
+### Test
 
 En la siguiente ruta podras acceder a una tabla de productos con una imágen aleatoria con el fín de proveer de data falsa a la UI que la necesite. Por defecto provee 5 productos pero si el usuario necesita de más o menos cantidad puede hacerla explicita al final de la ruta
 
-| Method | Route                                  | Reason                |
-| ------ | -------------------------------------- | --------------------- |
-| Get    | /api/v1/test/productos-test/:quantity? | Proveer de data falsa |
+| Method | Route                      | Reason                                                                       |
+| ------ | -------------------------- | ---------------------------------------------------------------------------- |
+| Get    | /api/v1/test/helloworld    | print "hello world"                                                          |
+| Get    | /productos-test/:quantity? | Generar lista d eproductos falsos por fakerJS                                |
+| Get    | /tech-info                 | Mostrar aspectos técnicos del coomputador del usuario por medio de NODE      |
+| Get    | /randoms                   | Realizar un procedimiento demandante para poner en uso procesos fork en NODE |
+| Get    | /randoms-ngnix             | Controlador para realizar pruebas sencillas con ngnix                        |
 
-### Environment Variables
+### Twilio
 
-Cree un archivo .env en la raiz del proyecto y provea estas variables de entorno con las credenciales a la base de datos que desee usar.
-En el caso de desear usar la integracion a firebase use la key "firestore" y en el caso de querer usar la integración a mongoDB use la key "mongo" y en el caso de querer usar mariaDB use "sql" en la variable APP_DATABASE_TO_USE
+Esta ruta se implemento con el fin de agrupar los diferentes procedimientos de notificación tanto al usuario como al administrador
+cuando una compra sea realizado haciendo uso de Twilio y Nodemailer
 
-| ENV                    |
-| ---------------------- |
-| APP_PORT               |
-| APP_PORT_SQL           |
-| APP_HOST_SQL           |
-| APP_USER_SQL           |
-| APP_PASSWORD_SQL       |
-| APP_DATABASE_SQL       |
-| APP_USER_MONGODB       |
-| APP_PASSWORD_MONGODB   |
-| APP_DATABASE_MONGODB   |
-| APP_DATABASE_SESSIONS  |
-| APP_DATABASE_FIRESTORE |
-| APP_DATABASE_TO_USE    |
+| Method | Route | Reason                                                      |
+| ------ | ----- | ----------------------------------------------------------- |
+| Post   | /     | Ruta de inicio para ejecutar procedimientos de notificación |
 
 ## Instalación
 
@@ -118,7 +114,3 @@ En el caso de desear usar la integracion a firebase use la key "firestore" y en 
 npm i
 npm run dev
 ```
-
-### Deploy
-
-https://puzzle-garnet-tulip.glitch.me/api/v1/productos

@@ -1,6 +1,7 @@
 import { fork } from 'child_process';
 import { generateProducts } from '../tools/productsByFaker.tools.js';
 import { app } from '../config/app.config.js';
+
 const getProducts = (req, res) => {
   try {
     const { quantity } = req.params;
