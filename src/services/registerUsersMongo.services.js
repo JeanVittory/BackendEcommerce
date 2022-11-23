@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { doMongoConnection } from '../config/mongodb.config.js';
-import { ErrorHandler } from '../tools/errorHandler.tools.js';
 
 class RegisterUsers {
   #collection;

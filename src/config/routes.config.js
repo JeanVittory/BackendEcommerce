@@ -24,7 +24,7 @@ const applicationRoutes = () => {
   app.use('/api/v1/carrito', routerCart);
   app.use('/api/v1/test', testRoute);
   app.use('/api/v1/order', twilioRoute);
-  app.use((req, res) => {
+  app.use('*', (req, res) => {
     logger.warn('Error 404. Route not found');
     res.status(404).json({ message: 'Route not found' });
   });
