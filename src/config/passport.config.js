@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy } from 'passport-local';
-import { serviceRegisterUsers } from '../test.js';
-import { serviceRegisterAdmin } from '../test.js';
+import { ServiceUsers } from '../services/users.services.js';
+import { ServiceAdmin } from '../services/admin.services.js';
 import { matchPasswords } from '../tools/bcrypt.tools.js';
 
 passport.use(
@@ -21,11 +21,11 @@ passport.use(
         }
 
         if (role !== 'admin') {
-          const user = await serviceRegisterUsers.userExist(username);
+          const user = await ServiceUsers.userExist(username);
           if (!user) {
             return done(null, false, { message: 'The user not exist, please try again' });
           }
-          const pwdEncrypt = await serviceRegisterUsers.getPassword(username);
+          const pwdEncrypt = await ServiceUsers.getPassword(username);
           const isMatchingPwd = await matchPasswords(password, pwdEncrypt.password);
           if (!isMatchingPwd) {
             return done(null, false, { message: 'invalid password' });
@@ -33,11 +33,11 @@ passport.use(
 
           done(null, user);
         } else {
-          const admin = await serviceRegisterAdmin.userExist(username);
+          const admin = await ServiceAdmin.userExist(username);
           if (!admin) {
             return done(null, false, { message: 'The admin not exist, please try again' });
           }
-          const pwdEncrypt = await serviceRegisterAdmin.getPassword(username);
+          const pwdEncrypt = await ServiceAdmin.getPassword(username);
           const isMatchingPwd = await matchPasswords(password, pwdEncrypt.password);
           if (!isMatchingPwd) {
             return done(null, false, { message: 'invalid password' });
@@ -59,14 +59,14 @@ passport.deserializeUser(async (useData, done) => {
   const { id, role } = useData;
 
   if (role === 'user') {
-    const user = await serviceRegisterUsers.getUserById(id);
+    const user = await ServiceUsers.getUserById(id);
     if (!user) {
       done(err);
     }
     done(null, user);
   }
   if (role === 'admin') {
-    const user = await serviceRegisterAdmin.getUserById(id);
+    const user = await ServiceAdmin.getUserById(id);
     if (!user) {
       done(err);
     }

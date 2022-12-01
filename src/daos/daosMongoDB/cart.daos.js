@@ -1,11 +1,20 @@
 import { doMongoConnection } from '../../config/mongodb.config.js';
-import { MongoService } from '../../services/mongo.services.js';
 import mongoose from 'mongoose';
 import { ErrorHandler } from '../../tools/errorHandler.tools.js';
+import { CartDTO } from '../../dto/mongo/cartDto.dto.js';
 
-class CartDaoMongoService extends MongoService {
+let instance = null;
+
+class CartDaoMongoService {
   constructor(collectionName, schema) {
-    super(collectionName, schema);
+    this.collection = mongoose.model(collectionName, schema);
+  }
+
+  static getInstance(collectionName, schema) {
+    if (!instance) {
+      instance = new CartDaoMongoService(collectionName, schema);
+    }
+    return instance;
   }
 
   async createCart() {
@@ -14,7 +23,8 @@ class CartDaoMongoService extends MongoService {
       const newCart = new this.collection();
       const productAddedResponse = await newCart.save();
       await dbConnection.close();
-      return productAddedResponse;
+      const responseDTO = { ...new CartDTO(productAddedResponse) };
+      return responseDTO;
     } catch (error) {
       console.log(error);
     }
@@ -54,6 +64,55 @@ class CartDaoMongoService extends MongoService {
           status: 400,
           message:
             'Please check yor id cart and id product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value',
+        });
+      }
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getById(id) {
+    try {
+      const dbConnection = await doMongoConnection();
+      if (mongoose.isValidObjectId(id)) {
+        const objectId = mongoose.Types.ObjectId(id);
+        const productRetrieved = await this.collection.findOne({
+          _id: objectId,
+        });
+
+        await dbConnection.close();
+        if (productRetrieved === null) {
+          throw new ErrorHandler({
+            status: 404,
+            message: "Product doesn't exist",
+          });
+        }
+        const responseDTO = { ...new CartDTO(productRetrieved) };
+        return responseDTO;
+      } else {
+        throw new ErrorHandler({
+          status: 400,
+          message:
+            'Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value',
+        });
+      }
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async deleteById(id) {
+    try {
+      const dbConnection = await doMongoConnection();
+      const objectId = mongoose.Types.ObjectId(id);
+      dbConnection.close();
+      const responseFromDeletion = await this.collection.findByIdAndDelete({
+        _id: objectId,
+      });
+      if (responseFromDeletion === null) {
+        throw new ErrorHandler({
+          status: 404,
+          message: "Product doesn't exist",
         });
       }
     } catch (error) {

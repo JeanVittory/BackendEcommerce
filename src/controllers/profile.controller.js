@@ -1,6 +1,6 @@
 import { app } from '../config/app.config.js';
 import { logger } from '../config/logger/index.js';
-import { serviceRegisterUsers } from '../test.js';
+import { serviceRegisterUsers } from '../factory/factoryDaos.js';
 
 const URL =
   process.env.NODE_ENV === 'production'

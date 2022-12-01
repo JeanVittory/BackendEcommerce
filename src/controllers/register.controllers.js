@@ -1,6 +1,5 @@
 import { logger } from '../config/logger/index.js';
-import { serviceRegisterUsers } from '../test.js';
-import { serviceRegisterAdmin } from '../test.js';
+import { ServiceUsers } from '../services/users.services.js';
 import { hashPassword } from '../tools/bcrypt.tools.js';
 
 const getRegister = (req, res) => {
@@ -27,7 +26,7 @@ const postRegister = async (req, res) => {
       avatar: req.file.originalname,
     };
 
-    const responseFromRegisterUsers = await serviceRegisterUsers.userExist(
+    const responseFromRegisterUsers = await ServiceUsers.userExist(
       newDataUser.username,
       newDataUser.email
     );
@@ -37,7 +36,7 @@ const postRegister = async (req, res) => {
         .status(409)
         .json({ error: 'The email or the username already exist, please use another.' });
     } else {
-      const responseFromUserAdded = await serviceRegisterUsers.addUser(newDataUser);
+      const responseFromUserAdded = await ServiceUsers.addUser(newDataUser);
       if (responseFromUserAdded) {
         return res.status(200).json({ response: 'User created', id: responseFromUserAdded._id });
       }

@@ -90,7 +90,6 @@ btnSendChatMessage.addEventListener('click', (e) => {
     avatar: userAvatar.value,
     message: messageUser.value,
   };
-
   socket.emit('newMessageFromChat', messageToSocket);
 
   [emailUser, messageUser, userName, userLastname, userAge, userAlias, userAvatar].forEach(
@@ -178,7 +177,6 @@ socket.on('dataUpdated', async (data) => {
 
 socket.on('newMessageToChat', (message) => {
   const { newMessageFormat, newPercentage } = message;
-  console.log(newPercentage);
   percentageReduction.textContent = ` ${newPercentage}%`;
   let p = document.createElement('p');
   p.classList.add('messageChat');
@@ -214,7 +212,6 @@ postBtn.addEventListener('click', async (e) => {
 
 deleteBtn.addEventListener('click', async (e) => {
   e.preventDefault();
-  console.log('clicked');
   const productId = idProduct.value;
   const response = await fetch(`${origin}/api/v1/productos/${productId}`, {
     method: 'delete',

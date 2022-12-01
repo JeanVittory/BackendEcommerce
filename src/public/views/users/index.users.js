@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', async (e) => {
     );
     errorContainer.appendChild(message);
   } else {
-    console.log(dataProducts);
     errorContainer.classList.add('hidden');
     dataProducts.forEach((product) => {
       productsTemplate

@@ -1,8 +1,8 @@
 import { app } from './app.config.js';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { serviceChatDB } from '../test.js';
-import { serviceProductDB } from '../test.js';
+import { ChatService } from '../services/chat.services.js';
+import { ProductService } from '../services/product.services.js';
 import mongoose from 'mongoose';
 import env from './env.config.js';
 import { denormalizeChatMessage } from '../tools/normalizr.tools.js';
@@ -18,7 +18,7 @@ io.on('connection', async (socket) => {
   });
 
   try {
-    const { dataToDenormalize, initialWeigth } = await serviceChatDB.getAllMessages();
+    const { dataToDenormalize, initialWeigth } = await ChatService.getAllMessages();
     const chatMessagesDenormalized = denormalizeChatMessage(dataToDenormalize);
     const percentageOfReduction = percentageCalculator(
       initialWeigth,
@@ -32,7 +32,7 @@ io.on('connection', async (socket) => {
     socket.emit('initialMessageLoad', { error: error.message });
   }
 
-  let globalProductsFetched = await serviceProductDB.getAll();
+  let globalProductsFetched = await ProductService.getAll();
 
   try {
     if (globalProductsFetched.message) throw Error('Error on server, please try it later');
@@ -44,7 +44,7 @@ io.on('connection', async (socket) => {
   socket.on('sendOneProduct', async (dataToPost) => {
     try {
       if (!dataToPost) throw Error('Something went wrong, please try it later');
-      const newProductFetched = await serviceProductDB.getByName(dataToPost.product);
+      const newProductFetched = await ProductService.getByName(dataToPost.product);
       if (newProductFetched?.message) throw Error('Error on server, please try it later');
       globalProductsFetched.push(newProductFetched);
       io.sockets.emit('prueba', globalProductsFetched);
@@ -154,9 +154,9 @@ io.on('connection', async (socket) => {
         message: message.message,
       };
 
-      const responseFromDBofChat = await serviceChatDB.addMessage(newMessageFormat);
+      const responseFromDBofChat = await ChatService.addMessage(newMessageFormat);
 
-      const { dataToDenormalize, initialWeigth } = await serviceChatDB.getAllMessages();
+      const { dataToDenormalize, initialWeigth } = await ChatService.getAllMessages();
       const chatMessagesDenormalized = denormalizeChatMessage(dataToDenormalize);
       const newPercentage = percentageCalculator(
         initialWeigth,

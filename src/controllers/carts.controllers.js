@@ -1,11 +1,11 @@
-import { serviceCartDB } from '../test.js';
-import { serviceProductDB } from '../test.js';
+import { CartService } from '../services/cart.services.js';
+import { ProductService } from '../services/product.services.js';
 import { logger } from '../config/logger/index.js';
 
 const postCart = async (req, res) => {
   try {
     logger.info(`accessing the route: ${req.baseUrl}`);
-    const responseFromCreateCart = await serviceCartDB.createCart();
+    const responseFromCreateCart = await CartService.createCart();
     if (responseFromCreateCart instanceof Error) throw Error('Something went wrong in server');
     return res.status(201).json(responseFromCreateCart);
   } catch (error) {
@@ -18,7 +18,7 @@ const deleteCart = async (req, res) => {
   try {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id } = req.params;
-    const responseFromDeleteCart = await serviceCartDB.deleteById(id);
+    const responseFromDeleteCart = await CartService.deleteById(id);
     if (responseFromDeleteCart?.status) {
       logger.error(`${responseFromDeleteCart.status}. ${responseFromDeleteCart.message}`);
       return res.status(responseFromDeleteCart.status).json({
@@ -37,7 +37,7 @@ const getProductsFromCart = async (req, res) => {
   try {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id } = req.params;
-    const responseFromGetProductsFromCart = await serviceCartDB.getById(id);
+    const responseFromGetProductsFromCart = await CartService.getById(id);
     if (responseFromGetProductsFromCart?.status) {
       logger.error(
         `${responseFromGetProductsFromCart.status}. ${responseFromGetProductsFromCart.message}`
@@ -59,7 +59,7 @@ const postProductToCart = async (req, res) => {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id: idCart } = req.params;
     const { id: idProduct } = req.body;
-    const productFromDatabaseProducts = await serviceProductDB.getById(idProduct);
+    const productFromDatabaseProducts = await ProductService.getById(idProduct);
     if (productFromDatabaseProducts.status) {
       logger.error(`${productFromDatabaseProducts.status}.${productFromDatabaseProducts.message}`);
       return res.status(productFromDatabaseProducts.status).json({
@@ -67,7 +67,7 @@ const postProductToCart = async (req, res) => {
         message: productFromDatabaseProducts.message,
       });
     }
-    const responseFromPostProductsOnCart = await serviceCartDB.saveProductOnCart(
+    const responseFromPostProductsOnCart = await CartService.saveProductOnCart(
       idCart,
       productFromDatabaseProducts
     );
@@ -91,7 +91,7 @@ const deleteProductFromCart = async (req, res) => {
   try {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id, id_prod } = req.params;
-    const isProductInDb = await serviceProductDB.getById(id_prod);
+    const isProductInDb = await ProductService.getById(id_prod);
     if (isProductInDb?.status) {
       logger.error(`${isProductInDb.status}.${isProductInDb.message}`);
       return res.status(isProductInDb.status).json({
@@ -99,7 +99,7 @@ const deleteProductFromCart = async (req, res) => {
         message: isProductInDb.message,
       });
     }
-    const isCartInDb = await serviceCartDB.getById(id);
+    const isCartInDb = await CartService.getById(id);
     if (isCartInDb?.status) {
       logger.error(`${isCartInDb.status}.${isCartInDb.message}`);
       return res.status(isCartInDb.status).json({
@@ -107,7 +107,7 @@ const deleteProductFromCart = async (req, res) => {
         message: isCartInDb.message,
       });
     }
-    const resposeFromDeleteProductFromCart = await serviceCartDB.deleteProductFromCart(id, id_prod);
+    const resposeFromDeleteProductFromCart = await CartService.deleteProductFromCart(id, id_prod);
     if (resposeFromDeleteProductFromCart?.status) {
       logger.error(`${responseFromDeleteCart.status}.${responseFromDeleteCart.message}`);
       return res.status(resposeFromDeleteProductFromCart.status).json({

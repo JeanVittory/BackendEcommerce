@@ -1,4 +1,4 @@
-import { serviceProductDB } from '../test.js';
+import { ProductService } from '../services/product.services.js';
 import { logger } from '../config/logger/index.js';
 
 const getProducts = async (req, res) => {
@@ -6,13 +6,13 @@ const getProducts = async (req, res) => {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id } = req.params;
     if (!id) {
-      const responseFromGetAll = await serviceProductDB.getAll();
+      const responseFromGetAll = await ProductService.getAll();
       if (responseFromGetAll instanceof Error) {
         throw new Error('Something went Wrong with server');
       }
       res.status(200).json(responseFromGetAll);
     } else {
-      const responseFromGetByIdController = await serviceProductDB.getById(id);
+      const responseFromGetByIdController = await ProductService.getById(id);
       if (responseFromGetByIdController?.status) {
         res.status(responseFromGetByIdController.status).json({
           status: responseFromGetByIdController.status,
@@ -50,7 +50,7 @@ const postProducts = async (req, res) => {
       price: req.body.price,
       thumbnail: req.file.originalname,
     };
-    const responseFromSaveController = await serviceProductDB.save(newProduct);
+    const responseFromSaveController = await ProductService.save(newProduct);
     if (responseFromSaveController?.message) {
       logger.error(`${responseFromSaveController.status}. ${responseFromSaveController.message}`);
       res.status(404).json({ error: responseFromSaveController.message });
@@ -82,7 +82,7 @@ const putProductsById = async (req, res) => {
       price: price || null,
       thumbnail: req.file?.originalname ?? null,
     };
-    const responseFromUpdatecontroller = await serviceProductDB.updateById(id, product);
+    const responseFromUpdatecontroller = await ProductService.updateById(id, product);
     if (responseFromUpdatecontroller?.message) {
       logger.error(
         `${responseFromUpdatecontroller.status}. ${responseFromUpdatecontroller.message}`
@@ -101,7 +101,7 @@ const deleteProductsById = async (req, res) => {
   try {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id } = req.params;
-    const responseFromDeleteController = await serviceProductDB.deleteById(id);
+    const responseFromDeleteController = await ProductService.deleteById(id);
     if (responseFromDeleteController?.message) {
       logger.error(
         `${responseFromDeleteController.status}. ${responseFromDeleteController.message}`

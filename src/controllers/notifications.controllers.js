@@ -1,5 +1,5 @@
-import { serviceCartDB } from '../test.js';
-import { serviceRegisterUsers } from '../test.js';
+import { serviceCartDB } from '../factory/factoryDaos.js';
+import { serviceRegisterUsers } from '../factory/factoryDaos.js';
 import { sendSms } from '../config/notifications/twilio.notifications.js';
 import { sendEmail } from '../config/notifications/nodemailer.notifications.js';
 import { sendWthsp } from '../config/notifications/twilioWthsp.notifications.js';

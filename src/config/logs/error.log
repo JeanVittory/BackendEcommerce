@@ -16,3 +16,21 @@
 20-11-2022 T 04:28:34 [error]: Error 409. The email or the username already exist, please use another. 
 20-11-2022 T 04:30:01 [error]: Error 409. The email or the username already exist, please use another. 
 20-11-2022 T 04:31:59 [error]: Error 409. The email or the username already exist, please use another. 
+29-11-2022 T 05:40:57 [error]: Error 500. ProductService.getAll is not a function 
+29-11-2022 T 05:43:39 [error]: Error 500. ProductService.getAll is not a function 
+29-11-2022 T 05:55:35 [error]: Error 500. serviceProductDB.productRetrieved is not a function 
+29-11-2022 T 05:58:13 [error]: Error 400. Ingrese una imágen del producto 
+29-11-2022 T 05:58:13 [error]: Error 500. Error 400. Debe ingresar una imágen del producto 
+29-11-2022 T 05:58:39 [error]: Error 400. Ingrese una imágen del producto 
+29-11-2022 T 05:58:39 [error]: Error 500. Error 400. Debe ingresar una imágen del producto 
+29-11-2022 T 06:03:01 [error]: Error 500. CartService.getById is not a function 
+29-11-2022 T 06:06:26 [error]: Error 500. CartService.getById is not a function 
+29-11-2022 T 06:07:30 [error]: Error 500. serviceCartDB.GetById is not a function 
+29-11-2022 T 06:10:04 [error]: Error 500. deleteProductFromCart is not defined 
+29-11-2022 T 08:12:54 [error]: Error 400. Ingrese una imágen del producto 
+29-11-2022 T 08:12:54 [error]: Error 500. Error 400. Debe ingresar una imágen del producto 
+29-11-2022 T 08:13:06 [error]: Error 400. Ingrese una imágen del producto 
+29-11-2022 T 08:13:06 [error]: Error 500. Error 400. Debe ingresar una imágen del producto 
+29-11-2022 T 08:49:51 [error]: Error 500. Cannot destructure property '_id' of 'undefined' as it is undefined. 
+29-11-2022 T 08:50:24 [error]: Error 500. Cannot destructure property '_id' of 'undefined' as it is undefined. 
+29-11-2022 T 08:53:00 [error]: Error 500. CartService.deleteById is not a function 
