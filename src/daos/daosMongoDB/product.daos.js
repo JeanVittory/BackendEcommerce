@@ -24,7 +24,7 @@ class ProductsDaoMongoService {
       await dbConnection.close();
       return productAddedResponse._id;
     } catch (error) {
-      console.log('error en createProduct', error);
+      return error;
     }
   }
 
@@ -47,28 +47,30 @@ class ProductsDaoMongoService {
       });
       await dbConnection.close();
       return productRetrieved;
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   }
 
   async getById(id) {
     try {
       const dbConnection = await doMongoConnection();
-      if (mongoose.isValidObjectId(id)) {
+      if (mongoose.isObjectIdOrHexString(id)) {
         const objectId = mongoose.Types.ObjectId(id);
         const productRetrieved = await this.collection.findOne({
           _id: objectId,
         });
-
         await dbConnection.close();
-        if (productRetrieved === null) {
-          throw new ErrorHandler({
+        if (!productRetrieved) {
+          return new ErrorHandler({
             status: 404,
             message: "Product doesn't exist",
           });
+        } else {
+          return productRetrieved;
         }
-        return productRetrieved;
       } else {
-        throw new ErrorHandler({
+        return new ErrorHandler({
           status: 400,
           message:
             'Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value',
@@ -91,7 +93,7 @@ class ProductsDaoMongoService {
         await dbConnection.close();
       }
     } catch (error) {
-      console.log('error update', error);
+      return error;
     }
   }
 

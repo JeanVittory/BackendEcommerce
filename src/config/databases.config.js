@@ -27,4 +27,12 @@ const mongoConfig = {
   },
 };
 
-export { chatDbOpt, databaseOpt, mongoConfig };
+const mongoTestConfig = {
+  uri: `mongodb+srv://${env.USER_MONGO}:${env.PASSWORD_MONGO}@cluster0.iz84azo.mongodb.net/${env.TEST_DATABASE_MONGO}?retryWrites=true&w=majority`,
+  options: {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+};
+
+export { chatDbOpt, databaseOpt, mongoConfig, mongoTestConfig };

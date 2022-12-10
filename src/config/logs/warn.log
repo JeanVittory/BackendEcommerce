@@ -139,3 +139,23 @@
 29-11-2022 T 08:49:51 [error]: Error 500. Cannot destructure property '_id' of 'undefined' as it is undefined. 
 29-11-2022 T 08:50:24 [error]: Error 500. Cannot destructure property '_id' of 'undefined' as it is undefined. 
 29-11-2022 T 08:53:00 [error]: Error 500. CartService.deleteById is not a function 
+30-11-2022 T 10:21:57 [warn]: You're not authenticated 
+30-11-2022 T 10:21:58 [warn]: Error 404. Route not found 
+09-12-2022 T 07:02:49 [warn]: Error 404. Route not found 
+09-12-2022 T 07:04:45 [error]: Error 500. res.status(...).jason is not a function 
+09-12-2022 T 07:05:08 [error]: Error 500. Cannot set headers after they are sent to the client 
+09-12-2022 T 07:05:54 [error]: Error 500. Cannot set headers after they are sent to the client 
+09-12-2022 T 09:32:26 [error]: Error 500. Cannot destructure property '_id' of 'object null' as it is null. 
+09-12-2022 T 09:33:36 [error]: Error 500. Cannot destructure property '_id' of 'object null' as it is null. 
+09-12-2022 T 11:44:01 [error]: Error 500. Invalid status code: undefined 
+10-12-2022 T 12:53:52 [error]: Error 400. Enter a product image 
+10-12-2022 T 12:53:52 [error]: Error 500. Cannot read properties of undefined (reading 'originalname') 
+10-12-2022 T 12:55:03 [error]: Error 400. Enter a product image 
+10-12-2022 T 12:55:03 [error]: Error 500. Cannot read properties of undefined (reading 'originalname') 
+10-12-2022 T 12:56:22 [error]: Error 400. Enter a product image 
+10-12-2022 T 12:56:22 [error]: Error 500. Cannot read properties of undefined (reading 'originalname') 
+10-12-2022 T 01:03:05 [error]: You must enter the name of the product and its respective price 
+10-12-2022 T 01:05:54 [error]: You must enter the name of the product and its respective price 
+10-12-2022 T 01:05:54 [error]: undefined. products validation failed: productName: Path `productName` is required., price: Path `price` is required. 
+10-12-2022 T 01:05:54 [error]: Error 500. Cannot set headers after they are sent to the client 
+10-12-2022 T 01:06:59 [error]: You must enter the name of the product and its respective price 

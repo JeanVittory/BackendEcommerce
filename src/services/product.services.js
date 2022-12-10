@@ -22,9 +22,14 @@ class ProductService {
   }
 
   static async getById(id) {
-    const productRetrieved = await serviceProductDB.getById(id);
-    const responseProductDTO = productsDTO(productRetrieved);
-    return responseProductDTO;
+    try {
+      const productRetrieved = await serviceProductDB.getById(id);
+      if (productRetrieved instanceof Error) throw productRetrieved;
+      const responseProductDTO = productsDTO(productRetrieved);
+      return responseProductDTO;
+    } catch (error) {
+      return error;
+    }
   }
 
   static async updateById(id, dataToUpdate) {

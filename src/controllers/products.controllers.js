@@ -1,5 +1,6 @@
 import { ProductService } from '../services/product.services.js';
 import { logger } from '../config/logger/index.js';
+import mongoose from 'mongoose';
 
 const getProducts = async (req, res) => {
   try {
@@ -12,8 +13,15 @@ const getProducts = async (req, res) => {
       }
       res.status(200).json(responseFromGetAll);
     } else {
+      if (!mongoose.isObjectIdOrHexString(id)) {
+        return res.status(400).json({
+          message:
+            'Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value',
+        });
+      }
       const responseFromGetByIdController = await ProductService.getById(id);
-      if (responseFromGetByIdController?.status) {
+
+      if (responseFromGetByIdController?.message) {
         res.status(responseFromGetByIdController.status).json({
           status: responseFromGetByIdController.status,
           message: responseFromGetByIdController.message,
@@ -32,17 +40,13 @@ const postProducts = async (req, res) => {
   try {
     logger.info(`accessing the route: ${req.baseUrl}`);
     if (!req.file) {
-      logger.error('Error 400. Ingrese una imágen del producto');
-      res.status(400).json({ error: 'Ingrese una imágen del producto' });
-      throw new Error('Error 400. Debe ingresar una imágen del producto');
+      logger.error('Error 400. Enter a product image');
+      return res.status(400).json({ error: 'Enter a product image' });
     }
     if (!req.body.productName || !req.body.price) {
-      logger.error('Debe ingresar el nombre del producto y su respectivo precio');
-      res.status(404).json({
-        error: 'Debe ingresar el nombre del producto y su respectivo precio',
-      });
-      throw new Error({
-        error: 'Debe ingresar el nombre del producto y su respectivo precio',
+      logger.error('You must enter the name of the product and its respective price');
+      return res.status(400).json({
+        error: 'You must enter the name of the product and its respective price',
       });
     }
     const newProduct = {
@@ -51,6 +55,7 @@ const postProducts = async (req, res) => {
       thumbnail: req.file.originalname,
     };
     const responseFromSaveController = await ProductService.save(newProduct);
+
     if (responseFromSaveController?.message) {
       logger.error(`${responseFromSaveController.status}. ${responseFromSaveController.message}`);
       res.status(404).json({ error: responseFromSaveController.message });
