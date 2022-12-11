@@ -9,7 +9,6 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 let request;
 let server;
-let dbConnection;
 
 describe('Suite from product controller', () => {
   let productTestId;

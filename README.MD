@@ -15,7 +15,6 @@ Api en construcción usando node y el framework Express. Mas allá de un sistema
 - [firebase-admin](https://www.npmjs.com/package/firebase-admin) - Optional noSQL database
 - [Knex](https://knexjs.org/) - Query builder to interact with MariaDb
 - [Mongoose](https://mongoosejs.com/) - ODM to interact with mongoDB
-- [Bcrypt](https://www.npmjs.com/package/bcrypt) - Tool to encrypt the passwords of users
 - [Passport](https://www.passportjs.org/) - Authentication middleware
 - [Passport-Local](https://www.passportjs.org/packages/passport-local/) - Strategy used of passport to aunthenticate users
 - [Express-Session](https://www.npmjs.com/package/express-session) - Middleware to create sessions of users who has been autheticated
@@ -26,6 +25,9 @@ Api en construcción usando node y el framework Express. Mas allá de un sistema
 - [Twilio](https://www.npmjs.com/package/twilio) - The Twilio REST API allows you to query and manage meta-data about your account, phone numbers, usage, and access tokens.
 - [Winston](https://www.npmjs.com/package/winston) - Winston is designed to be a simple and universal logging library with support for multiple transports.
 - [Yargs](https://www.npmjs.com/package/yargs) - Yargs helps you build interactive command line tools, by parsing arguments and generating an elegant user interface.
+- [Mocha](https://mochajs.org/) - Mocha is a feature-rich JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun.
+- [Chai](https://www.chaijs.com/) - Chai is a BDD / TDD assertion library for node and the browser that can be delightfully paired with any javascript testing framework.
+- [Supertest](https://www.npmjs.com/package/supertest) - The motivation with this module is to provide a high-level abstraction for testing HTTP, while still allowing you to drop down to the lower-level API provided by superagent.
 
 ## Rutas
 
@@ -110,7 +112,19 @@ cuando una compra sea realizado haciendo uso de Twilio y Nodemailer
 
 ## Instalación
 
+To run the app in dev mode:
+
 ```sh
 npm i
-npm run dev
+pnpm run dev
 ```
+
+## Test
+
+To run test with mocha:
+
+```sh
+pnpm run test
+```
+
+You can find other starter scripts modes in the package.json file
