@@ -33,11 +33,30 @@ class ProductService {
   }
 
   static async updateById(id, dataToUpdate) {
-    await serviceProductDB.updateById(id, dataToUpdate);
+    try {
+      const responseFromUpdate = await serviceProductDB.updateById(id, dataToUpdate);
+      if (responseFromUpdate instanceof Error) throw responseFromUpdate;
+      return responseFromUpdate;
+    } catch (error) {
+      return error;
+    }
   }
 
   static async deleteById(idProduct) {
-    await serviceProductDB.deleteById(idProduct);
+    try {
+      const responseFromDelete = await serviceProductDB.deleteById(idProduct);
+      return responseFromDelete;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async deleteAll() {
+    try {
+      await serviceProductDB.deleteAll();
+    } catch (error) {
+      return error;
+    }
   }
 }
 

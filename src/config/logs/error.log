@@ -51,3 +51,22 @@
 10-12-2022 T 01:05:54 [error]: undefined. products validation failed: productName: Path `productName` is required., price: Path `price` is required. 
 10-12-2022 T 01:05:54 [error]: Error 500. Cannot set headers after they are sent to the client 
 10-12-2022 T 01:06:59 [error]: You must enter the name of the product and its respective price 
+10-12-2022 T 04:21:36 [error]: Error 400. Enter a product image 
+10-12-2022 T 04:21:36 [error]: You must enter the name of the product and its respective price 
+10-12-2022 T 04:22:25 [error]: Error 400. Enter a product image 
+10-12-2022 T 04:22:25 [error]: You must enter the name of the product and its respective price 
+10-12-2022 T 04:49:44 [error]: Error 400. Enter a product image 
+10-12-2022 T 04:49:44 [error]: You must enter the name of the product and its respective price 
+10-12-2022 T 05:00:54 [error]: Error 400. Enter a product image 
+10-12-2022 T 05:00:54 [error]: You must enter the name of the product and its respective price 
+10-12-2022 T 05:55:31 [error]: Error 400. please provide a product id 
+10-12-2022 T 06:03:46 [error]: Error 400. please provide a product id 
+10-12-2022 T 06:03:46 [error]: Error 400. Por favor ingresa un valor a ser actualizado 
+10-12-2022 T 06:57:42 [error]: Error 400. Enter a product image 
+10-12-2022 T 06:57:42 [error]: You must enter the name of the product and its respective price 
+10-12-2022 T 06:57:44 [error]: Error 400. please provide a product id 
+10-12-2022 T 06:57:44 [error]: Error 400. Por favor ingresa un valor a ser actualizado 
+10-12-2022 T 07:14:34 [error]: Error 400. please provide a product id 
+10-12-2022 T 07:19:36 [error]: 404. Product doesn't exist 
+10-12-2022 T 07:20:08 [error]: Error 400. please provide a product id 
+10-12-2022 T 07:20:09 [error]: 404. Product doesn't exist 

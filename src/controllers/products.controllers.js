@@ -72,15 +72,14 @@ const putProductsById = async (req, res) => {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id } = req.params;
     const { productName, price } = req.body;
-    if (!id) {
-      logger.error('Error 404. Producto no encontrado');
-      res.status(404).json({ error: 'Producto no encontrado' });
-      throw new Error({ error: 'Producto no encontrado' });
+    if (!mongoose.isObjectIdOrHexString(id)) {
+      logger.error('Error 400. please provide a product id');
+      return res.status(400).json({ error: 'please provide a product id' });
     }
 
     if (!productName && !price && !req.file) {
-      logger.error('Error 500. Por favor ingresa un valor a ser actualizado');
-      return res.status(500).json({ error: 'Por favor ingresa un valor a ser actualizado' });
+      logger.error('Error 400. Por favor ingresa un valor a ser actualizado');
+      return res.status(400).json({ error: 'Please enter a value to be updated' });
     }
     const product = {
       productName: productName || null,
@@ -92,9 +91,11 @@ const putProductsById = async (req, res) => {
       logger.error(
         `${responseFromUpdatecontroller.status}. ${responseFromUpdatecontroller.message}`
       );
-      res.status(404).json({ error: responseFromUpdatecontroller.message });
+      res
+        .status(responseFromUpdatecontroller.status)
+        .json({ error: responseFromUpdatecontroller.message });
     } else {
-      res.status(200).json(responseFromUpdatecontroller);
+      res.status(201).json(responseFromUpdatecontroller.modifiedCount);
     }
   } catch (error) {
     logger.error(`Error 500. ${error.message}`);
@@ -106,6 +107,10 @@ const deleteProductsById = async (req, res) => {
   try {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id } = req.params;
+    if (!mongoose.isObjectIdOrHexString(id)) {
+      logger.error('Error 400. please provide a product id');
+      return res.status(400).json({ error: 'Please provide a valid product id' });
+    }
     const responseFromDeleteController = await ProductService.deleteById(id);
     if (responseFromDeleteController?.message) {
       logger.error(
@@ -113,7 +118,7 @@ const deleteProductsById = async (req, res) => {
       );
       res.status(404).json({ error: responseFromDeleteController.message });
     } else {
-      res.status(200).json(responseFromDeleteController);
+      res.status(200).json(responseFromDeleteController._id);
     }
   } catch (error) {
     logger.error(`Error 500. ${error.message}`);

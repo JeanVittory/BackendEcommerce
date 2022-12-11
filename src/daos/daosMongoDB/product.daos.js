@@ -89,8 +89,18 @@ class ProductsDaoMongoService {
           ([key, value]) => value !== null
         );
         const dataProductToUpdate = Object.fromEntries(arrayFilteredDataProduct);
-        await this.collection.updateOne({ _id: id }, { $set: dataProductToUpdate });
+        const responseFromUpdate = await this.collection.updateOne(
+          { _id: id },
+          { $set: dataProductToUpdate }
+        );
         await dbConnection.close();
+        if (!responseFromUpdate.matchedCount) {
+          return new ErrorHandler({
+            status: 404,
+            message: 'Product not matched or something went wrong with the db',
+          });
+        }
+        return responseFromUpdate;
       }
     } catch (error) {
       return error;
@@ -101,18 +111,32 @@ class ProductsDaoMongoService {
     try {
       const dbConnection = await doMongoConnection();
       const objectId = mongoose.Types.ObjectId(idProduct);
-      dbConnection.close();
       const responseFromDeletion = await this.collection.findByIdAndDelete({
         _id: objectId,
       });
-      if (responseFromDeletion === null) {
+      dbConnection.close();
+      if (!responseFromDeletion) {
         throw new ErrorHandler({
           status: 404,
           message: "Product doesn't exist",
         });
       }
+      return responseFromDeletion;
     } catch (error) {
       return error;
+    }
+  }
+
+  async deleteAll() {
+    try {
+      const dbConnection = await doMongoConnection();
+      const responseFromDeleteAll = await this.collection.deleteMany({
+        productName: { $exists: true },
+      });
+      await dbConnection.close();
+      return responseFromDeleteAll;
+    } catch (error) {
+      console.log('error en deleteAll', error);
     }
   }
 }
