@@ -13,7 +13,7 @@ const Form = () => {
 	const [disable, setDisable] = useState(false);
 	const filesRef = useRef();
 
-	const { productEdit, setProductEdit, updateProduct } = useContext(ProductsContext);
+	const { productEdit, setProductEdit, updateProduct, addProduct } = useContext(ProductsContext);
 
 	useEffect(() => {
 		if (productEdit) {
@@ -29,18 +29,13 @@ const Form = () => {
 
 	useEffect(() => {
 		if (product.productName === '' && product.price === '') {
-			console.log('hello null');
-			console.log('esto deberia imprimirse con el form vacio', productEdit);
 			setProductEdit(null);
 		}
 	}, [product]);
 
 	const handleAdd = (e) => {
 		e.preventDefault();
-		const formDataResponse = formDataBuilder(product);
-		axios
-			.post('http://localhost:8080/api/v1/productos/', formDataResponse)
-			.then((response) => console.log(response));
+		addProduct(product);
 		filesRef.current.value = '';
 		setProduct({
 			productName: '',
@@ -51,21 +46,12 @@ const Form = () => {
 
 	const handleUpdate = (e) => {
 		e.preventDefault();
-		console.log(productEdit);
 		updateProduct({ ...product, id: productEdit.id });
 		setProduct({
 			productName: '',
 			price: '',
 			thumbnail: '',
 		});
-	};
-
-	const formDataBuilder = ({ productName, price, thumbnail }) => {
-		const formData = new FormData();
-		formData.append('image', thumbnail[0]);
-		formData.append('productName', productName);
-		formData.append('price', price);
-		return formData;
 	};
 
 	const handleProductName = (e) => {

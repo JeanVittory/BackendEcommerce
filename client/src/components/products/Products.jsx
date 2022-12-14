@@ -2,10 +2,13 @@ import styles from './products.module.css';
 import { useContext } from 'react';
 import { ProductsContext } from '../../context/productContext';
 const Products = () => {
-	const { products, setProductEdit } = useContext(ProductsContext);
+	const { products, setProductEdit, deleteProduct } = useContext(ProductsContext);
 
 	const handleEdit = (product) => {
 		setProductEdit(product);
+	};
+	const handleDelete = (id) => {
+		deleteProduct(id);
 	};
 
 	if (!products) return <div>Waiting</div>;
@@ -19,7 +22,9 @@ const Products = () => {
 						<h3>${product.price}</h3>
 						<div className={styles.actions}>
 							<button onClick={() => handleEdit(product)}>EDIT</button>
-							<button className={styles.delete}>DELETE</button>
+							<button onClick={() => handleDelete(product.id)} className={styles.delete}>
+								DELETE
+							</button>
 						</div>
 					</article>
 				);
