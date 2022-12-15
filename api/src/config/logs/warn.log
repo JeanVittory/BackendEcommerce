@@ -212,3 +212,11 @@
 12-12-2022 T 06:41:24 [warn]: Error 404. Route not found 
 12-12-2022 T 09:18:40 [warn]: You're not authenticated 
 12-12-2022 T 09:41:49 [error]: Error 400. Enter a product image 
+14-12-2022 T 10:07:07 [error]: Error 400. please provide a product id 
+14-12-2022 T 10:07:35 [error]: Error 500. Cannot read properties of undefined (reading '_id') 
+14-12-2022 T 10:16:01 [error]: 400. Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
+14-12-2022 T 10:16:35 [error]: 400. Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value 
+14-12-2022 T 10:18:37 [error]: undefined. Cannot destructure property '_id' of 'undefined' as it is undefined. 
+14-12-2022 T 10:28:48 [error]: Error 500. Cannot read properties of undefined (reading 'id') 
+14-12-2022 T 10:29:21 [error]: Error 500. Cannot read properties of undefined (reading 'id') 
+14-12-2022 T 10:33:29 [error]: 404. The product doesn't exist in database 

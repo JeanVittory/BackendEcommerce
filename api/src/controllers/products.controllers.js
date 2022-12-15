@@ -1,6 +1,5 @@
 import { ProductService } from '../services/product.services.js';
 import { logger } from '../config/logger/index.js';
-import mongoose from 'mongoose';
 import env from '../config/env.config.js';
 
 const getProducts = async (req, res) => {
@@ -14,12 +13,6 @@ const getProducts = async (req, res) => {
       }
       res.status(200).json(responseFromGetAll);
     } else {
-      if (!mongoose.isObjectIdOrHexString(id)) {
-        return res.status(400).json({
-          message:
-            'Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value',
-        });
-      }
       const responseFromGetByIdController = await ProductService.getById(id);
 
       if (responseFromGetByIdController?.message) {
@@ -73,10 +66,6 @@ const putProductsById = async (req, res) => {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id } = req.params;
     const { productName, price } = req.body;
-    if (!mongoose.isObjectIdOrHexString(id)) {
-      logger.error('Error 400. please provide a product id');
-      return res.status(400).json({ error: 'please provide a product id' });
-    }
 
     if (!productName && !price && !req.file) {
       logger.error('Error 400. Por favor ingresa un valor a ser actualizado');
@@ -96,7 +85,7 @@ const putProductsById = async (req, res) => {
         .status(responseFromUpdatecontroller.status)
         .json({ error: responseFromUpdatecontroller.message });
     } else {
-      res.status(201).json(responseFromUpdatecontroller.modifiedCount);
+      res.status(200).json(responseFromUpdatecontroller);
     }
   } catch (error) {
     logger.error(`Error 500. ${error.message}`);
@@ -108,10 +97,6 @@ const deleteProductsById = async (req, res) => {
   try {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id } = req.params;
-    if (!mongoose.isObjectIdOrHexString(id)) {
-      logger.error('Error 400. please provide a product id');
-      return res.status(400).json({ error: 'Please provide a valid product id' });
-    }
     const responseFromDeleteController = await ProductService.deleteById(id);
     if (responseFromDeleteController?.message) {
       logger.error(
@@ -119,7 +104,7 @@ const deleteProductsById = async (req, res) => {
       );
       res.status(404).json({ error: responseFromDeleteController.message });
     } else {
-      res.status(200).json(responseFromDeleteController._id);
+      res.status(200).json(responseFromDeleteController.id);
     }
   } catch (error) {
     logger.error(`Error 500. ${error.message}`);

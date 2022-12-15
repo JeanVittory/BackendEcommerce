@@ -1,5 +1,5 @@
-import { appFirestore } from '../config/firebase/products.firebase.config.js';
-import { ErrorHandler } from '../tools/errorHandler.tools.js';
+import { appFirestore } from '../../config/firebase/products.firebase.config.js';
+import { ErrorHandler } from '../../tools/errorHandler.tools.js';
 
 class FirestoreService {
   constructor(nameCollection) {
@@ -9,7 +9,8 @@ class FirestoreService {
   async save(product) {
     try {
       const db = appFirestore.firestore();
-      await db.collection(this.nameCollection).add(product);
+      const responsefromAdd = await db.collection(this.nameCollection).add(product);
+      return responsefromAdd.id;
     } catch (error) {
       return error;
     }
@@ -32,10 +33,7 @@ class FirestoreService {
   async getById(id) {
     try {
       const db = appFirestore.firestore();
-      const responseFromGetById = await db
-        .collection(this.nameCollection)
-        .doc(id)
-        .get();
+      const responseFromGetById = await db.collection(this.nameCollection).doc(id).get();
       if (!responseFromGetById.exists) {
         throw new ErrorHandler({
           status: 404,
@@ -79,9 +77,7 @@ class FirestoreService {
         const arrayFilteredDataProduct = Object.entries(dataToUpdate).filter(
           ([key, value]) => value !== null
         );
-        const dataProductToUpdate = Object.fromEntries(
-          arrayFilteredDataProduct
-        );
+        const dataProductToUpdate = Object.fromEntries(arrayFilteredDataProduct);
         const isInDb = await db.collection(this.nameCollection).doc(id).get();
         if (!isInDb.exists) {
           throw new ErrorHandler({
@@ -89,7 +85,7 @@ class FirestoreService {
             message: "The product doesn't exist in database",
           });
         }
-        await db
+        const responseFromUpdate = await db
           .collection(this.nameCollection)
           .doc(id)
           .update(dataProductToUpdate);
@@ -109,7 +105,8 @@ class FirestoreService {
           message: "The product doesn't exist in database",
         });
       }
-      await db.collection(this.nameCollection).doc(id).delete();
+      const responseFromDeletion = await db.collection(this.nameCollection).doc(id).delete();
+      return responseFromDeletion;
     } catch (error) {
       return error;
     }

@@ -118,12 +118,12 @@ describe('Suite from product controller', () => {
   });
 
   describe('PUT /', () => {
-    it('should respond with status code 204 and the body should contain at least 1 product matched', async () => {
+    it('should respond with status code 200 and the body should contain at least 1 product matched', async () => {
       const response = await request
         .put(`/${productTestId}`)
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .field('productName', 'Camiseta Test actualizada');
-      expect(response.status).to.be.equal(201);
+      expect(response.status).to.be.equal(200);
       expect(response._body).to.be.greaterThanOrEqual(1);
     });
 

@@ -1,12 +1,12 @@
 import { serviceProductDB } from '../factory/factoryDaos.js';
 import { productsDTO } from '../dto/mongo/productDto.dto.js';
+import env from '../config/env.config.js';
 
 class ProductService {
   constructor() {}
 
   static async save(newProduct) {
     const productAddedResponse = await serviceProductDB.save(newProduct);
-    console.log(serviceProductDB);
     return productAddedResponse;
   }
 
@@ -37,6 +37,7 @@ class ProductService {
     try {
       const responseFromUpdate = await serviceProductDB.updateById(id, dataToUpdate);
       if (responseFromUpdate instanceof Error) throw responseFromUpdate;
+      if (env.DATABASE_TO_USE === 'mongo') return responseFromUpdate.modifiedCount;
       return responseFromUpdate;
     } catch (error) {
       return error;
@@ -46,7 +47,13 @@ class ProductService {
   static async deleteById(idProduct) {
     try {
       const responseFromDelete = await serviceProductDB.deleteById(idProduct);
-      return responseFromDelete;
+      if (responseFromDelete instanceof Error) throw responseFromDelete;
+      if (env.DATABASE_TO_USE === 'mongo') {
+        const responseFromProductDTO = productsDTO(responseFromDelete);
+        return responseFromProductDTO;
+      } else {
+        return responseFromDelete;
+      }
     } catch (error) {
       return error;
     }

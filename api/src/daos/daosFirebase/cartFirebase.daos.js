@@ -1,22 +1,29 @@
-import { FirestoreService } from '../../services/firestore.services.js';
+import { FirestoreService } from './firestore.services.js';
 import { appFirestore } from '../../config/firebase/products.firebase.config.js';
 import { ErrorHandler } from '../../tools/errorHandler.tools.js';
 import pkg from 'firebase-admin';
 const { firestore } = pkg;
+
+let instance = null;
 
 class CartFirebaseDaos extends FirestoreService {
   constructor(nameCollection) {
     super(nameCollection);
   }
 
+  static getInstance(nameCollection) {
+    if (!instance) {
+      instance = new CartFirebaseDaos(nameCollection);
+    }
+    return instance;
+  }
+
   async createCart() {
     try {
       const db = appFirestore.firestore();
-      const productAddedResponse = await db
-        .collection(this.nameCollection)
-        .add({
-          date: Date.now(),
-        });
+      const productAddedResponse = await db.collection(this.nameCollection).add({
+        date: Date.now(),
+      });
       return { idCart: productAddedResponse.id };
     } catch (error) {
       error;
@@ -51,10 +58,7 @@ class CartFirebaseDaos extends FirestoreService {
       ).data();
       const dataToArray = new Array(productToBeDeleted.products).flat();
       const newDataUpdated = dataToArray.filter((doc) => doc._id !== idProduct);
-      await db
-        .collection(this.nameCollection)
-        .doc(idCart)
-        .update({ products: newDataUpdated });
+      await db.collection(this.nameCollection).doc(idCart).update({ products: newDataUpdated });
     } catch (error) {
       return error;
     }

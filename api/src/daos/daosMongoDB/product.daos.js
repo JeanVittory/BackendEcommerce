@@ -83,7 +83,7 @@ class ProductsDaoMongoService {
 
   async updateById(id, dataToUpdate) {
     try {
-      if (dataToUpdate) {
+      if (dataToUpdate && mongoose.isObjectIdOrHexString(id)) {
         const dbConnection = await doMongoConnection();
         const arrayFilteredDataProduct = Object.entries(dataToUpdate).filter(
           ([key, value]) => value !== null
@@ -101,6 +101,12 @@ class ProductsDaoMongoService {
           });
         }
         return responseFromUpdate;
+      } else {
+        return new ErrorHandler({
+          status: 400,
+          message:
+            'Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value',
+        });
       }
     } catch (error) {
       return error;
@@ -109,19 +115,27 @@ class ProductsDaoMongoService {
 
   async deleteById(idProduct) {
     try {
-      const dbConnection = await doMongoConnection();
-      const objectId = mongoose.Types.ObjectId(idProduct);
-      const responseFromDeletion = await this.collection.findByIdAndDelete({
-        _id: objectId,
-      });
-      dbConnection.close();
-      if (!responseFromDeletion) {
-        throw new ErrorHandler({
-          status: 404,
-          message: "Product doesn't exist",
+      if (mongoose.isObjectIdOrHexString(idProduct)) {
+        const dbConnection = await doMongoConnection();
+        const objectId = mongoose.Types.ObjectId(idProduct);
+        const responseFromDeletion = await this.collection.findByIdAndDelete({
+          _id: objectId,
+        });
+        dbConnection.close();
+        if (!responseFromDeletion) {
+          throw new ErrorHandler({
+            status: 404,
+            message: "Product doesn't exist",
+          });
+        }
+        return responseFromDeletion;
+      } else {
+        return new ErrorHandler({
+          status: 400,
+          message:
+            'Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value',
         });
       }
-      return responseFromDeletion;
     } catch (error) {
       return error;
     }

@@ -1,10 +1,19 @@
-import { appFirestore } from '../config/firebase/products.firebase.config.js';
-import { normalizeChatMessage } from '../tools/normalizr.tools.js';
+import { appFirestore } from '../../config/firebase/products.firebase.config.js';
+import { normalizeChatMessage } from '../../tools/normalizr.tools.js';
+
+let instance = null;
 
 class ChatFirebaseService {
   #collection;
   constructor(nameCollection) {
     this.#collection = nameCollection;
+  }
+
+  static getInstance(nameCollection) {
+    if (!instance) {
+      instance = new ChatFirebaseService(nameCollection);
+    }
+    return instance;
   }
 
   async getAllMessages() {
