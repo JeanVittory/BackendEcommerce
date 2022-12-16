@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { doMongoConnection } from '../../config/mongodb.config.js';
+import { productsDTO } from '../../dto/mongo/productDto.dto.js';
 import { ErrorHandler } from '../../tools/errorHandler.tools.js';
 
 let instance = null;
@@ -33,7 +34,8 @@ class ProductsDaoMongoService {
       const dbConnection = await doMongoConnection();
       const productsRetrieved = await this.collection.find();
       await dbConnection.close();
-      return productsRetrieved;
+      const responseProductDTO = productsDTO(productsRetrieved);
+      return responseProductDTO;
     } catch (error) {
       return error;
     }
@@ -46,7 +48,8 @@ class ProductsDaoMongoService {
         productName: nameProduct,
       });
       await dbConnection.close();
-      return productRetrieved;
+      const responseProductDTO = productsDTO(productRetrieved);
+      return responseProductDTO;
     } catch (error) {
       return error;
     }
@@ -57,9 +60,11 @@ class ProductsDaoMongoService {
       const dbConnection = await doMongoConnection();
       if (mongoose.isObjectIdOrHexString(id)) {
         const objectId = mongoose.Types.ObjectId(id);
+
         const productRetrieved = await this.collection.findOne({
           _id: objectId,
         });
+
         await dbConnection.close();
         if (!productRetrieved) {
           return new ErrorHandler({
@@ -67,7 +72,8 @@ class ProductsDaoMongoService {
             message: "Product doesn't exist",
           });
         } else {
-          return productRetrieved;
+          const responseProductDTO = productsDTO(productRetrieved);
+          return responseProductDTO;
         }
       } else {
         return new ErrorHandler({
@@ -128,7 +134,8 @@ class ProductsDaoMongoService {
             message: "Product doesn't exist",
           });
         }
-        return responseFromDeletion;
+        const responseFromProductDTO = productsDTO(responseFromDeletion);
+        return responseFromProductDTO;
       } else {
         return new ErrorHandler({
           status: 400,

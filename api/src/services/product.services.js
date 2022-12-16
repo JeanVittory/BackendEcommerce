@@ -12,22 +12,19 @@ class ProductService {
 
   static async getAll() {
     const productRetrieved = await serviceProductDB.getAll();
-    const responseProductDTO = productsDTO(productRetrieved);
-    return responseProductDTO;
+    return productRetrieved;
   }
 
   static async getByName(nameProduct) {
     const productRetrieved = await serviceProductDB.getByName(nameProduct);
-    const responseProductDTO = productsDTO(productRetrieved);
-    return responseProductDTO;
+    return productRetrieved;
   }
 
   static async getById(id) {
     try {
       const productRetrieved = await serviceProductDB.getById(id);
       if (productRetrieved instanceof Error) throw productRetrieved;
-      const responseProductDTO = productsDTO(productRetrieved);
-      return responseProductDTO;
+      return productRetrieved;
     } catch (error) {
       return error;
     }
@@ -48,12 +45,7 @@ class ProductService {
     try {
       const responseFromDelete = await serviceProductDB.deleteById(idProduct);
       if (responseFromDelete instanceof Error) throw responseFromDelete;
-      if (env.DATABASE_TO_USE === 'mongo') {
-        const responseFromProductDTO = productsDTO(responseFromDelete);
-        return responseFromProductDTO;
-      } else {
-        return responseFromDelete;
-      }
+      return responseFromDelete;
     } catch (error) {
       return error;
     }

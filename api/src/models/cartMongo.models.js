@@ -1,9 +1,19 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { productsSchema } from './productsMongo.models.js';
 
-const cartSchema = new mongoose.Schema({
-  date: { type: Date, default: Date.now },
-  product: [{ type: productsSchema }],
-});
+const cartSchema = new mongoose.Schema(
+  {
+    date: { type: Date, default: Date.now },
+    product: [
+      {
+        id: { type: Schema.Types.ObjectId, required: true },
+        productName: { type: String, required: true },
+        price: { type: Number, required: true },
+        thumbnail: { type: String, required: true },
+      },
+    ],
+  },
+  { versionKey: false }
+);
 
 export { cartSchema };

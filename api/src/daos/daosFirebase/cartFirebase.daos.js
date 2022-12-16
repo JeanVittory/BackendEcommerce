@@ -26,7 +26,7 @@ class CartFirebaseDaos extends FirestoreService {
       });
       return { idCart: productAddedResponse.id };
     } catch (error) {
-      error;
+      return error;
     }
   }
   async saveProductOnCart(idCart, newProduct) {
@@ -45,6 +45,7 @@ class CartFirebaseDaos extends FirestoreService {
         .update({
           products: firestore.FieldValue.arrayUnion(newProduct),
         });
+      return { message: 'Product added' };
     } catch (error) {
       return error;
     }
@@ -53,12 +54,24 @@ class CartFirebaseDaos extends FirestoreService {
   async deleteProductFromCart(idCart, idProduct) {
     try {
       const db = appFirestore.firestore();
-      const productToBeDeleted = (
-        await db.collection(this.nameCollection).doc(idCart).get()
-      ).data();
-      const dataToArray = new Array(productToBeDeleted.products).flat();
-      const newDataUpdated = dataToArray.filter((doc) => doc._id !== idProduct);
+      const productsInCart = (await db.collection(this.nameCollection).doc(idCart).get()).data();
+      const dataToArray = new Array(productsInCart.products).flat();
+      if (!dataToArray.length) {
+        throw new ErrorHandler({
+          status: 404,
+          message: 'The cart is empty',
+        });
+      }
+      const isProduct = dataToArray.some((product) => product.id === idProduct);
+      if (!isProduct) {
+        throw new ErrorHandler({
+          status: 404,
+          message: "The product doesn't exist in your cart",
+        });
+      }
+      const newDataUpdated = dataToArray.filter((doc) => doc.id !== idProduct);
       await db.collection(this.nameCollection).doc(idCart).update({ products: newDataUpdated });
+      return { message: 'product deleted' };
     } catch (error) {
       return error;
     }

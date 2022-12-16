@@ -87,3 +87,29 @@
 14-12-2022 T 10:28:48 [error]: Error 500. Cannot read properties of undefined (reading 'id') 
 14-12-2022 T 10:29:21 [error]: Error 500. Cannot read properties of undefined (reading 'id') 
 14-12-2022 T 10:33:29 [error]: 404. The product doesn't exist in database 
+15-12-2022 T 12:01:35 [error]: 404. The product doesn't exist in database 
+15-12-2022 T 12:04:59 [error]: 404. The product doesn't exist in database 
+15-12-2022 T 12:05:07 [error]: 404. The product doesn't exist in database 
+15-12-2022 T 06:56:14 [error]: Error 400. Enter a product image 
+15-12-2022 T 07:08:49 [error]: Error 500. Invalid status code: undefined 
+15-12-2022 T 07:24:48 [error]: 404.The cart don't exist in the database 
+15-12-2022 T 07:25:00 [error]: 404.The product doesn't exist in database 
+15-12-2022 T 07:58:19 [error]: 404.The product doesn't exist in database 
+15-12-2022 T 07:58:32 [error]: 404.The product doesn't exist in database 
+15-12-2022 T 07:58:46 [error]: 404.The product doesn't exist in database 
+15-12-2022 T 08:02:00 [error]: Error 500. responseFromDeleteCart is not defined 
+15-12-2022 T 08:03:59 [error]: Error 500. responseFromDeleteCart is not defined 
+15-12-2022 T 08:05:31 [error]: 404.The cart is empty 
+15-12-2022 T 08:12:52 [error]: 404.The product doesn't exist in your cart 
+15-12-2022 T 08:13:04 [error]: 404.The product doesn't exist in database 
+15-12-2022 T 08:14:28 [error]: 404.The product doesn't exist in your cart 
+15-12-2022 T 08:15:26 [error]: 404.The product doesn't exist in your cart 
+15-12-2022 T 08:15:42 [error]: 404.The product doesn't exist in database 
+15-12-2022 T 08:17:28 [error]: 404.The product or cart doesn't exist in database 
+15-12-2022 T 08:32:40 [error]: 404. The product or cart doesn't exist in database 
+15-12-2022 T 09:48:48 [error]: 404.Product doesn't exist 
+15-12-2022 T 09:50:29 [error]: 404.Product doesn't exist 
+15-12-2022 T 09:52:48 [error]: 404.Product doesn't exist 
+15-12-2022 T 09:53:32 [error]: 404.Product doesn't exist 
+15-12-2022 T 09:55:09 [error]: 404.Product doesn't exist 
+15-12-2022 T 10:40:00 [error]: 404.The product doesn't exist in your cart 

@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', async (e) => {
       productsTemplate.querySelector('img').setAttribute('alt', `${product.productName}`);
       productsTemplate.querySelector('figcaption').textContent = product.productName;
       productsTemplate.querySelector('p').textContent = `$${product.price}`;
-      productsTemplate.querySelector('.buyButton').setAttribute('data-productid', product._id);
-      productsTemplate.querySelector('.deleteButton').setAttribute('data-productid', product._id);
+      productsTemplate.querySelector('.buyButton').setAttribute('data-productid', product.id);
+      productsTemplate.querySelector('.deleteButton').setAttribute('data-productid', product.id);
       let clone = document.importNode(productsTemplate, true);
       fragment.appendChild(clone);
     });
@@ -70,9 +70,9 @@ document.addEventListener('click', async (e) => {
           method: 'POST',
         });
         const dataCart = await createCartResponse.json();
-        sessionStorage.setItem('cartId', dataCart._id);
+        sessionStorage.setItem('cartId', dataCart.id);
         const addProductToCartResponse = await fetch(
-          `${origin}/api/v1/carrito/${dataCart._id}/productos`,
+          `${origin}/api/v1/carrito/${dataCart.id}/productos`,
           {
             headers: { 'Content-type': 'application/json; charset=UTF-8' },
             method: 'POST',

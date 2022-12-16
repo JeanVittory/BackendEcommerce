@@ -26,17 +26,22 @@ class CartDaoMongoService {
       const responseDTO = { ...new CartDTO(productAddedResponse) };
       return responseDTO;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 
   async saveProductOnCart(idCart, newProduct) {
     try {
       const dbConnection = await doMongoConnection();
+      console.log('dao', newProduct);
       if (mongoose.isValidObjectId(idCart)) {
-        await this.collection.updateOne({ _id: idCart }, { $addToSet: { product: newProduct } });
+        const responseFromAdded = await this.collection.updateOne(
+          { _id: idCart },
+          { $addToSet: { product: newProduct } }
+        );
         await dbConnection.close();
-        return;
+
+        return { message: 'Product added' };
       } else {
         throw new ErrorHandler({
           status: 400,
@@ -53,12 +58,19 @@ class CartDaoMongoService {
     try {
       if (mongoose.isValidObjectId(idCart) & mongoose.isValidObjectId(idProduct)) {
         const dbConnection = await doMongoConnection();
+        const isProductInCart = await this.collection.findOne({ 'product.id': idProduct });
+        if (!isProductInCart) {
+          throw new ErrorHandler({
+            status: 404,
+            message: "The product doesn't exist in your cart",
+          });
+        }
         const res = await this.collection.updateOne(
           { _id: idCart },
-          { $pull: { product: { _id: idProduct } } }
+          { $pull: { product: { id: idProduct } } }
         );
         await dbConnection.close();
-        return res.modifiedCount;
+        return { message: 'Product deleted' };
       } else {
         throw new ErrorHandler({
           status: 400,

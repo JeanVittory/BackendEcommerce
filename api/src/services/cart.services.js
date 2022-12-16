@@ -4,28 +4,54 @@ class CartService {
   constructor() {}
 
   static async createCart() {
-    const productAddedResponse = await serviceCartDB.createCart();
-
-    return productAddedResponse;
+    try {
+      const productAddedResponse = await serviceCartDB.createCart();
+      if (productAddedResponse instanceof Error) throw productAddedResponse;
+      return productAddedResponse;
+    } catch (error) {
+      return error;
+    }
   }
 
   static async getById(id) {
-    const productRetrieved = await serviceCartDB.getById(id);
-    return productRetrieved;
+    try {
+      const productRetrieved = await serviceCartDB.getById(id);
+      if (productRetrieved instanceof Error) throw productRetrieved;
+      return productRetrieved;
+    } catch (error) {
+      return error;
+    }
   }
 
   static async saveProductOnCart(idCart, newProduct) {
-    await serviceCartDB.saveProductOnCart(idCart, newProduct);
+    try {
+      console.log('service', newProduct);
+      const responseFromSaveProduct = await serviceCartDB.saveProductOnCart(idCart, newProduct);
+      if (responseFromSaveProduct instanceof Error) throw responseFromSaveProduct;
+      return responseFromSaveProduct;
+    } catch (error) {
+      return error;
+    }
   }
 
   static async deleteProductFromCart(idCart, idProduct) {
-    const responseFromDelete = await serviceCartDB.deleteProductFromCart(idCart, idProduct);
-    return responseFromDelete;
+    try {
+      const responseFromDelete = await serviceCartDB.deleteProductFromCart(idCart, idProduct);
+      if (responseFromDelete instanceof Error) throw responseFromDelete;
+      return responseFromDelete;
+    } catch (error) {
+      return error;
+    }
   }
 
   static async deleteById(id) {
-    const responseFromDelete = await serviceCartDB.deleteById(id);
-    return responseFromDelete;
+    try {
+      const responseFromDelete = await serviceCartDB.deleteById(id);
+      if (responseFromDelete instanceof Error) throw responseFromDelete;
+      return responseFromDelete;
+    } catch (error) {
+      return error;
+    }
   }
 }
 

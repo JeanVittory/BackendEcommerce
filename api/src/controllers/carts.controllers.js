@@ -80,7 +80,7 @@ const postProductToCart = async (req, res) => {
         message: responseFromPostProductsOnCart.message,
       });
     }
-    return res.status(201).json({ message: 'Product added' });
+    return res.status(201).json(responseFromPostProductsOnCart);
   } catch (error) {
     logger.error(`Error 500. ${error.message}`);
     return res.status(500).json({ error: error.message });
@@ -92,6 +92,7 @@ const deleteProductFromCart = async (req, res) => {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id, id_prod } = req.params;
     const isProductInDb = await ProductService.getById(id_prod);
+    console.log('controller', isProductInDb);
     if (isProductInDb?.status) {
       logger.error(`${isProductInDb.status}.${isProductInDb.message}`);
       return res.status(isProductInDb.status).json({
@@ -109,13 +110,15 @@ const deleteProductFromCart = async (req, res) => {
     }
     const resposeFromDeleteProductFromCart = await CartService.deleteProductFromCart(id, id_prod);
     if (resposeFromDeleteProductFromCart?.status) {
-      logger.error(`${responseFromDeleteCart.status}.${responseFromDeleteCart.message}`);
+      logger.error(
+        `${resposeFromDeleteProductFromCart.status}.${resposeFromDeleteProductFromCart.message}`
+      );
       return res.status(resposeFromDeleteProductFromCart.status).json({
         status: resposeFromDeleteProductFromCart.status,
         message: resposeFromDeleteProductFromCart.message,
       });
     }
-    res.status(200).json({ code: resposeFromDeleteProductFromCart });
+    res.status(200).json(resposeFromDeleteProductFromCart);
   } catch (error) {
     logger.error(`Error 500. ${error.message}`);
     res.status(500).json({ error: error.message });

@@ -22,7 +22,7 @@ class FirestoreService {
       const snapShot = await db.collection(this.nameCollection).get();
       let productsRetrieved = [];
       snapShot.forEach((doc) => {
-        productsRetrieved.push({ _id: doc.id, ...doc.data() });
+        productsRetrieved.push({ id: doc.id, ...doc.data() });
       });
       return productsRetrieved;
     } catch (error) {
@@ -37,10 +37,10 @@ class FirestoreService {
       if (!responseFromGetById.exists) {
         throw new ErrorHandler({
           status: 404,
-          message: "The product doesn't exist in database",
+          message: "The product or cart doesn't exist in database",
         });
       }
-      return { _id: responseFromGetById.id, ...responseFromGetById.data() };
+      return { id: responseFromGetById.id, ...responseFromGetById.data() };
     } catch (error) {
       return error;
     }
@@ -62,7 +62,7 @@ class FirestoreService {
       }
       let productRetrieved;
       isInDb.forEach((doc) => {
-        productRetrieved = { _id: doc.id, ...doc.data() };
+        productRetrieved = { id: doc.id, ...doc.data() };
       });
       return productRetrieved;
     } catch (error) {
@@ -102,7 +102,7 @@ class FirestoreService {
       if (!isInDb.exists) {
         throw new ErrorHandler({
           status: 404,
-          message: "The product doesn't exist in database",
+          message: "The product or cart doesn't exist in database",
         });
       }
       const responseFromDeletion = await db.collection(this.nameCollection).doc(id).delete();
