@@ -52,11 +52,11 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, { id: user._id, role: user.role });
+  done(null, { id: user.id, role: user.role });
 });
 
-passport.deserializeUser(async (useData, done) => {
-  const { id, role } = useData;
+passport.deserializeUser(async (userData, done) => {
+  const { id, role } = userData;
 
   if (role === 'user') {
     const user = await ServiceUsers.getUserById(id);

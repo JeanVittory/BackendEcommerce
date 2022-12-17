@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { doMongoConnection } from '../../config/mongodb.config.js';
-import { usersDTO } from '../../dto/mongo/usersDto.dto.js';
+import { UsersDTO } from '../../dto/mongo/usersDto.dto.js';
 
 let instance = null;
 
@@ -24,7 +24,7 @@ class RegisterAdmins {
         const userAdd = new this.#collection(newDataUser);
         const userAddedResponse = await userAdd.save();
         await dbConnection.close();
-        const responseDTO = { ...new usersDTO(userAddedResponse) };
+        const responseDTO = { ...new UsersDTO(userAddedResponse) };
         return responseDTO;
       }
     } catch (error) {
@@ -43,11 +43,11 @@ class RegisterAdmins {
           { email: 1, username: 1, _id: 1, role: 1 }
         );
         await dbConnection.close();
-        const responseDTO = { ...new usersDTO(responseFromExistUser) };
+        const responseDTO = { ...new UsersDTO(responseFromExistUser) };
         return responseDTO;
       }
     } catch (error) {
-      console.log('error en userExist', error);
+      return error;
     }
   }
 
@@ -56,11 +56,11 @@ class RegisterAdmins {
       if (id) {
         const dbConnection = await doMongoConnection();
         const user = await this.#collection.findById(id, { username: 1, email: 1, _id: 1 });
-        const responseDTO = { ...new usersDTO(user) };
+        const responseDTO = { ...new UsersDTO(user) };
         return responseDTO;
       }
     } catch (error) {
-      console.log('error en getUserById', error);
+      return error;
     }
   }
 
@@ -70,11 +70,11 @@ class RegisterAdmins {
         const dbConnection = await doMongoConnection();
         const user = await this.#collection.findOne({ username: username });
         await dbConnection.close();
-        const responseDTO = { ...new usersDTO(user) };
+        const responseDTO = { ...new UsersDTO(user) };
         return responseDTO;
       }
     } catch (error) {
-      console.log('error en getUserById', error);
+      return error;
     }
   }
 
@@ -92,7 +92,7 @@ class RegisterAdmins {
         return pwd;
       }
     } catch (error) {
-      console.log('error en getPassword', error);
+      return error;
     }
   }
 }

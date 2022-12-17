@@ -3,8 +3,8 @@ import { serviceRegisterAdmin } from '../factory/factoryDaos.js';
 class ServiceAdmin {
   constructor() {}
 
-  static async addUser() {
-    const userAddedRsponse = await serviceRegisterAdmin.addUser();
+  static async addUser(user) {
+    const userAddedRsponse = await serviceRegisterAdmin.addUser(user);
     return userAddedRsponse;
   }
 

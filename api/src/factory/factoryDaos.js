@@ -30,6 +30,8 @@ if (env.DATABASE_TO_USE === 'firestore') {
   const { ProductsFirebaseDaos } = await import('../daos/daosFirebase/productsFirebase.daos.js');
   const { CartFirebaseDaos } = await import('../daos/daosFirebase/cartFirebase.daos.js');
   const { ChatFirebaseService } = await import('../daos/daosFirebase/chatFirebase.services.js');
+  const { AdminFirebaseDao } = await import('../daos/daosFirebase/adminsFirestore.daos.js');
+  serviceRegisterAdmin = AdminFirebaseDao.getInstance('admins');
   serviceChatDB = ChatFirebaseService.getInstance('chatMessages');
   serviceProductDB = ProductsFirebaseDaos.getInstance('products');
   serviceCartDB = CartFirebaseDaos.getInstance('carts');

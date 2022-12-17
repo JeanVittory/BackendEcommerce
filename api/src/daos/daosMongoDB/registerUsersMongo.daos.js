@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { doMongoConnection } from '../../config/mongodb.config.js';
-import { usersDTO } from '../../dto/mongo/usersDto.dto.js';
+import { UsersDTO } from '../../dto/mongo/usersDto.dto.js';
 
 let instance = null;
 
@@ -24,7 +24,7 @@ class RegisterUsers {
         const userAdd = new this.#collection(newDataUser);
         const userAddedResponse = await userAdd.save();
         await dbConnection.close();
-        const responseDTO = { ...new usersDTO(userAddedResponse) };
+        const responseDTO = { ...new UsersDTO(userAddedResponse) };
         return responseDTO;
       }
     } catch (error) {
@@ -43,7 +43,7 @@ class RegisterUsers {
           { email: 1, username: 1, _id: 1, role: 1 }
         );
         await dbConnection.close();
-        const responseDTO = { ...new usersDTO(responseFromExistUser) };
+        const responseDTO = { ...new UsersDTO(responseFromExistUser) };
         return responseDTO;
       }
     } catch (error) {
@@ -56,7 +56,7 @@ class RegisterUsers {
       if (id) {
         const dbConnection = await doMongoConnection();
         const user = await this.#collection.findById(id, { username: 1, email: 1, _id: 1 });
-        const responseDTO = { ...new usersDTO(user) };
+        const responseDTO = { ...new UsersDTO(user) };
         return responseDTO;
       }
     } catch (error) {
@@ -70,7 +70,7 @@ class RegisterUsers {
         const dbConnection = await doMongoConnection();
         const user = await this.#collection.findOne({ username: username });
         await dbConnection.close();
-        const responseDTO = { ...new usersDTO(user) };
+        const responseDTO = { ...new UsersDTO(user) };
         return responseDTO;
       }
     } catch (error) {
