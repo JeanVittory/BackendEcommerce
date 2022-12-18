@@ -118,7 +118,6 @@ class AdminFirebaseDao {
         }
         let pwd;
         userExist.forEach((doc) => (pwd = doc.data().password));
-        console.log('getPassword', pwd);
         return pwd;
       }
     } catch (error) {

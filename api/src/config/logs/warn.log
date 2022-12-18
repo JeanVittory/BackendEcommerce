@@ -247,3 +247,54 @@
 15-12-2022 T 09:55:09 [error]: 404.Product doesn't exist 
 15-12-2022 T 10:40:00 [error]: 404.The product doesn't exist in your cart 
 16-12-2022 T 09:34:22 [warn]: Error 404. Route not found 
+17-12-2022 T 04:40:03 [warn]: Error 404. Route not found 
+17-12-2022 T 04:41:47 [error]: Error 409. The email or the username already exist, please use another. 
+17-12-2022 T 04:44:02 [error]: Error 409. The email or the username already exist, please use another. 
+17-12-2022 T 04:50:12 [error]: Error 409. The email or the username already exist, please use another. 
+17-12-2022 T 04:51:42 [error]: Error 409. The email or the username already exist, please use another. 
+17-12-2022 T 04:55:55 [warn]: Error 404. Route not found 
+17-12-2022 T 04:55:56 [warn]: Error 404. Route not found 
+17-12-2022 T 04:56:14 [warn]: Error 404. Route not found 
+17-12-2022 T 04:56:15 [warn]: Error 404. Route not found 
+17-12-2022 T 04:58:24 [warn]: Error 404. Route not found 
+17-12-2022 T 04:58:26 [warn]: Error 404. Route not found 
+17-12-2022 T 04:58:48 [warn]: Error 404. Route not found 
+17-12-2022 T 04:58:49 [warn]: Error 404. Route not found 
+17-12-2022 T 05:09:57 [warn]: You're not authenticated 
+17-12-2022 T 05:19:21 [warn]: Error 404. Route not found 
+17-12-2022 T 05:19:31 [warn]: Error 404. Route not found 
+17-12-2022 T 05:19:50 [warn]: Error 404. Route not found 
+17-12-2022 T 05:29:39 [warn]: You're not authenticated 
+17-12-2022 T 05:29:52 [warn]: Error 404. Route not found 
+17-12-2022 T 05:30:04 [warn]: Error 404. Route not found 
+17-12-2022 T 05:32:21 [warn]: Error 404. Route not found 
+17-12-2022 T 05:50:37 [warn]: You're not authenticated 
+17-12-2022 T 05:50:58 [warn]: Error 404. Route not found 
+17-12-2022 T 05:50:58 [warn]: Error 404. Route not found 
+17-12-2022 T 05:53:54 [warn]: Error 404. Route not found 
+17-12-2022 T 05:59:16 [warn]: Error 404. Route not found 
+17-12-2022 T 06:10:31 [warn]: You're not authenticated 
+17-12-2022 T 06:23:52 [warn]: You're not authenticated 
+17-12-2022 T 06:35:53 [warn]: You're not authenticated 
+17-12-2022 T 06:48:50 [warn]: You're not authenticated 
+17-12-2022 T 07:00:22 [warn]: You're not authenticated 
+17-12-2022 T 07:10:59 [warn]: You're not authenticated 
+17-12-2022 T 07:25:58 [warn]: You're not authenticated 
+17-12-2022 T 07:38:23 [warn]: You're not authenticated 
+17-12-2022 T 07:40:19 [warn]: Error 404. Route not found 
+17-12-2022 T 07:41:25 [warn]: Error 404. Route not found 
+17-12-2022 T 07:42:19 [warn]: Error 404. Route not found 
+17-12-2022 T 07:42:40 [warn]: Error 404. Route not found 
+17-12-2022 T 07:49:35 [warn]: You're not authenticated 
+17-12-2022 T 07:51:16 [warn]: Error 404. Route not found 
+17-12-2022 T 07:51:19 [warn]: Error 404. Route not found 
+17-12-2022 T 07:51:37 [warn]: Error 404. Route not found 
+17-12-2022 T 07:51:40 [warn]: Error 404. Route not found 
+17-12-2022 T 07:53:31 [warn]: Error 404. Route not found 
+17-12-2022 T 07:53:33 [warn]: Error 404. Route not found 
+17-12-2022 T 07:54:11 [warn]: Error 404. Route not found 
+17-12-2022 T 07:56:44 [warn]: Error 404. Route not found 
+17-12-2022 T 07:57:43 [warn]: Error 404. Route not found 
+17-12-2022 T 08:27:27 [warn]: Error 404. Route not found 
+17-12-2022 T 08:27:27 [warn]: Error 404. Route not found 
+17-12-2022 T 10:03:06 [warn]: You're not authenticated 

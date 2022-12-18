@@ -1,6 +1,7 @@
 import { logger } from '../config/logger/index.js';
 import { ServiceUsers } from '../services/users.services.js';
 import { hashPassword } from '../tools/bcrypt.tools.js';
+import env from '../config/env.config.js';
 
 const getRegister = (req, res) => {
   logger.info(`accessing the route: ${req.baseUrl}`);
@@ -23,13 +24,14 @@ const postRegister = async (req, res) => {
       phone,
       age,
       role,
-      avatar: req.file.originalname,
+      avatar: `${env.APP_HOST}:${env.PORT}/users/avatars/${req.file.originalname}`,
     };
 
     const responseFromRegisterUsers = await ServiceUsers.userExist(
       newDataUser.username,
       newDataUser.email
     );
+    console.log(responseFromRegisterUsers);
     if (responseFromRegisterUsers) {
       logger.error('Error 409. The email or the username already exist, please use another.');
       return res

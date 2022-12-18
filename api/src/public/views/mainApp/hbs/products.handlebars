@@ -6,15 +6,15 @@
     <div class='table-header-cells'>Price</div>
     <div class='table-header-cells'>Photo</div>
   </div>
-  {{#if data}}
+  {{#if dataWithThumbnailFixed}}
     <div class='table-body'>
-      {{#each data}}
+      {{#each dataWithThumbnailFixed}}
         <div class='table-row'>
-          <div class='table-cell'><input type="checkbox" id="idRetriever" name="select" value={{this._id}}></div>
+          <div class='table-cell'><input type="checkbox" id="idRetriever" name="select" value={{this.id}}></div>
           <div class='table-cell'>{{this.productName}}</div>
           <div class='table-cell'>{{this.price}}</div>
           <div class='table-cell-image'>
-            <img class="img-product" src= "{{this.thumbnail}}"></img> 
+            <img class="img-product" src= "/mainApp/images/{{this.thumbnail}}"></img> 
           </div>
         </div>
       {{/each}}

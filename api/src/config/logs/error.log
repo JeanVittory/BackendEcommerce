@@ -113,3 +113,7 @@
 15-12-2022 T 09:53:32 [error]: 404.Product doesn't exist 
 15-12-2022 T 09:55:09 [error]: 404.Product doesn't exist 
 15-12-2022 T 10:40:00 [error]: 404.The product doesn't exist in your cart 
+17-12-2022 T 04:41:47 [error]: Error 409. The email or the username already exist, please use another. 
+17-12-2022 T 04:44:02 [error]: Error 409. The email or the username already exist, please use another. 
+17-12-2022 T 04:50:12 [error]: Error 409. The email or the username already exist, please use another. 
+17-12-2022 T 04:51:42 [error]: Error 409. The email or the username already exist, please use another. 

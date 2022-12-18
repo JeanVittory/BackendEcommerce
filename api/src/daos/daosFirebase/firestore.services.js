@@ -1,5 +1,6 @@
 import { appFirestore } from '../../config/firebase/products.firebase.config.js';
 import { ErrorHandler } from '../../tools/errorHandler.tools.js';
+import { productsDTO } from '../../dto/firebase/productDto.dto.js';
 
 class FirestoreService {
   constructor(nameCollection) {
@@ -24,6 +25,10 @@ class FirestoreService {
       snapShot.forEach((doc) => {
         productsRetrieved.push({ id: doc.id, ...doc.data() });
       });
+      if (this.nameCollection === 'products') {
+        const responseProductDto = productsDTO(productsRetrieved);
+        return responseProductDto;
+      }
       return productsRetrieved;
     } catch (error) {
       return error;
@@ -40,7 +45,12 @@ class FirestoreService {
           message: "The product or cart doesn't exist in database",
         });
       }
-      return { id: responseFromGetById.id, ...responseFromGetById.data() };
+      const product = { id: responseFromGetById.id, ...responseFromGetById.data() };
+      if (this.nameCollection === 'products') {
+        const responseProductDto = productsDTO(product);
+        return responseProductDto;
+      }
+      return product;
     } catch (error) {
       return error;
     }
@@ -64,6 +74,10 @@ class FirestoreService {
       isInDb.forEach((doc) => {
         productRetrieved = { id: doc.id, ...doc.data() };
       });
+      if (this.nameCollection === 'products') {
+        const responseProductDto = productsDTO(productRetrieved);
+        return responseProductDto;
+      }
       return productRetrieved;
     } catch (error) {
       return error;

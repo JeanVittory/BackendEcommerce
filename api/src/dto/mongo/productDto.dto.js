@@ -1,10 +1,11 @@
+import env from '../../config/env.config.js';
+
 export default class ProdutDTO {
-  #id = null;
   constructor({ _id, productName, price, thumbnail }) {
     this.id = _id;
     this.productName = productName;
     this.price = price;
-    this.thumbnail = thumbnail;
+    this.thumbnail = `${env.APP_HOST}:${env.PORT}/mainApp/images/${thumbnail}`;
   }
 }
 export function productsDTO(products) {

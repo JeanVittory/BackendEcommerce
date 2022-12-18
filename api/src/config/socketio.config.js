@@ -58,9 +58,9 @@ io.on('connection', async (socket) => {
       if (!idOfProductDeleted) throw Error('Something went wrong, please try it later');
       const listOfProductsFiltered = globalProductsFetched.filter((product) => {
         if (env.DATABASE_TO_USE === 'sql') {
-          return product._id !== +idOfProductDeleted;
+          return product.id !== +idOfProductDeleted;
         } else {
-          return product._id.valueOf() !== idOfProductDeleted;
+          return product.id.valueOf() !== idOfProductDeleted;
         }
       });
       globalProductsFetched = [...listOfProductsFiltered];
@@ -83,9 +83,9 @@ io.on('connection', async (socket) => {
       let isInDB = globalProductsFetched.find((product) => {
         if (env.DATABASE_TO_USE === 'sql') {
           productToBeUpdated.productId = +productToBeUpdated.productId;
-          return product._id === productToBeUpdated.productId && product;
+          return product.id === productToBeUpdated.productId && product;
         } else {
-          return product._id.valueOf() === productToBeUpdated.productId && product;
+          return product.id.valueOf() === productToBeUpdated.productId && product;
         }
       });
       if (!isInDB) {
@@ -95,20 +95,20 @@ io.on('connection', async (socket) => {
         productName: productToBeUpdated.product || isInDB.productName,
         price: productToBeUpdated.price || isInDB.price,
         thumbnail: productToBeUpdated.thumbnail || isInDB.thumbnail,
-        _id:
+        id:
           env.DATABASE_TO_USE === 'mongo'
             ? mongoose.Types.ObjectId(productToBeUpdated.productId)
             : productToBeUpdated.productId,
       };
       const newArrayUpdated = globalProductsFetched.map((product) => {
         if (env.DATABASE_TO_USE === 'mongo') {
-          if (product._id?.valueOf() === isInDB._id?.valueOf()) {
+          if (product.id?.valueOf() === isInDB.id?.valueOf()) {
             return isInDB;
           }
           return product;
         }
         if ((env.DATABASE_TO_USE === 'firestore') | (env.DATABASE_TO_USE === 'sql')) {
-          if (product._id === isInDB._id) {
+          if (product.id === isInDB.id) {
             return isInDB;
           }
           return product;

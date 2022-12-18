@@ -35,12 +35,8 @@ class CartDaoMongoService {
       const dbConnection = await doMongoConnection();
       console.log('dao', newProduct);
       if (mongoose.isValidObjectId(idCart)) {
-        const responseFromAdded = await this.collection.updateOne(
-          { _id: idCart },
-          { $addToSet: { product: newProduct } }
-        );
+        await this.collection.updateOne({ _id: idCart }, { $addToSet: { product: newProduct } });
         await dbConnection.close();
-
         return { message: 'Product added' };
       } else {
         throw new ErrorHandler({

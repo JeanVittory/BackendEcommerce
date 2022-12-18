@@ -31,10 +31,12 @@ if (env.DATABASE_TO_USE === 'firestore') {
   const { CartFirebaseDaos } = await import('../daos/daosFirebase/cartFirebase.daos.js');
   const { ChatFirebaseService } = await import('../daos/daosFirebase/chatFirebase.services.js');
   const { AdminFirebaseDao } = await import('../daos/daosFirebase/adminsFirestore.daos.js');
+  const { UserFirebaseDao } = await import('../daos/daosFirebase/usersFirestore.daos.js');
   serviceRegisterAdmin = AdminFirebaseDao.getInstance('admins');
   serviceChatDB = ChatFirebaseService.getInstance('chatMessages');
   serviceProductDB = ProductsFirebaseDaos.getInstance('products');
   serviceCartDB = CartFirebaseDaos.getInstance('carts');
+  serviceRegisterUsers = UserFirebaseDao.getInstance('users');
 }
 
 if (env.DATABASE_TO_USE === 'sql') {

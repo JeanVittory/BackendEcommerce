@@ -46,7 +46,7 @@ const postProducts = async (req, res) => {
     const newProduct = {
       ...req.body,
       price: req.body.price,
-      thumbnail: `${env.APP_HOST}:${env.PORT}/mainApp/images/${req.file.originalname}`,
+      thumbnail: req.file.originalname,
     };
     const responseFromSaveController = await ProductService.save(newProduct);
 

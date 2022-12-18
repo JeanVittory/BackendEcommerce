@@ -34,9 +34,7 @@ document.addEventListener('DOMContentLoaded', async (e) => {
   } else {
     errorContainer.classList.add('hidden');
     dataProducts.forEach((product) => {
-      productsTemplate
-        .querySelector('img')
-        .setAttribute('src', `/mainApp/images/${product.thumbnail}`);
+      productsTemplate.querySelector('img').setAttribute('src', product.thumbnail);
       productsTemplate.querySelector('img').setAttribute('alt', `${product.productName}`);
       productsTemplate.querySelector('figcaption').textContent = product.productName;
       productsTemplate.querySelector('p').textContent = `$${product.price}`;

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import env from '../config/env.config.js';
 
 const productsSchema = new mongoose.Schema(
   {
