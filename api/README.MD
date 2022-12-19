@@ -119,7 +119,7 @@ npm i
 pnpm run dev
 ```
 
-ensure to have installed redis-server in your machine otherwise visit [Redis instllation](https://redis.io/docs/getting-started/installation/)
+Ensure to have installed redis-server in your machine otherwise visit [Redis installation](https://redis.io/docs/getting-started/installation/)
 
 ## Test
 
