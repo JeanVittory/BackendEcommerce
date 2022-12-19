@@ -119,6 +119,8 @@ npm i
 pnpm run dev
 ```
 
+ensure to have installed redis-server in your machine otherwise visit [Redis instllation](https://redis.io/docs/getting-started/installation/)
+
 ## Test
 
 To run test with mocha:

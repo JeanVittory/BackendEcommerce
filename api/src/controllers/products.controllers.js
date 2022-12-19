@@ -1,27 +1,38 @@
 import { ProductService } from '../services/product.services.js';
 import { logger } from '../config/logger/index.js';
-import env from '../config/env.config.js';
+import { getRedis, setRedis } from '../config/redis/init.redis.js';
 
 const getProducts = async (req, res) => {
   try {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id } = req.params;
     if (!id) {
-      const responseFromGetAll = await ProductService.getAll();
-      if (responseFromGetAll instanceof Error) {
-        throw new Error('Something went Wrong with server');
-      }
-      res.status(200).json(responseFromGetAll);
-    } else {
-      const responseFromGetByIdController = await ProductService.getById(id);
-
-      if (responseFromGetByIdController?.message) {
-        res.status(responseFromGetByIdController.status).json({
-          status: responseFromGetByIdController.status,
-          message: responseFromGetByIdController.message,
-        });
+      const productsCached = await getRedis('products');
+      if (!productsCached) {
+        const responseFromGetAll = await ProductService.getAll();
+        if (responseFromGetAll instanceof Error) {
+          throw new Error('Something went Wrong with server');
+        }
+        await setRedis('products', responseFromGetAll);
+        return res.status(200).json(responseFromGetAll);
       } else {
-        res.status(200).json(responseFromGetByIdController);
+        return res.status(200).json(productsCached);
+      }
+    } else {
+      const productCached = await getRedis(id);
+      if (!productCached) {
+        const responseFromGetByIdController = await ProductService.getById(id);
+        if (responseFromGetByIdController?.message) {
+          return res.status(responseFromGetByIdController.status).json({
+            status: responseFromGetByIdController.status,
+            message: responseFromGetByIdController.message,
+          });
+        } else {
+          await setRedis(id, responseFromGetByIdController);
+          return res.status(200).json(responseFromGetByIdController);
+        }
+      } else {
+        return res.status(200).json(productCached);
       }
     }
   } catch (error) {
