@@ -1,4 +1,4 @@
-import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLUnionType } from 'graphql';
 
 const ProductType = new GraphQLObjectType({
   name: 'product',
@@ -18,4 +18,21 @@ const ProductType = new GraphQLObjectType({
   },
 });
 
-export { ProductType };
+const ProductMessageError = new GraphQLObjectType({
+  name: 'ProductError',
+  fields: {
+    status: { type: GraphQLInt },
+    message: { type: GraphQLString },
+  },
+});
+
+const unionType = new GraphQLUnionType({
+  name: 'unions',
+  types: [ProductMessageError, ProductType],
+  resolveType: (value) => {
+    if (value.status) return ProductMessageError;
+    return ProductType;
+  },
+});
+
+export { ProductType, ProductMessageError, unionType };

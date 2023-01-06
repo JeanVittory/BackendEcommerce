@@ -1,10 +1,11 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
-import { getProducts } from './queries/products.queries.graphql.js';
+import { getProducts, getProductById } from './queries/products.queries.graphql.js';
 
 const rootQuery = new GraphQLObjectType({
   name: 'RootQuery',
   fields: {
     getProducts,
+    getProductById,
   },
 });
 

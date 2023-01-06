@@ -1,5 +1,4 @@
 import { serviceProductDB } from '../factory/factoryDaos.js';
-import { productsDTO } from '../dto/mongo/productDto.dto.js';
 import env from '../config/env.config.js';
 
 class ProductService {

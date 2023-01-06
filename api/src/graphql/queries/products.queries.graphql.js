@@ -1,18 +1,28 @@
-import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString } from 'graphql';
-import { ProductType } from '../typeDefs/products.typedefs.js';
+import { GraphQLID, GraphQLList, GraphQLUnionType } from 'graphql';
+import { ProductService } from '../../services/product.services.js';
+import { ProductType, ProductMessageError, unionType } from '../typeDefs/products.typedefs.js';
 
 const getProducts = {
-  type: GraphQLString,
+  type: new GraphQLList(ProductType),
+  resolve: async (_, args) => {
+    const response = await ProductService.getAll();
+    return response;
+  },
+};
+
+const getProductById = {
+  type: unionType,
   args: {
     id: {
       type: GraphQLID,
     },
   },
-  resolve: (_, args) => {
+  resolve: async (_, args) => {
     const { id } = args;
-    if (!id) return 'list of products';
-    return 'single product';
+    const response = await ProductService.getById(id);
+    if (response instanceof Error) return { status: response.status, message: response.message };
+    return response;
   },
 };
 
-export { getProducts };
+export { getProducts, getProductById };
