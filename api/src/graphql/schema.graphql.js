@@ -1,5 +1,6 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 import { getProducts, getProductById } from './queries/products.queries.graphql.js';
+import { postProduct, deleteProduct, updateProduct } from './mutations/products.mutations.js';
 
 const rootQuery = new GraphQLObjectType({
   name: 'RootQuery',
@@ -9,16 +10,18 @@ const rootQuery = new GraphQLObjectType({
   },
 });
 
-// const rootMutation = new GraphQLObjectType({
-//   name: 'RootMutation',
-//   fields: {
-
-//   },
-// });
+const rootMutation = new GraphQLObjectType({
+  name: 'RootMutation',
+  fields: {
+    postProduct,
+    deleteProduct,
+    updateProduct,
+  },
+});
 
 const schema = new GraphQLSchema({
   query: rootQuery,
-  //mutation: rootMutation,
+  mutation: rootMutation,
 });
 
 export { schema };
