@@ -92,7 +92,6 @@ const deleteProductFromCart = async (req, res) => {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { id, id_prod } = req.params;
     const isProductInDb = await ProductService.getById(id_prod);
-    console.log('controller', isProductInDb);
     if (isProductInDb?.status) {
       logger.error(`${isProductInDb.status}.${isProductInDb.message}`);
       return res.status(isProductInDb.status).json({

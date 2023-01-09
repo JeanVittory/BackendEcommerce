@@ -53,4 +53,27 @@ const postProductOnCart = {
   },
 };
 
-export { createCart, deleteCart, postProductOnCart };
+const deleteProductFromCart = {
+  type: CartUnionTypes,
+  args: {
+    productID: { type: GraphQLID },
+    cartID: { type: GraphQLID },
+  },
+  resolve: async (_, args) => {
+    try {
+      const { productID, cartID } = args;
+      const isProduct = await ProductService.getById(productID);
+      if (isProduct instanceof Error)
+        return { status: isProduct.status, message: isProduct.message };
+      const isCart = await CartService.getById(cartID);
+      if (isCart instanceof Error) return { status: isCart.status, message: isCart.message };
+      const response = await CartService.deleteProductFromCart(cartID, productID);
+      if (response instanceof Error) return { status: response.status, message: response.message };
+      return response;
+    } catch (error) {
+      return error;
+    }
+  },
+};
+
+export { createCart, deleteCart, postProductOnCart, deleteProductFromCart };

@@ -15,7 +15,7 @@ const CartType = new GraphQLObjectType({
     id: {
       type: GraphQLID,
     },
-    products: {
+    product: {
       type: new GraphQLList(ProductType),
     },
   },
