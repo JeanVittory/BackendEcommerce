@@ -33,11 +33,10 @@ class CartDaoMongoService {
   async saveProductOnCart(idCart, newProduct) {
     try {
       const dbConnection = await doMongoConnection();
-      console.log('dao', newProduct);
       if (mongoose.isValidObjectId(idCart)) {
         await this.collection.updateOne({ _id: idCart }, { $addToSet: { product: newProduct } });
         await dbConnection.close();
-        return { message: 'Product added' };
+        return { ok: true, message: 'Product added' };
       } else {
         throw new ErrorHandler({
           status: 400,
@@ -61,12 +60,9 @@ class CartDaoMongoService {
             message: "The product doesn't exist in your cart",
           });
         }
-        const res = await this.collection.updateOne(
-          { _id: idCart },
-          { $pull: { product: { id: idProduct } } }
-        );
+        await this.collection.updateOne({ _id: idCart }, { $pull: { product: { id: idProduct } } });
         await dbConnection.close();
-        return { message: 'Product deleted' };
+        return { ok: true, message: 'Product deleted' };
       } else {
         throw new ErrorHandler({
           status: 400,
@@ -120,9 +116,10 @@ class CartDaoMongoService {
       if (responseFromDeletion === null) {
         throw new ErrorHandler({
           status: 404,
-          message: "Product doesn't exist",
+          message: "Cart doesn't exist",
         });
       }
+      return { ok: true, message: 'Cart deleted' };
     } catch (error) {
       return error;
     }

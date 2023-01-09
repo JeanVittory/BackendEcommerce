@@ -25,7 +25,6 @@ class CartService {
 
   static async saveProductOnCart(idCart, newProduct) {
     try {
-      console.log('service', newProduct);
       const responseFromSaveProduct = await serviceCartDB.saveProductOnCart(idCart, newProduct);
       if (responseFromSaveProduct instanceof Error) throw responseFromSaveProduct;
       return responseFromSaveProduct;

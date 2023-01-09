@@ -1,11 +1,4 @@
-import {
-  GraphQLBoolean,
-  GraphQLID,
-  GraphQLInt,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLUnionType,
-} from 'graphql';
+import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLUnionType } from 'graphql';
 
 const ProductType = new GraphQLObjectType({
   name: 'product',

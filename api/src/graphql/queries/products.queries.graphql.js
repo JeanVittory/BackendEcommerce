@@ -1,4 +1,4 @@
-import { GraphQLID, GraphQLList, GraphQLUnionType } from 'graphql';
+import { GraphQLID, GraphQLList } from 'graphql';
 import { ProductService } from '../../services/product.services.js';
 import { ProductType, ProductUnionType } from '../typeDefs/products.typedefs.js';
 
