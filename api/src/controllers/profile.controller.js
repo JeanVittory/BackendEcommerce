@@ -24,7 +24,6 @@ const getUserProfile = async (req, res) => {
 
     const user = await serviceRegisterUsers.getUserByUsername(username);
     const { avatar } = user;
-    console.log('user', user);
     const userData = {
       username: username,
       avatar: avatar,

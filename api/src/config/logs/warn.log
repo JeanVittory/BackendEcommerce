@@ -306,3 +306,8 @@
 08-01-2023 T 01:03:15 [error]: 404.Product doesn't exist 
 08-01-2023 T 09:11:28 [warn]: Error 404. Route not found 
 09-01-2023 T 03:42:19 [warn]: Error 404. Route not found 
+12-01-2023 T 03:40:54 [error]: Error 400. Enter a product image 
+12-01-2023 T 03:42:48 [error]: undefined. products validation failed: category: `t-shirt` is not a valid enum value for path `category`. 
+12-01-2023 T 03:46:00 [error]: undefined. products validation failed: category: t-shirt is not a category available. 
+12-01-2023 T 04:41:26 [error]: undefined. products validation failed: category: t-shirt is not a category available. 
+12-01-2023 T 04:41:34 [error]: undefined. E11000 duplicate key error collection: ecommerce.products index: productName_1 dup key: { productName: "Camiseta XL" } 

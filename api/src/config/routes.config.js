@@ -4,6 +4,7 @@ import { routerLogin } from '../routes/login.routes.js';
 import { routerProducts } from '../routes/products.routes.js';
 import { routerProfile } from '../routes/profile.routes.js';
 import { routerRegister } from '../routes/register.routes.js';
+import { routerCategories } from '../routes/categories.routes.js';
 import { testRoute } from '../routes/test.routes.js';
 import { twilioRoute } from '../routes/twilio.routes.js';
 import express from 'express';
@@ -31,6 +32,7 @@ const applicationRoutes = () => {
   app.use('/api/v1/profile', routerProfile);
   app.use('/api/v1/productos', routerProducts);
   app.use('/api/v1/carrito', routerCart);
+  app.use('/api/v1/categories', routerCategories);
   app.use('/api/v1/test', testRoute);
   app.use('/api/v1/order', twilioRoute);
   app.use('*', (req, res) => {

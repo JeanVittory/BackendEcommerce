@@ -48,16 +48,17 @@ const postProducts = async (req, res) => {
       logger.error('Error 400. Enter a product image');
       return res.status(400).json({ error: 'Enter a product image' });
     }
-    if (!req.body.productName || !req.body.price) {
-      logger.error('You must enter the name of the product and its respective price');
+    if (!req.body.productName || !req.body.price || !req.body.category) {
+      logger.error('You must enter the name of the product, its respective price and a category');
       return res.status(400).json({
-        error: 'You must enter the name of the product and its respective price',
+        error: 'You must enter the name of the product, its respective price and a category',
       });
     }
     const newProduct = {
       ...req.body,
       price: req.body.price,
       thumbnail: req.file.originalname,
+      category: req.body.category,
     };
     const responseFromSaveController = await ProductService.save(newProduct);
 

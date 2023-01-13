@@ -30,7 +30,7 @@ const setRedis = async (key, value) => {
     const client = await initRedis();
     await client.set(key, JSON.stringify(value)),
       {
-        EX: 300,
+        EX: 3,
         NX: true,
       };
     return 1;

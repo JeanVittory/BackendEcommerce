@@ -6,6 +6,7 @@ let serviceCartDB;
 let serviceChatDB;
 let serviceRegisterUsers;
 let serviceRegisterAdmin;
+let serviceCategoriesDB;
 
 if (args.dao === 'mongo') {
   const { ProductsDaoMongoService } = await import('../daos/daosMongoDB/product.daos.js');
@@ -13,15 +14,18 @@ if (args.dao === 'mongo') {
   const { RegisterUsers } = await import('../daos/daosMongoDB/registerUsersMongo.daos.js');
   const { RegisterAdmins } = await import('../daos/daosMongoDB/adminsMongo.daos.js');
   const { ChatMongoService } = await import('../daos/daosMongoDB/chatMongo.daos.js');
+  const { CategoriesDaoMongoService } = await import('../daos/daosMongoDB/categories.daos.js');
   const { productsSchema } = await import('../models/productsMongo.models.js');
   const { cartSchema } = await import('../models/cartMongo.models.js');
   const { chatSchema } = await import('../models/chatMongo.models.js');
   const { usersSchema } = await import('../models/users.models.js');
   const { adminsSchema } = await import('../models/admins.models.js');
+  const { categoriesSchema } = await import('../models/categoriesMongo.models.js');
 
   serviceChatDB = ChatMongoService.getInstance('chatMessages', chatSchema);
   serviceProductDB = ProductsDaoMongoService.getInstance('products', productsSchema);
   serviceCartDB = CartDaoMongoService.getInstance('cart', cartSchema);
+  serviceCategoriesDB = CategoriesDaoMongoService.getInstance('categories', categoriesSchema);
   serviceRegisterUsers = RegisterUsers.getInstance('users', usersSchema);
   serviceRegisterAdmin = RegisterAdmins.getInstance('admins', adminsSchema);
 }
@@ -53,4 +57,5 @@ export {
   serviceChatDB,
   serviceRegisterUsers,
   serviceRegisterAdmin,
+  serviceCategoriesDB,
 };

@@ -21,6 +21,8 @@ class ProductsDaoMongoService {
     try {
       const dbConnection = await doMongoConnection();
       const addDocument = new this.collection(product);
+      const error = addDocument.validateSync();
+      if (error) return error;
       const productAddedResponse = await addDocument.save();
       await dbConnection.close();
       return productAddedResponse._id;
