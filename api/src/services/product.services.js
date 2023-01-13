@@ -50,6 +50,16 @@ class ProductService {
     }
   }
 
+  static async getProductsByCategory(category) {
+    try {
+      const response = await serviceProductDB.getProductsByCategory(category);
+      if (response instanceof Error) throw response;
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
   static async deleteAll() {
     try {
       await serviceProductDB.deleteAll();

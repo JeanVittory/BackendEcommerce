@@ -124,4 +124,15 @@ const deleteProductsById = async (req, res) => {
   }
 };
 
-export { getProducts, postProducts, putProductsById, deleteProductsById };
+const getProductsByCategory = async (req, res) => {
+  try {
+    const { category } = req.params;
+    const response = await ProductService.getProductsByCategory(category);
+    res.status(200).json(response);
+  } catch (error) {
+    logger.error(`Error 500. ${error.message}`);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export { getProducts, postProducts, putProductsById, deleteProductsById, getProductsByCategory };

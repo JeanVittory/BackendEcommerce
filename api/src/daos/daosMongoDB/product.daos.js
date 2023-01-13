@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { doMongoConnection } from '../../config/mongodb.config.js';
 import { productsDTO } from '../../dto/mongo/productDto.dto.js';
 import { ErrorHandler } from '../../tools/errorHandler.tools.js';
+import { capitalize } from '../../tools/functions.tools.js';
 
 let instance = null;
 
@@ -17,9 +18,15 @@ class ProductsDaoMongoService {
     return instance;
   }
 
-  async save(product) {
+  async save({ productName, price, thumbnail, category }) {
     try {
       const dbConnection = await doMongoConnection();
+      const product = {
+        productName,
+        price,
+        thumbnail,
+        category: capitalize(category),
+      };
       const addDocument = new this.collection(product);
       const error = addDocument.validateSync();
       if (error) return error;
@@ -84,6 +91,26 @@ class ProductsDaoMongoService {
             'Invalid ID product, mongo only accept 12 bytes, a string of 24 hex characters or an integer id value',
         });
       }
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getProductsByCategory(category) {
+    try {
+      const dbConnection = await doMongoConnection();
+      const categoryCapitalized = capitalize(category);
+      const response = await this.collection.find({
+        category: categoryCapitalized,
+      });
+      await dbConnection.close();
+      if (!response.length)
+        throw ErrorHandler({
+          status: 404,
+          message: "There isn't product in these category",
+        });
+
+      return productsDTO(response);
     } catch (error) {
       return error;
     }

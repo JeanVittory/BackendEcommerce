@@ -25,4 +25,16 @@ process.on('message', (message) => {
   }
 });
 
-export { percentageCalculator, randomNumbers };
+const capitalize = (word) => {
+  const array = word.split('').shift().toUpperCase();
+  const newArray = word.split('').slice(1, word.length).join('');
+  return array + newArray;
+};
+
+// const capitalize = (word) => {
+//   const array = word.split('');
+//   array.splice(0, 1, array[0].toUpperCase());
+//   return array.join('');
+// };
+
+export { percentageCalculator, randomNumbers, capitalize };

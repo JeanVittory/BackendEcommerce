@@ -5,11 +5,13 @@ import {
   postProducts,
   putProductsById,
   deleteProductsById,
+  getProductsByCategory,
 } from '../controllers/products.controllers.js';
 
 const routerProducts = Router();
 
 routerProducts.get('/:id?', getProducts);
+routerProducts.get('/categorias/:category', getProductsByCategory);
 routerProducts.post('/', multerMiddleware, postProducts);
 routerProducts.put('/:id', multerMiddleware, putProductsById);
 routerProducts.delete('/:id', deleteProductsById);
