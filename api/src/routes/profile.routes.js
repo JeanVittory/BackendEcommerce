@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import passport from 'passport';
-import { app } from '../config/app.config.js';
 import {
   auth,
   getAdminProfile,

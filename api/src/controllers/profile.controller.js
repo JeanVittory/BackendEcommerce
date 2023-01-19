@@ -1,6 +1,8 @@
 import { app } from '../config/app.config.js';
 import { logger } from '../config/logger/index.js';
 import { serviceRegisterUsers } from '../factory/factoryDaos.js';
+import jwt from 'jsonwebtoken';
+import env from '../config/env.config.js';
 
 const URL =
   process.env.NODE_ENV === 'production'
@@ -37,9 +39,12 @@ const getUserProfile = async (req, res) => {
 
 const auth = (req, res) => {
   logger.info(`accessing the route: ${req.baseUrl}`);
+  console.log(req.body);
   const { role, username } = req.body;
   if (role === 'admin') {
-    res.redirect(`${URL}/api/v1/profile/admin`);
+    const token = jwt.sign({ user: req.body }, env.JWT_SECRET, { expiresIn: env.JWT_EXP_TIME });
+    res.json({ token });
+    //res.redirect(`${URL}/api/v1/profile/admin`);
   }
   if (role === 'user') {
     res.redirect(`${URL}/api/v1/profile/user/${username}`);

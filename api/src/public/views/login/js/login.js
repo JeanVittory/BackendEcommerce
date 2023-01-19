@@ -48,9 +48,13 @@ document.addEventListener('click', async (e) => {
             },
           }).showToast();
         }
-        if (response.redirected) {
-          location.href = response.url;
-        }
+        const data = await response.json();
+        console.log(data);
+        localStorage.setItem('token', JSON.stringify(data.token));
+        location.href = `${origin}/api/v1/profile/admin`;
+        // if (response.redirected) {
+        //   location.href = response.url;
+        // }
       } catch (error) {
         console.log(error);
       }

@@ -313,3 +313,5 @@
 12-01-2023 T 04:41:34 [error]: undefined. E11000 duplicate key error collection: ecommerce.products index: productName_1 dup key: { productName: "Camiseta XL" } 
 12-01-2023 T 10:24:50 [error]: undefined. products validation failed: category: t-shirts is not a category available. 
 12-01-2023 T 10:27:49 [error]: undefined. products validation failed: thumbnail: Path `thumbnail` is required. 
+18-01-2023 T 11:32:10 [warn]: Error 404. Route not found 
+18-01-2023 T 11:45:28 [warn]: You're not authenticated 
