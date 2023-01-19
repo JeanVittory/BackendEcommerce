@@ -31,7 +31,6 @@ const postRegister = async (req, res) => {
       newDataUser.username,
       newDataUser.email
     );
-    console.log(responseFromRegisterUsers);
     if (responseFromRegisterUsers) {
       logger.error('Error 409. The email or the username already exist, please use another.');
       return res
