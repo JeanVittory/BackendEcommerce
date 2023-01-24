@@ -49,12 +49,37 @@ document.addEventListener('click', async (e) => {
           }).showToast();
         }
         const data = await response.json();
-        console.log(data);
+        localStorage.clear();
         localStorage.setItem('token', JSON.stringify(data.token));
-        location.href = `${origin}/api/v1/profile/admin`;
-        // if (response.redirected) {
-        //   location.href = response.url;
-        // }
+        if (data.role === 'admin') {
+          const tokenStorage = JSON.parse(localStorage.getItem('token'));
+          console.log(tokenStorage);
+          const response = await fetch(`${origin}/api/v1/profile/admin`, {
+            method: 'GET',
+            headers: {
+              'Content-type': 'application/json',
+              Authorization: `Bearer ${tokenStorage}`,
+            },
+          });
+          const html = await response.text();
+          document.open();
+          document.write(html);
+          document.close();
+        }
+        if (data.role === 'user') {
+          const tokenStorage = localStorage.getItem('token');
+          const response = await fetch(`${origin}/api/v1/profile/user/${data.username}`, {
+            method: 'GET',
+            headers: {
+              'Content-type': 'application/json',
+              Authorization: `Bearer ${tokenStorage}`,
+            },
+          });
+          const html = await response.text();
+          document.open();
+          document.write(html);
+          document.close();
+        }
       } catch (error) {
         console.log(error);
       }
@@ -66,3 +91,6 @@ document.addEventListener('click', async (e) => {
     location.href = `${origin}/api/v1/register/`;
   }
 });
+
+// location.href = `${origin}/api/v1/profile/admin`;
+// location.href = `${origin}/api/v1/profile/user/${data.username}`

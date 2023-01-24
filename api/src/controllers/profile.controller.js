@@ -11,43 +11,44 @@ const URL =
 
 const getAdminProfile = (req, res) => {
   logger.info(`accessing the route: ${req.baseUrl}`);
-  if (req.isAuthenticated()) {
-    res.render('main', { layout: 'index' });
-  } else {
-    logger.warn("You're not authenticated");
-    res.redirect(`${URL}/`);
-  }
+  const authHeader = req.headers['authorization'];
+  // rome-ignore lint/complexity/useOptionalChain: <explanation>
+  const token = authHeader && authHeader.split(' ')[1];
+  console.log(token);
+  if (token === null) res.render('main', { layout: 'login' });
+  if (!jwt.verify(token, env.JWT_SECRET)) res.render('main', { layout: 'login' });
+  res.render('main', { layout: 'index' });
 };
 
 const getUserProfile = async (req, res) => {
   logger.info(`accessing the route: ${req.baseUrl}`);
-  if (req.isAuthenticated()) {
-    const username = req.params.username;
-
-    const user = await serviceRegisterUsers.getUserByUsername(username);
-    const { avatar } = user;
-    const userData = {
-      username: username,
-      avatar: avatar,
-    };
-    res.render('main', { layout: 'users', userData });
-  } else {
-    logger.warn("You're not authenticated");
-    res.redirect(`${URL}/`);
-  }
+  const authHeader = req.headers['authorization'];
+  // rome-ignore lint/complexity/useOptionalChain: <explanation>
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token === null) res.render('main', { layout: 'login' });
+  if (!jwt.verify(token, env.JWT_SECRET)) res.render('main', { layout: 'login' });
+  const username = req.params.username;
+  const user = await serviceRegisterUsers.getUserByUsername(username);
+  const { avatar } = user;
+  const userData = {
+    username: username,
+    avatar: avatar,
+  };
+  res.render('main', { layout: 'users', userData });
 };
 
 const auth = (req, res) => {
   logger.info(`accessing the route: ${req.baseUrl}`);
-  console.log(req.body);
   const { role, username } = req.body;
   if (role === 'admin') {
     const token = jwt.sign({ user: req.body }, env.JWT_SECRET, { expiresIn: env.JWT_EXP_TIME });
-    res.json({ token });
+    res.json({ token, role });
     //res.redirect(`${URL}/api/v1/profile/admin`);
   }
   if (role === 'user') {
-    res.redirect(`${URL}/api/v1/profile/user/${username}`);
+    const token = jwt.sign({ user: req.body }, env.JWT_SECRET, { expiresIn: env.JWT_EXP_TIME });
+    res.json({ token, role, username });
+    //res.redirect(`${URL}/api/v1/profile/user/${username}`);
   }
 };
 

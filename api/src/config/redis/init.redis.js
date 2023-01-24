@@ -28,11 +28,8 @@ const getRedis = async (key) => {
 const setRedis = async (key, value) => {
   try {
     const client = await initRedis();
-    await client.set(key, JSON.stringify(value)),
-      {
-        EX: 3,
-        NX: true,
-      };
+    await client.set(key, JSON.stringify(value));
+    client.expire(key, 60);
     return 1;
   } catch (error) {
     return error;

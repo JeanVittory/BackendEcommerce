@@ -24,11 +24,13 @@ if (args.mode === 'cluster') {
 
 if (args.mode === 'fork') {
   applicationMiddlewares();
+
   applicationRoutes();
   handlebarsConfig();
   serverHttp.listen(app.get('port'), () => {
     console.log(`Server running on port ${app.get('port')} in mode fork`);
   });
+  serverHttp.on('error', (e) => console.log(e));
 }
 
 if (args.mode === 'native_cluster') {

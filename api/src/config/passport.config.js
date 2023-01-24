@@ -3,6 +3,9 @@ import { Strategy } from 'passport-local';
 import { ServiceUsers } from '../services/users.services.js';
 import { ServiceAdmin } from '../services/admin.services.js';
 import { matchPasswords } from '../tools/bcrypt.tools.js';
+import { Strategy as JWTStrategy } from 'passport-jwt';
+import { ExtractJwt } from 'passport-jwt';
+import env from './env.config.js';
 
 passport.use(
   'login',
@@ -73,3 +76,20 @@ passport.deserializeUser(async (userData, done) => {
     done(null, user);
   }
 });
+
+passport.use(
+  new JWTStrategy(
+    {
+      secretOrKey: env.JWT_SECRET,
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    },
+    async (token, done) => {
+      try {
+        console.log('hello');
+        return done(null, token);
+      } catch (error) {
+        done(error);
+      }
+    }
+  )
+);
