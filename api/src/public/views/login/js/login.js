@@ -48,32 +48,30 @@ document.addEventListener('click', async (e) => {
             },
           }).showToast();
         }
-        const data = await response.json();
-        console.log(data.token);
+        location.href = `${origin}/api/v1/profile/admin`;
+        //const data = await response.json();
         //sessionStorage.clear();
-        localStorage.setItem('token', JSON.stringify(data.token));
-        if (data.role === 'admin') {
-          const tokenStorage = JSON.parse(localStorage.getItem('token'));
-          const response = await fetch(`${origin}/api/v1/profile/admin`, {
-            method: 'GET',
-            headers: {
-              'Content-type': 'application/json',
-              Authorization: `Bearer ${tokenStorage}`,
-            },
-          });
-          location.href = `${origin}/api/v1/profile/admin`;
-        }
-        if (data.role === 'user') {
-          const tokenStorage = JSON.parse(localStorage.getItem('token'));
-          const response = await fetch(`${origin}/api/v1/profile/user/${data.username}`, {
-            method: 'GET',
-            headers: {
-              'Content-type': 'application/json',
-              Authorization: `Bearer ${tokenStorage}`,
-            },
-          });
-          location.href = `${origin}/api/v1/profile/user/${data.username}`;
-        }
+        // if (data.role === 'admin') {
+        //   const response = await fetch(`${origin}/api/v1/profile/admin`, {
+        //     method: 'GET',
+        //     headers: {
+        //       'Content-type': 'application/json',
+        //       Authorization: `Bearer ${data.token}`,
+        //     },
+        //   });
+        //   location.href = `${origin}/api/v1/profile/admin`;
+        // }
+        // if (data.role === 'user') {
+        //   const tokenStorage = JSON.parse(localStorage.getItem('token'));
+        //   const response = await fetch(`${origin}/api/v1/profile/user/${data.username}`, {
+        //     method: 'GET',
+        //     headers: {
+        //       'Content-type': 'application/json',
+        //       Authorization: `Bearer ${data.token}`,
+        //     },
+        //   });
+        //   location.href = `${origin}/api/v1/profile/user/${data.username}`;
+        // }
       } catch (error) {
         console.log(error);
       }
@@ -85,10 +83,3 @@ document.addEventListener('click', async (e) => {
     location.href = `${origin}/api/v1/register/`;
   }
 });
-
-// location.href = `${origin}/api/v1/profile/admin`;
-// location.href = `${origin}/api/v1/profile/user/${data.username}`
-// const html = await response.text();
-// document.open();
-// document.write(html);
-// document.close();

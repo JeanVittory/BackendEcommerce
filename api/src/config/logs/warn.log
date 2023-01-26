@@ -341,3 +341,8 @@
 25-01-2023 T 05:12:08 [error]: Error 500. Cannot set headers after they are sent to the client 
 25-01-2023 T 05:13:15 [error]: Error 500. Cannot set headers after they are sent to the client 
 25-01-2023 T 05:37:05 [error]: Error 400. Enter a product image 
+25-01-2023 T 08:53:44 [warn]: Error 404. Route not found 
+25-01-2023 T 08:53:58 [warn]: Error 404. Route not found 
+25-01-2023 T 08:55:02 [warn]: Error 404. Route not found 
+25-01-2023 T 10:22:49 [warn]: Error 404. Route not found 
+25-01-2023 T 10:27:09 [warn]: Error 404. Route not found 
