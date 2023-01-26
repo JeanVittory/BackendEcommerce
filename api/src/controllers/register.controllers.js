@@ -12,6 +12,7 @@ const postRegister = async (req, res) => {
   try {
     logger.info(`accessing the route: ${req.baseUrl}`);
     const { email, username, password, address, phone, age, role } = req.body;
+    // rome-ignore lint/complexity/useSimplifiedLogicExpression: <explanation>
     if (!email || !password || !username) {
       logger.error('Error 400. Please provide an email and a password');
       return res.status(400).json({ error: 'Please provide an email and a password' });

@@ -14,19 +14,15 @@ const getAdminProfile = (req, res) => {
   const authHeader = req.headers['authorization'];
   // rome-ignore lint/complexity/useOptionalChain: <explanation>
   const token = authHeader && authHeader.split(' ')[1];
-  console.log(token);
   if (token === null) res.render('main', { layout: 'login' });
-  if (!jwt.verify(token, env.JWT_SECRET)) res.render('main', { layout: 'login' });
-  res.render('main', { layout: 'index' });
+  jwt.verify(token, env.JWT_SECRET, (err, token) => {
+    if (err) res.render('main', { layout: 'login' });
+    if (token) res.render('main', { layout: 'index' });
+  });
 };
 
 const getUserProfile = async (req, res) => {
   logger.info(`accessing the route: ${req.baseUrl}`);
-  const authHeader = req.headers['authorization'];
-  // rome-ignore lint/complexity/useOptionalChain: <explanation>
-  const token = authHeader && authHeader.split(' ')[1];
-  if (token === null) res.render('main', { layout: 'login' });
-  if (!jwt.verify(token, env.JWT_SECRET)) res.render('main', { layout: 'login' });
   const username = req.params.username;
   const user = await serviceRegisterUsers.getUserByUsername(username);
   const { avatar } = user;
@@ -34,7 +30,14 @@ const getUserProfile = async (req, res) => {
     username: username,
     avatar: avatar,
   };
-  res.render('main', { layout: 'users', userData });
+  const authHeader = req.headers['authorization'];
+  // rome-ignore lint/complexity/useOptionalChain: <explanation>
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token === null) res.render('main', { layout: 'login' });
+  jwt.verify(token, env.JWT_SECRET, (err, token) => {
+    if (err) res.render('main', { layout: 'login' });
+    if (token) res.render('main', { layout: 'users', userData });
+  });
 };
 
 const auth = (req, res) => {

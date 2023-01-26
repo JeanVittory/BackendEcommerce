@@ -49,11 +49,11 @@ document.addEventListener('click', async (e) => {
           }).showToast();
         }
         const data = await response.json();
-        localStorage.clear();
+        console.log(data.token);
+        //sessionStorage.clear();
         localStorage.setItem('token', JSON.stringify(data.token));
         if (data.role === 'admin') {
           const tokenStorage = JSON.parse(localStorage.getItem('token'));
-          console.log(tokenStorage);
           const response = await fetch(`${origin}/api/v1/profile/admin`, {
             method: 'GET',
             headers: {
@@ -61,13 +61,10 @@ document.addEventListener('click', async (e) => {
               Authorization: `Bearer ${tokenStorage}`,
             },
           });
-          const html = await response.text();
-          document.open();
-          document.write(html);
-          document.close();
+          location.href = `${origin}/api/v1/profile/admin`;
         }
         if (data.role === 'user') {
-          const tokenStorage = localStorage.getItem('token');
+          const tokenStorage = JSON.parse(localStorage.getItem('token'));
           const response = await fetch(`${origin}/api/v1/profile/user/${data.username}`, {
             method: 'GET',
             headers: {
@@ -75,10 +72,7 @@ document.addEventListener('click', async (e) => {
               Authorization: `Bearer ${tokenStorage}`,
             },
           });
-          const html = await response.text();
-          document.open();
-          document.write(html);
-          document.close();
+          location.href = `${origin}/api/v1/profile/user/${data.username}`;
         }
       } catch (error) {
         console.log(error);
@@ -94,3 +88,7 @@ document.addEventListener('click', async (e) => {
 
 // location.href = `${origin}/api/v1/profile/admin`;
 // location.href = `${origin}/api/v1/profile/user/${data.username}`
+// const html = await response.text();
+// document.open();
+// document.write(html);
+// document.close();

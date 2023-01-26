@@ -128,7 +128,9 @@ const getProductsByCategory = async (req, res) => {
   try {
     const { category } = req.params;
     const response = await ProductService.getProductsByCategory(category);
-    res.status(200).json(response);
+    if (response instanceof Array && response.length > 0) res.status(200).json(response);
+    if (Object.keys(response).length === 0)
+      res.status(404).json({ message: 'Not products available' });
   } catch (error) {
     logger.error(`Error 500. ${error.message}`);
     res.status(500).json({ error: error.message });

@@ -36,6 +36,7 @@ passport.use(
 
           done(null, user);
         } else {
+          console.log(username);
           const admin = await ServiceAdmin.userExist(username);
           if (!admin) {
             return done(null, false, { message: 'The admin not exist, please try again' });
@@ -85,7 +86,6 @@ passport.use(
     },
     async (token, done) => {
       try {
-        console.log('hello');
         return done(null, token);
       } catch (error) {
         done(error);

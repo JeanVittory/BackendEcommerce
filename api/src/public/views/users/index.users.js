@@ -5,7 +5,7 @@ const productsTemplate = document.querySelector('#productsTemplate').content;
 const fragment = document.createDocumentFragment();
 const productCard = document.querySelector('#card');
 const { origin } = window.location;
-
+//console.log(JSON.parse(localStorage.getItem('token')));
 const toastyAlert = (message) => {
   return Toastify({
     text: message,
@@ -17,6 +17,17 @@ const toastyAlert = (message) => {
     },
   }).showToast();
 };
+
+if (window.performance.getEntriesByType('navigation')[1]) {
+  const tokenStorage = JSON.parse(localStorage.getItem('token'));
+  await fetch(document.URL, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${tokenStorage}`,
+    },
+  });
+}
 
 document.addEventListener('DOMContentLoaded', async (e) => {
   quantityCart.textContent = 0;
