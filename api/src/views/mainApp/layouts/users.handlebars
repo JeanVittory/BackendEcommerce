@@ -34,6 +34,26 @@
         </div>
       </nav>
     </header>
+    <div class='chat'>
+      <div class='messages' id='messages'>
+        <div class='welcomeMessagecontainer'>
+          <p class='welcomeMessageChat'>Aqui inicia el chat</p>
+        </div>
+      </div>
+      <div class='infoUser'>
+        <input type='text' placeholder='Email*' class='emailUser' id='emailUser' />
+        <input type='text' placeholder='type*' class='emailUser' id='type' />
+        <input type='text' placeholder='Message*' class='messageUser' id='messageUser' />
+
+        <div class='btn-percent'>
+          <div class='percentageValue'>
+            Reduction data:
+            <span id='percentageReduction'>0%</span>
+          </div>
+          <button class='btnSendMessage' id='btnSendChatMessage'>Send</button>
+        </div>
+      </div>
+    </div>
 
     <div id='errorContainer' class='hidden errorContainer'></div>
     <section id='cards' class='productsContainer'></section>
@@ -53,14 +73,13 @@
     </template>
     <script src='https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.min.js'></script>
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/toastify-js'></script>
-
     <script
       src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js'
       integrity='sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=='
       crossorigin='anonymous'
       referrerpolicy='no-referrer'
     ></script>
-
+    <script src='/socket.io/socket.io.js'></script>
     <script src='/users/index.users.js' type='module'></script>
   </body>
 </html>

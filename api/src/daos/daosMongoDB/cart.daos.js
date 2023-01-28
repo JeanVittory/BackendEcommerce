@@ -22,7 +22,7 @@ class CartDaoMongoService {
       const dbConnection = await doMongoConnection();
       const newCart = new this.collection();
       const productAddedResponse = await newCart.save();
-      await dbConnection.close();
+
       const responseDTO = { ...new CartDTO(productAddedResponse) };
       return responseDTO;
     } catch (error) {
@@ -35,7 +35,7 @@ class CartDaoMongoService {
       const dbConnection = await doMongoConnection();
       if (mongoose.isValidObjectId(idCart)) {
         await this.collection.updateOne({ _id: idCart }, { $addToSet: { product: newProduct } });
-        await dbConnection.close();
+
         return { ok: true, message: 'Product added' };
       } else {
         throw new ErrorHandler({
@@ -61,7 +61,7 @@ class CartDaoMongoService {
           });
         }
         await this.collection.updateOne({ _id: idCart }, { $pull: { product: { id: idProduct } } });
-        await dbConnection.close();
+
         return { ok: true, message: 'Product deleted' };
       } else {
         throw new ErrorHandler({
@@ -84,7 +84,6 @@ class CartDaoMongoService {
           _id: objectId,
         });
 
-        await dbConnection.close();
         if (productRetrieved === null) {
           throw new ErrorHandler({
             status: 404,
@@ -109,7 +108,7 @@ class CartDaoMongoService {
     try {
       const dbConnection = await doMongoConnection();
       const objectId = mongoose.Types.ObjectId(id);
-      dbConnection.close();
+
       const responseFromDeletion = await this.collection.findByIdAndDelete({
         _id: objectId,
       });

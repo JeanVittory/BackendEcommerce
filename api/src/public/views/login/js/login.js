@@ -48,7 +48,9 @@ document.addEventListener('click', async (e) => {
             },
           }).showToast();
         }
-        location.href = `${origin}/api/v1/profile/admin`;
+        if (credentialsFromUser.role === 'admin') location.href = `${origin}/api/v1/profile/admin`;
+        if (credentialsFromUser.role === 'user')
+          location.href = `${origin}/api/v1/profile/user/${credentialsFromUser.username}`;
         //const data = await response.json();
         //sessionStorage.clear();
         // if (data.role === 'admin') {

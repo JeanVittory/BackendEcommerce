@@ -4,8 +4,21 @@ const cards = document.querySelector('#cards');
 const productsTemplate = document.querySelector('#productsTemplate').content;
 const fragment = document.createDocumentFragment();
 const productCard = document.querySelector('#card');
+const btnSendChatMessage = document.querySelector('#btnSendChatMessage');
+const emailUser = document.querySelector('#emailUser');
+const messageUser = document.querySelector('#messageUser');
+const typeMessage = document.querySelector('#type');
+const messagesContainer = document.querySelector('#messages');
+const percentageReduction = document.querySelector('#percentageReduction');
 const { origin } = window.location;
-//console.log(JSON.parse(localStorage.getItem('token')));
+
+const socket = io({
+  autoConnect: false,
+  reconnection: false,
+});
+
+socket.connect();
+
 const toastyAlert = (message) => {
   return Toastify({
     text: message,
@@ -18,21 +31,68 @@ const toastyAlert = (message) => {
   }).showToast();
 };
 
-if (window.performance.getEntriesByType('navigation')[1]) {
-  const tokenStorage = JSON.parse(localStorage.getItem('token'));
-  await fetch(document.URL, {
-    method: 'GET',
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: `Bearer ${tokenStorage}`,
-    },
+[emailUser, messageUser, typeMessage].forEach((element) => {
+  element.addEventListener('keyup', () => {
+    if (element.value !== '') {
+      element.classList.remove('alert');
+    }
+    return;
   });
-}
+
+  element.addEventListener('blur', () => {
+    if (element.value !== '') return;
+    element.classList.add('alert');
+    return;
+  });
+});
+
+btnSendChatMessage.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (emailUser.value === '' || messageUser.value === '' || typeMessage.value === '') {
+    [emailUser, messageUser, typeMessage].forEach((element) => {
+      element.classList.add('alert');
+    });
+    Toastify({
+      text: 'Please fill the form completely',
+      className: 'alert',
+      style: {
+        background:
+          'linear-gradient(90deg, rgba(208,199,15,1) 0%, rgba(214,9,68,1) 100%, rgba(0,212,255,1) 100%)',
+      },
+    }).showToast();
+    return;
+  }
+  const messageToSocket = {
+    email: emailUser.value,
+    typeMessage: typeMessage.value,
+    message: messageUser.value,
+  };
+  socket.emit('newMessageFromChat', messageToSocket);
+
+  [emailUser, messageUser, typeMessage].forEach((element) => {
+    element.value = '';
+  });
+});
 
 document.addEventListener('DOMContentLoaded', async (e) => {
+  socket.on('initialMessageLoad', (data) => {
+    if (data.error) {
+      const errorContainer = document.querySelector('.welcomeMessageChat');
+      errorContainer.textContent = `${data.error}`;
+    }
+    const { messages, percentage } = data;
+    messages.forEach((message) => {
+      let p = document.createElement('p');
+      p.classList.add('messageChat');
+      percentageReduction.textContent = ` ${percentage}%`;
+      p.innerHTML = `<span class="email">${message.author.email}</span><span class= "date"> [${message.author.date}]:</span> <span class= "message">${message.message}</span>`;
+      messagesContainer.prepend(p);
+    });
+  });
   quantityCart.textContent = 0;
   const responseDataProducts = await fetch(`${origin}/api/v1/productos`);
   const dataProducts = await responseDataProducts.json();
+  console.log(dataProducts);
   if (!dataProducts.length) {
     errorContainer.classList.remove('hidden');
     const message = document.createElement('p');
@@ -56,6 +116,21 @@ document.addEventListener('DOMContentLoaded', async (e) => {
     });
     cards.appendChild(fragment);
   }
+});
+
+socket.on('newMessageToChat', (message) => {
+  const { newMessageFormat, newPercentage } = message;
+  percentageReduction.textContent = ` ${newPercentage}%`;
+  let p = document.createElement('p');
+  p.classList.add('messageChat');
+  p.innerHTML = `<span class="email">${newMessageFormat.author.email}</span><span class= "date"> [${newMessageFormat.author.date}]:</span> <span class= "message">${newMessageFormat.message}</span>`;
+  messagesContainer.prepend(p);
+});
+
+socket.on('errorChat', (message) => {
+  let p = document.createElement('p');
+  p.classList.add('messageChat');
+  p.innerHTML = `<p class= "message">${message.error}</p>`;
 });
 
 document.addEventListener('click', async (e) => {

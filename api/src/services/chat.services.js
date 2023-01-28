@@ -13,7 +13,7 @@ class ChatService {
       await serviceChatDB.addMessage(message);
       return;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 }

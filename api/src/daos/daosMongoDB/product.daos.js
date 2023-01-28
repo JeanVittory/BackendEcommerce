@@ -31,7 +31,7 @@ class ProductsDaoMongoService {
       const error = addDocument.validateSync();
       if (error) return error;
       const productAddedResponse = await addDocument.save();
-      await dbConnection.close();
+
       return productAddedResponse._id;
     } catch (error) {
       return error;
@@ -42,7 +42,7 @@ class ProductsDaoMongoService {
     try {
       const dbConnection = await doMongoConnection();
       const productsRetrieved = await this.collection.find();
-      await dbConnection.close();
+
       const responseProductDTO = productsDTO(productsRetrieved);
       return responseProductDTO;
     } catch (error) {
@@ -56,7 +56,7 @@ class ProductsDaoMongoService {
       const productRetrieved = await this.collection.findOne({
         productName: nameProduct,
       });
-      await dbConnection.close();
+
       const responseProductDTO = productsDTO(productRetrieved);
       return responseProductDTO;
     } catch (error) {
@@ -74,7 +74,6 @@ class ProductsDaoMongoService {
           _id: objectId,
         });
 
-        await dbConnection.close();
         if (!productRetrieved) {
           return new ErrorHandler({
             status: 404,
@@ -103,7 +102,6 @@ class ProductsDaoMongoService {
       const response = await this.collection.find({
         category: categoryCapitalized,
       });
-      await dbConnection.close();
       if (!response.length)
         throw ErrorHandler({
           status: 404,
@@ -128,7 +126,7 @@ class ProductsDaoMongoService {
           { _id: id },
           { $set: dataProductToUpdate }
         );
-        await dbConnection.close();
+
         if (!responseFromUpdate.matchedCount) {
           return new ErrorHandler({
             status: 404,
@@ -156,7 +154,7 @@ class ProductsDaoMongoService {
         const responseFromDeletion = await this.collection.findByIdAndDelete({
           _id: objectId,
         });
-        dbConnection.close();
+
         if (!responseFromDeletion) {
           throw new ErrorHandler({
             status: 404,
@@ -183,7 +181,7 @@ class ProductsDaoMongoService {
       const responseFromDeleteAll = await this.collection.deleteMany({
         productName: { $exists: true },
       });
-      await dbConnection.close();
+
       return responseFromDeleteAll;
     } catch (error) {
       console.log('error en deleteAll', error);

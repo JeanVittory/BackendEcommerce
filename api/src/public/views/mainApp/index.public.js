@@ -12,11 +12,7 @@ const productContainer = document.querySelector('#productsContainer');
 const btnLogout = document.querySelector('#btnLogout');
 const emailUser = document.querySelector('#emailUser');
 const messageUser = document.querySelector('#messageUser');
-const userName = document.querySelector('#userName');
-const userLastname = document.querySelector('#userLastname');
-const userAge = document.querySelector('#userAge');
-const userAlias = document.querySelector('#userAlias');
-const userAvatar = document.querySelector('#userAvatar');
+const typeMessage = document.querySelector('#type');
 const btnSendChatMessage = document.querySelector('#btnSendChatMessage');
 const messagesContainer = document.querySelector('#messages');
 const percentageReduction = document.querySelector('#percentageReduction');
@@ -29,22 +25,20 @@ const socket = io({
 
 socket.connect();
 
-[emailUser, messageUser, userName, userLastname, userAge, userAlias, userAvatar].forEach(
-  (element) => {
-    element.addEventListener('keyup', () => {
-      if (element.value !== '') {
-        element.classList.remove('alert');
-      }
-      return;
-    });
+[emailUser, messageUser, typeMessage].forEach((element) => {
+  element.addEventListener('keyup', () => {
+    if (element.value !== '') {
+      element.classList.remove('alert');
+    }
+    return;
+  });
 
-    element.addEventListener('blur', () => {
-      if (element.value !== '') return;
-      element.classList.add('alert');
-      return;
-    });
-  }
-);
+  element.addEventListener('blur', () => {
+    if (element.value !== '') return;
+    element.classList.add('alert');
+    return;
+  });
+});
 
 btnLogout.addEventListener('click', async (e) => {
   const response = await fetch(`${origin}/api/v1/profile/logout`, {
@@ -57,20 +51,10 @@ btnLogout.addEventListener('click', async (e) => {
 
 btnSendChatMessage.addEventListener('click', (e) => {
   e.preventDefault();
-  if (
-    emailUser.value === '' ||
-    messageUser.value === '' ||
-    userName.value === '' ||
-    userLastname.value === '' ||
-    userAge.value === '' ||
-    userAlias.value === '' ||
-    userAvatar.value === ''
-  ) {
-    [emailUser, messageUser, userName, userLastname, userAge, userAlias, userAvatar].forEach(
-      (element) => {
-        element.classList.add('alert');
-      }
-    );
+  if (emailUser.value === '' || messageUser.value === '' || typeMessage.value === '') {
+    [emailUser, messageUser, typeMessage].forEach((element) => {
+      element.classList.add('alert');
+    });
     Toastify({
       text: 'Please fill the form completely',
       className: 'alert',
@@ -82,21 +66,15 @@ btnSendChatMessage.addEventListener('click', (e) => {
     return;
   }
   const messageToSocket = {
-    id: emailUser.value,
-    name: userName.value,
-    lastname: userLastname.value,
-    age: userAge.value,
-    alias: userAlias.value,
-    avatar: userAvatar.value,
+    email: emailUser.value,
+    typeMessage: typeMessage.value,
     message: messageUser.value,
   };
   socket.emit('newMessageFromChat', messageToSocket);
 
-  [emailUser, messageUser, userName, userLastname, userAge, userAlias, userAvatar].forEach(
-    (element) => {
-      element.value = '';
-    }
-  );
+  [emailUser, messageUser, typeMessage].forEach((element) => {
+    element.value = '';
+  });
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -121,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let p = document.createElement('p');
       p.classList.add('messageChat');
       percentageReduction.textContent = ` ${percentage}%`;
-      p.innerHTML = `<span class="email">${message.author.id}</span><span class= "date"> [${message.author.date}]:</span> <span class= "message">${message.message}</span>`;
+      p.innerHTML = `<span class="email">${message.author.email}</span><span class= "date"> [${message.author.date}]:</span> <span class= "message">${message.message}</span>`;
       messagesContainer.prepend(p);
     });
   });
@@ -180,7 +158,7 @@ socket.on('newMessageToChat', (message) => {
   percentageReduction.textContent = ` ${newPercentage}%`;
   let p = document.createElement('p');
   p.classList.add('messageChat');
-  p.innerHTML = `<span class="email">${newMessageFormat.author.id}</span><span class= "date"> [${newMessageFormat.author.date}]:</span> <span class= "message">${newMessageFormat.message}</span>`;
+  p.innerHTML = `<span class="email">${newMessageFormat.author.email}</span><span class= "date"> [${newMessageFormat.author.date}]:</span> <span class= "message">${newMessageFormat.message}</span>`;
   messagesContainer.prepend(p);
 });
 

@@ -43,6 +43,7 @@ body {
 
 .navProfile h2 {
   color: wheat;
+  width: 20%;
   letter-spacing: 1px;
 }
 
@@ -145,8 +146,152 @@ footer {
   }
 }
 
+.chat {
+  display: flex;
+  width: 50%;
+  height: 50%;
+  margin: 2rem auto;
+  background-color: rgb(0, 0, 0);
+  gap: 2rem;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.messages {
+  width: 100%;
+  height: 100%;
+  color: wheat;
+  font-style: italic;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.infoUser {
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.messageChat {
+  margin-bottom: 0.8rem;
+}
+
+.email,
+.date,
+.message {
+  font-family: monospace;
+  font-size: 12px;
+}
+.email {
+  color: rgb(99, 99, 202);
+  font-style: normal;
+}
+.date {
+  font-style: normal;
+  color: chocolate;
+}
+
+.welcomeMessagecontainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.welcomeMessageChat {
+  color: wheat;
+  font-size: 10px;
+  font-family: monospace;
+  text-align: center;
+  font-style: italic;
+  letter-spacing: 3px;
+}
+
+.messageText {
+  color: wheat;
+  font-size: 14px;
+  padding: 0.2rem 0;
+}
+
+.emailUser,
+.messageUser,
+.userName,
+.userLastName,
+.userAge,
+.userAlias,
+.userAvatar {
+  background: transparent;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-bottom: solid white 1px;
+  color: white;
+  caret-color: aliceblue;
+  font-family: monospace;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.3rem;
+}
+
+.alert {
+  border-color: red;
+}
+.btn-percent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.percentageValue {
+  color: #f7eddb;
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 1rem;
+  font-family: monospace;
+  font-size: 12px;
+}
+.percentageValue > span {
+  display: block;
+}
+
+.btnSendMessage {
+  width: 4rem;
+  font-family: monospace;
+  padding: 0.3rem 0;
+  margin-top: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 500px) {
   .productsContainer {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .chat {
+    width: 80%;
+    height: 60%;
+    margin: 0 auto;
+    order: -1;
+  }
+
+  .emailUser,
+  .messageUser,
+  .userName,
+  .userLastName,
+  .userAge,
+  .userAlias,
+  .userAvatar {
+    width: 100%;
+  }
+
+  .messages {
+    overflow-x: hidden;
   }
 }

@@ -130,25 +130,13 @@ io.on('connection', async (socket) => {
         hour: 'numeric',
         minute: 'numeric',
       };
-      if (
-        message.id === '' ||
-        message.message === '' ||
-        message.name === '' ||
-        message.lastname === '' ||
-        message.avatar === '' ||
-        message.age === '' ||
-        message.alias === ''
-      )
+      if (message.id === '' || message.message === '' || message.typeMessage === '')
         throw Error('Something went wrong white the message');
 
       const newMessageFormat = {
         author: {
-          id: message.id,
-          name: message.name,
-          lastname: message.lastname,
-          avatar: message.avatar,
-          age: message.age,
-          alias: message.alias,
+          email: message.email,
+          typeMessage: message.typeMessage,
           date: new Date().toLocaleDateString('es', optionsTime),
         },
         message: message.message,

@@ -10,6 +10,7 @@ const getProducts = async (req, res) => {
       const productsCached = await getRedis('products');
       if (!productsCached) {
         const responseFromGetAll = await ProductService.getAll();
+        console.log(responseFromGetAll);
         if (responseFromGetAll instanceof Error) {
           throw new Error('Something went Wrong with server');
         }

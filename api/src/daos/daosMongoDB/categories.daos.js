@@ -35,7 +35,7 @@ class CategoriesDaoMongoService {
           message: isError.message,
         });
       const categoryResponse = await addDocument.save();
-      await dbConnection.close();
+
       return categoriesDTO(categoryResponse);
     } catch (error) {
       return error;
@@ -46,7 +46,7 @@ class CategoriesDaoMongoService {
     try {
       const dbConnection = await doMongoConnection();
       const response = await this.collection.find();
-      await dbConnection.close();
+
       return categoriesDTO(response);
     } catch (error) {
       return error;

@@ -3,12 +3,9 @@ import mongoose from 'mongoose';
 const chatSchema = new mongoose.Schema(
   {
     author: {
-      id: { type: String, required: true },
-      name: { type: String },
-      lastname: { type: String },
-      age: { type: String },
-      alias: { type: String },
-      avatar: { type: String },
+      email: { type: String, required: true },
+      email: { type: String },
+      type: { type: String, enum: ['usuario', 'sistema'] },
       date: { type: String },
     },
     message: { type: String, required: true },

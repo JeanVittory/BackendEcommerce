@@ -83,6 +83,7 @@ passport.use(
     {
       secretOrKey: env.JWT_SECRET,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      passReqToCallback: true,
     },
     async (token, done) => {
       try {

@@ -23,7 +23,7 @@ class RegisterAdmins {
         const dbConnection = await doMongoConnection();
         const userAdd = new this.#collection(newDataUser);
         const userAddedResponse = await userAdd.save();
-        await dbConnection.close();
+
         const responseDTO = { ...new UsersDTO(userAddedResponse) };
         return responseDTO;
       }
@@ -42,7 +42,7 @@ class RegisterAdmins {
           },
           { email: 1, username: 1, _id: 1, role: 1 }
         );
-        await dbConnection.close();
+
         const responseDTO = { ...new UsersDTO(responseFromExistUser) };
         return responseDTO;
       }
@@ -69,7 +69,7 @@ class RegisterAdmins {
       if (username) {
         const dbConnection = await doMongoConnection();
         const user = await this.#collection.findOne({ username: username });
-        await dbConnection.close();
+
         const responseDTO = { ...new UsersDTO(user) };
         return responseDTO;
       }
@@ -88,7 +88,7 @@ class RegisterAdmins {
           },
           { password: 1 }
         );
-        await dbConnection.close();
+
         return pwd;
       }
     } catch (error) {
