@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { logger } from '../../config/logger/index.js';
 import { doMongoConnection } from '../../config/mongodb.config.js';
 import { normalizeChatMessage } from '../../tools/normalizr.tools.js';
 
@@ -33,7 +34,7 @@ class ChatMongoService {
         initialWeigth: initialDataWeigth,
       };
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -47,7 +48,7 @@ class ChatMongoService {
         return {};
       }
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 }

@@ -12,7 +12,6 @@ const serverHttp = createServer(app);
 const io = new Server(serverHttp);
 
 io.on('connection', async (socket) => {
-  console.log('user connect');
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });

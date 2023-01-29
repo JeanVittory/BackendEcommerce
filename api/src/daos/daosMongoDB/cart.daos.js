@@ -91,6 +91,7 @@ class CartDaoMongoService {
           });
         }
         const responseDTO = { ...new CartDTO(productRetrieved) };
+
         return responseDTO;
       } else {
         throw new ErrorHandler({

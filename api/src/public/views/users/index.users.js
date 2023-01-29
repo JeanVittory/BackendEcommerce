@@ -92,7 +92,6 @@ document.addEventListener('DOMContentLoaded', async (e) => {
   quantityCart.textContent = 0;
   const responseDataProducts = await fetch(`${origin}/api/v1/productos`);
   const dataProducts = await responseDataProducts.json();
-  console.log(dataProducts);
   if (!dataProducts.length) {
     errorContainer.classList.remove('hidden');
     const message = document.createElement('p');

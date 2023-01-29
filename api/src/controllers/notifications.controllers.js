@@ -3,6 +3,7 @@ import { serviceRegisterUsers } from '../factory/factoryDaos.js';
 import { sendSms } from '../config/notifications/twilio.notifications.js';
 import { sendEmail } from '../config/notifications/nodemailer.notifications.js';
 import { sendWthsp } from '../config/notifications/twilioWthsp.notifications.js';
+import { logger } from '../config/logger/index.js';
 
 const postOrder = async (req, res) => {
   const { cartId, username } = req.body;
@@ -36,6 +37,7 @@ const postOrder = async (req, res) => {
       }
     }
   } catch (error) {
+    logger.error(error);
     res.status(500).json({ message: error.message });
   }
 };

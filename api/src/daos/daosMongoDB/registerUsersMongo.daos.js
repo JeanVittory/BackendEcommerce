@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { logger } from '../../config/logger/index.js';
 import { doMongoConnection } from '../../config/mongodb.config.js';
 import { UsersDTO } from '../../dto/mongo/usersDto.dto.js';
 
@@ -45,7 +46,8 @@ class RegisterUsers {
         return responseDTO;
       }
     } catch (error) {
-      console.log('error en userExist', error);
+      logger.error(error);
+      return error;
     }
   }
 
@@ -55,11 +57,11 @@ class RegisterUsers {
         const dbConnection = await doMongoConnection();
         const user = await this.#collection.findById(id, { username: 1, email: 1, _id: 1 });
         const responseDTO = { ...new UsersDTO(user) };
-        console.log('register', responseDTO);
         return responseDTO;
       }
     } catch (error) {
-      console.log('error en getUserById', error);
+      logger.error(error);
+      return error;
     }
   }
 
@@ -72,7 +74,8 @@ class RegisterUsers {
         return responseDTO;
       }
     } catch (error) {
-      console.log('error en getUserById', error);
+      logger.error(error);
+      return error;
     }
   }
 
@@ -89,7 +92,8 @@ class RegisterUsers {
         return pwd;
       }
     } catch (error) {
-      console.log('error en getPassword', error);
+      logger.error(error);
+      return error;
     }
   }
 }

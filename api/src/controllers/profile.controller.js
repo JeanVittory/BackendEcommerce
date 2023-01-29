@@ -6,7 +6,7 @@ import env from '../config/env.config.js';
 import url from 'url';
 const URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://apicoder.herokuapp.com'
+    ? `http://localhost:${app.get('port')}`
     : `http://localhost:${app.get('port')}`;
 
 const getAdminProfile = (req, res) => {

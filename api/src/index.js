@@ -28,9 +28,9 @@ if (args.mode === 'fork') {
   applicationRoutes();
   handlebarsConfig();
   serverHttp.listen(app.get('port'), () => {
-    console.log(`Server running on port ${app.get('port')} in mode fork`);
+    logger.info(`Server running on port ${app.get('port')} in mode fork`);
   });
-  serverHttp.on('error', (e) => console.log(e));
+  serverHttp.on('error', (e) => logger.warn(e));
 }
 
 if (args.mode === 'native_cluster') {
@@ -40,13 +40,13 @@ if (args.mode === 'native_cluster') {
       cluster.fork();
     }
     cluster.on('exit', (worker, code, signal) => {
-      console.log(`worker ${worker.process.pid} died`);
+      logger.info(`worker ${worker.process.pid} died`);
       cluster.fork();
     });
   } else {
     app.use('/api', testRoute);
     app.listen(app.get('port'), () => {
-      console.log(`server running on port ${app.get('port')} with work ${process.pid}`);
+      logger.info(`server running on port ${app.get('port')} with work ${process.pid}`);
     });
   }
 }

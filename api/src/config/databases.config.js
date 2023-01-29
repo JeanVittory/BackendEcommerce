@@ -35,4 +35,12 @@ const mongoTestConfig = {
   },
 };
 
-export { chatDbOpt, databaseOpt, mongoConfig, mongoTestConfig };
+const mongoDevEnv = {
+  uri: `mongodb://localhost:${env.PORT_MONGO_DEV}/coderhouse`,
+  options: {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+};
+
+export { chatDbOpt, databaseOpt, mongoConfig, mongoTestConfig, mongoDevEnv };

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { logger } from '../../config/logger/index.js';
 import { doMongoConnection } from '../../config/mongodb.config.js';
 import { productsDTO } from '../../dto/mongo/productDto.dto.js';
 import { ErrorHandler } from '../../tools/errorHandler.tools.js';
@@ -184,7 +185,8 @@ class ProductsDaoMongoService {
 
       return responseFromDeleteAll;
     } catch (error) {
-      console.log('error en deleteAll', error);
+      logger.error(error);
+      return error;
     }
   }
 }
